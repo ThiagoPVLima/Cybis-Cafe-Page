@@ -1,10 +1,9 @@
 .cta {
-  align-items: end;
+  align-items: center;
   color: var(--color-secondary);
   display: flex;
-  height: 770px;
+  height: 620px;
   justify-content: center;
-  padding-bottom: 34px;
 
   &__container {
     align-items: end;
@@ -40,10 +39,15 @@
   &__buttons {
     display: flex;
     gap: 20px;
+    transition: trasform 0.8s ease;
+  }
+
+  &__buttons--ttv:hover, &__buttons--yt:hover {
+    transform: scale(1.05);
   }
 
   &__mockup {
-    height: 650px;
-    width: 720px;
+    height: 500px;
+    width: 550px;
   }
 }

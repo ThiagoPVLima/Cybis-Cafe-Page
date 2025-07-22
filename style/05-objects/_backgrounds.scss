@@ -4,7 +4,7 @@
     height: 720px;
     left: 0;
     position: absolute;
-    width: 2560px;
+    width: 100%;
     z-index: var(--z-index-below);
   }
 
@@ -21,7 +21,7 @@
   &::before {
     background-repeat: repeat;
     content: '';
-    // left: 16;
+    left: 0;
     overflow: hidden;
     position: absolute;
     width: 100%;

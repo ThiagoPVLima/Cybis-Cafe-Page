@@ -3,21 +3,23 @@
   <head>
     <meta charset="utf-8" />
     <title>Cybis Café</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="node_modules/@glidejs/glide/dist/css/glide.core.min.css">
+    <link rel="stylesheet" href="node_modules/@glidejs/glide/dist/css/glide.theme.min.css">
+    <link rel="stylesheet" href="style/index.scss"/>
     <style>
       /* @see https://pqina.nl/blog/fix-google-mobile-usability-issues/ */
       :where(body, iframe, pre, img, svg, video, canvas, select) {
         max-width: 100%;
         overflow-x: hidden;
-        word-break:
-        break-word;
+        word-break: break-word;
       }
     </style>
+  </head>
     <body>
         <header class="header bg-color bg-color--bright bg-cookie bg-cookie--bright">
           <div class="headline bg-color" id="home">
-            <a href="index.html"><img src="img/Logo-CybisCafe.png" alt="Logo do Cybis Café." class="headline__logo"></a>
+            <a href="index.html"><img src="img/Ativo 8.png" alt="Logo do Cybis Café." class="headline__logo"></a>
             <nav>
               <ul class="headline__social">
                 <li><a href="#" target="_blank" rel="noopener noreferrer">Twitter</a></li>
@@ -124,7 +126,33 @@
             <div></div>
           </section> <!--cookie-->
           <section class="review bg-color bg-color--dark bg-cookie--dark bg-cookie" id="reviews">
-
+            <div class="review__title__container">
+              <div class="review__title review__title-back"><span class="emphasis">-</span> Reviews <span class="emphasis">-</span></div>
+              <div class="review__title review__title-clip">- Reviews -</div>
+            </div>
+            <div class="container">
+              <div class="glide">
+                  <div class="glide__track" data-glide-el="track">
+                  <ul class="glide__slides">
+                      <li class="glide__slide"><img src="img/atelier-iris-3.png" alt=""></li>
+                      <li class="glide__slide"><img src="img/Bully_cover.png" alt=""></li>
+                      <li class="glide__slide"><img src="img/crash-bandicoot.png" alt=""></li>
+                      <li class="glide__slide"><img src="img/donkey-kong-country.png" alt=""></li>
+                      <li class="glide__slide"><img src="img/fallout-3.png" alt=""></li>
+                      <li class="glide__slide"><img src="img/Grand_Theft_Auto_San_Andreas_capa.png" alt=""></li>
+                      <li class="glide__slide"><img src="img/mario-world.png" alt=""></li>
+                      <li class="glide__slide"><img src="img/rune-factory-special.png" alt=""></li>
+                  </ul>
+                  </div>
+                  <div class="glide__arrows" data-glide-el="controls">
+                      <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
+                          <
+                      </button>
+                      <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
+                          >
+                      </button>
+                  </div>
+              </div>
           </section> <!--review-->
           <section class="clientes bg-color bg-color--bright bg-cookie bg-cookie--bright" id="clientes">
             <div class="clientes__title__container">
@@ -185,8 +213,8 @@
                     Assista quando e onde quiser, nao existem mais desculpas para iniciar hoje.</p>
                 </div><!--cta__text-->
                 <div class="cta__buttons">
-                  <a href="https://www.youtube.com/@CybisCafe" target="_blank"><img src="img/Youtube-Logo.png" alt="Botão do Youtube."></a>
-                  <a href="https://www.twitch.tv/cybiscafe" target="_blank"><img src="img/Twitch-Logo.png" alt="Botão da Twitch."></a>
+                  <a class="cta__buttons--yt" href="https://www.youtube.com/@CybisCafe" target="_blank"><img src="img/Youtube-Logo.png" alt="Botão do Youtube."></a>
+                  <a class="cta__buttons--ttv" href="https://www.twitch.tv/cybiscafe" target="_blank"><img src="img/Twitch-Logo.png" alt="Botão da Twitch."></a>
                 </div><!--cta__buttons-->
               </div><!--cta__info-->
               <div class="cta__mockup">
@@ -235,5 +263,13 @@
           <h4>Copyright 2024 Rio de Janeiro . All Right Reseverd.</h4>
         </footer>
       <script type="module" src="js/index.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
+      <script>
+          const config = {
+              type: 'carousel',
+              perView: 4,
+          };
+          new Glide('.glide', config).mount()
+      </script>
     </body>
 </html>

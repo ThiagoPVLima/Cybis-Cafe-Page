@@ -7,6 +7,12 @@
   margin: 0 auto;
   width: 1280px;
 
+  @media screen and (max-width: 1080px) {
+    flex-direction: column;
+    height: 100%;
+    padding: 50px 0;
+  }
+
   &::before {
     top: 720;
   }
@@ -14,8 +20,9 @@
   &__tag::after {
     content: '. about . about . about . about . about . about . abo';
     font-family: var(--font-family-cooper);
-    font-size: var(--font-step-5);
+    font-size: 100px;
     height: 180px;
+    left: 0;
     overflow: clip;
     position: absolute;
     top: 656;
@@ -41,7 +48,7 @@
     position: relative;
     width: 580px;
 
-    p {
+p {
       font-size: 22px;
     }
   }
