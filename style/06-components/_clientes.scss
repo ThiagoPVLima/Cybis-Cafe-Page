@@ -1,58 +1,53 @@
-.clientes {
-  align-items: end;
-  color: var(--color-secondary);
-  display: grid;
-  gap: 180px;
-  height: 720px;
+// =============================================================================
+// Component: Clientes
+// =============================================================================
 
-  &__title__container {
-    position: relative;
-  }
+.clientes {
+  color: var(--color-secondary);
+  position: relative;
 
   &__container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    margin: 0 auto;
-    gap: 30px;
+    gap: var(--space-3xs);
+    grid-template-columns: repeat(2, 1fr);
+    margin: var(--space-m) auto var(--space-3xl);
+    max-width: 1200px;
+    padding: 0 var(--space-m);
+    width: 100%;
+
+    @media screen and (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
   }
 
-  &__container p {
-    font-size: var(--space-s);
+  &__container blockquote {
+    font-size: var(--font-step--1);
     font-weight: bold;
-    line-height: 30px;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
   }
 
-  &__title-clip {
-    clip-path: circle(3% at 35% 32%);
-    color: var(--color-tertiary);
-  }
-
-  &__title-back,
-  &__title-clip {
-    font-size: 76px;
-    left: 50%;
-    position: absolute;
-    top: 0;
-    transform: translateX(-50%);
+  &__tag {
+    position: relative;
   }
 
   &__tag::before {
     background: var(--gradient-primary);
+    box-shadow:
+      0 5px 10px rgb(0 0 0 / 30%),
+      -10px -5px 10px rgb(0 0 0 / 30%);
     color: var(--color-primary);
-    content: 'Pataformas Disponíveis . Pataformas Disponíveis . Pataformas Disponíveis . Pataformas Disponíveis . Pataformas Disponíveis . Pataformas Disponíveis . ';
+    content: 'Plataformas Disponíveis • Plataformas Disponíveis • Plataformas Disponíveis • Plataformas Disponíveis • Plataformas Disponíveis • Plataformas Disponíveis';
+    font-family: var(--font-family-cooper);
     font-size: var(--space-m);
     height: 80px;
-    left: 0%;
+    left: -220;
     letter-spacing: 2px;
     line-height: 80px;
     overflow: hidden;
     position: absolute;
-    text-align: center;
-    top: 4240px;
-    width: 100vw;
-    box-shadow:
-      0 5px 10px rgb(0 0 0 / 30%),
-      -10px -5px 10px rgb(0 0 0 / 30%);
+    text-align: left;
+    white-space: nowrap;
   }
 }

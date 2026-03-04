@@ -1,38 +1,72 @@
+// =============================================================================
+// Component: About
+// =============================================================================
+
 .about {
-  align-items: center;
-  display: flex;
-  font-size: 32px;
-  height: 720px;
-  justify-content: space-around;
-  margin: 0 auto;
-  width: 1280px;
+  position: relative;
+  z-index: 2;
 
-  @media screen and (max-width: 1080px) {
-    flex-direction: column;
-    height: 100%;
-    padding: 50px 0;
+  // ─── Inner: conteúdo principal ─────────────────────────────────────────────
+
+  &__inner {
+    align-items: center;
+    display: flex;
+    font-size: var(--font-step-0);
+    height: 720px;
+    justify-content: space-around;
+    margin: 0 auto;
+    max-width: 1280px;
+    padding: 80px var(--space-m) 0;
+    position: relative;
+
+    @media screen and (max-width: 1080px) {
+      flex-direction: column;
+      height: auto;
+      padding: 80px var(--space-m) var(--space-xl);
+      gap: var(--space-l);
+    }
   }
 
-  &::before {
-    top: 720;
-  }
+  // ─── Tag estático gigante — invade a seção bege acima ──────────────────────
+  // Posicionado com top negativo para que ~20% do texto apareça
+  // dentro da seção anterior (header/bege), criando o efeito de watermark
+  // na transição entre seções.
 
-  &__tag::after {
-    content: '. about . about . about . about . about . about . abo';
-    font-family: var(--font-family-cooper);
-    font-size: 100px;
-    height: 180px;
+  &__tag {
     left: 0;
-    overflow: clip;
+    overflow: visible;
+    pointer-events: none;
     position: absolute;
-    top: 656;
+    top: -35px; // invade ~20% da altura do texto para cima
+    width: 100%;
+    z-index: 10; // acima de tudo — inclusive dos pseudo-elementos de bg
+  }
+
+  &__tag-text {
+    // Cor bege (primary) para contrastar visualmente com o fundo bege claro
+    // e criar um efeito de watermark sobre a seção escura
+    color: var(--color-primary);
+    display: block;
+    font-family: var(--font-family-cooper);
+    font-size: clamp(80px, 10vw, 120px);
+    letter-spacing: 8px;
+    line-height: 1;
+    text-transform: lowercase;
     white-space: nowrap;
   }
 
+  // ─── Foto ─────────────────────────────────────────────────────────────────
+
   &__photo-container {
+    flex-shrink: 0;
     height: 350px;
     position: relative;
     width: 350px;
+
+    @media screen and (max-width: 768px) {
+      height: 220px;
+      width: 220px;
+    }
   }
 
   &__photo {
@@ -43,32 +77,50 @@
     width: 100%;
   }
 
-  &__presentation {
-    font-size: 22px;
-    position: relative;
-    width: 580px;
+  // ─── Apresentação textual ──────────────────────────────────────────────────
 
-p {
-      font-size: 22px;
+  &__presentation {
+    font-size: var(--font-step-0);
+    max-width: 580px;
+    position: relative;
+
+    p {
+      font-size: var(--font-step-0);
+      line-height: var(--line-height-default);
+      margin-bottom: var(--space-s);
     }
+  }
+
+  &__name {
+    font-family: var(--font-family-cooper);
+    font-size: var(--font-step-2);
+    text-align: center;
   }
 
   &__arrow {
     position: absolute;
+    right: var(--space-m);
     top: 23%;
+
+    @media screen and (max-width: 1080px) {
+      display: none;
+    }
   }
 
   &-bg::before {
-    height: 1440;
-    top: 720;
+    height: 1440px;
+    top: 720px;
   }
 }
+
+// ─── Elementos de apoio ───────────────────────────────────────────────────────
 
 .border-overlay {
   border: 6px solid white;
   border-radius: 50%;
   height: 100%;
   left: 0;
+  pointer-events: none;
   position: absolute;
   top: 0;
   width: 100%;
@@ -76,6 +128,7 @@ p {
 
 .perfil {
   display: grid;
+  flex-shrink: 0;
   gap: var(--space-s);
   place-items: center;
 }
@@ -84,6 +137,7 @@ p {
   border-left: 3px solid var(--color-tertiary);
   border-radius: 10px;
   height: 140px;
+  left: 0;
   position: absolute;
   top: 15px;
 }
@@ -91,9 +145,9 @@ p {
 .im {
   color: var(--color-tertiary);
   float: left;
-  font-size: 200px;
+  font-size: clamp(80px, 12vw, 200px);
   font-style: italic;
   line-height: 0.8;
-  margin-right: 20px;
-  padding-left: 30px;
+  margin-right: var(--space-m);
+  padding-left: var(--space-m);
 }

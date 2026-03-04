@@ -1,37 +1,51 @@
+// =============================================================================
+// Object: Backgrounds
+// =============================================================================
+
 .bg-color {
+  position: relative;
+
   &::before {
     content: '';
-    height: 720px;
-    left: 0;
+    inset: 0;
+    pointer-events: none;
     position: absolute;
-    width: 100%;
     z-index: var(--z-index-below);
   }
 
-  &--bright::before {
-    background-color: var(--color-primary);
-  }
-
-  &--dark::before {
-    background-color: var(--color-secondary);
-  }
+  &--bright::before { background-color: var(--color-primary); }
+  &--dark::before   { background-color: var(--color-secondary); }
 }
 
+// Padrão de biscoitos via ::after (não conflita com ::before do bg-color)
+
 .bg-cookie {
-  &::before {
+  &::after {
     background-repeat: repeat;
     content: '';
-    left: 0;
-    overflow: hidden;
+    inset: 0;
+    pointer-events: none;
     position: absolute;
-    width: 100%;
+    z-index: var(--z-index-below);
   }
 
-  &--bright::before {
+  // Seções claras: tile branco (2529×704px, distribuição orgânica)
+  &--bright::after {
     background-image: url('../img/white.png');
+    opacity: 0.18;
   }
 
-  &--dark::before {
+  // Seções escuras padrão (Services, About): tile preto (2540×704px)
+  &--dark::after {
     background-image: url('../img/black.png');
+    opacity: 0.10;
+  }
+
+  // Seção Reviews: mesmo tile preto + tint laranja via pseudo-gradiente
+  // Usa sepia+hue-rotate para dar tonalidade quente sem trocar a imagem
+  &--organic::after {
+    background-image: url('../img/black.png');
+    filter: sepia(1) hue-rotate(340deg) saturate(2);
+    opacity: 0.09;
   }
 }

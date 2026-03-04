@@ -1,0 +1,21 @@
+// =============================================================================
+// Object: Section Title (SVG)
+// Títulos de seção renderizados em SVG para coloração precisa de glifos.
+// 'i' e 'é' ficam em laranja; traços decorativos (—) em laranja.
+// O <svg> é fluido via width:100% + viewBox; height auto calculada.
+// =============================================================================
+
+.section-title__container {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-l);
+  padding: 0 var(--space-m);
+  width: 100%;
+}
+
+.section-title__svg {
+  display: block;
+  height: auto;
+  max-width: 860px;
+  width: 100%;
+}

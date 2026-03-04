@@ -1,53 +1,93 @@
+// =============================================================================
+// Component: CTA (Call to Action)
+// =============================================================================
+
 .cta {
   align-items: center;
   color: var(--color-secondary);
   display: flex;
-  height: 620px;
   justify-content: center;
+  min-height: 620px;
+  padding: var(--space-3xs) var(--space-m);
+  position: relative;
 
   &__container {
-    align-items: end;
+    align-items: flex-end;
     display: flex;
     flex-direction: row;
+    gap: var(--space-l);
     justify-content: center;
+    max-width: 1100px;
+    width: 100%;
+
+    @media screen and (max-width: 900px) {
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+    }
   }
 
   &__info {
     display: flex;
     flex-direction: column;
-    font-weight: bold;
-    height: 450px;
-    width: 470px;
+    gap: var(--space-m);
+    max-width: 470px;
   }
 
-  &__info h1 {
-    font-size: var(--space-l);
-    margin-bottom: 9px;
+  &__text {
+    h2 {
+      font-size: var(--space-l);
+      font-weight: bold;
+      margin-bottom: var(--space-2xs);
+    }
   }
 
-  &__info h2 {
+  &__sub {
     background-clip: text;
     background-image: var(--gradient-primary);
     color: transparent;
     font-size: var(--space-m);
+    font-weight: bold;
+    margin: 0 0 var(--space-xs);
   }
 
-  &__info p {
-    font-size: var(--space-s);
+  &__info p:not(.cta__sub) {
+    font-size: var(--font-step--1);
   }
 
   &__buttons {
     display: flex;
-    gap: 20px;
-    transition: trasform 0.8s ease;
+    gap: var(--space-s);
+
+    @media screen and (max-width: 900px) {
+      justify-content: center;
+    }
   }
 
-  &__buttons--ttv:hover, &__buttons--yt:hover {
-    transform: scale(1.05);
+  &__buttons--ttv,
+  &__buttons--yt {
+    display: block;
+    transition: transform var(--transition-duration-default)
+      var(--transition-function-ease-out-back);
+
+    img {
+      display: block;
+    }
+
+    &:hover {
+      transform: scale(1.07);
+    }
   }
 
   &__mockup {
-    height: 500px;
-    width: 550px;
+    flex-shrink: 0;
+    max-width: 550px;
+    width: 100%;
+
+    img {
+      display: block;
+      height: auto;
+      width: 100%;
+    }
   }
 }

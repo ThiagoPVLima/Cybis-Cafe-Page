@@ -1,23 +1,28 @@
+// =============================================================================
+// Component: Headline (nav bar)
+// =============================================================================
+
 .headline {
   align-items: center;
   display: flex;
   flex-direction: row;
   height: 80px;
   justify-content: space-between;
-  margin: 0 90px;
   margin: 0 auto;
-  width: 1080px;
-
-  &::before {
-    background-color: var(--color-secondary);
-    height: 80px;
-    opacity: 0.1;
-  }
+  max-width: 1080px;
+  padding: 0 var(--space-m);
+  position: relative;
+  z-index: var(--z-index-default);
 
   &__logo {
     border-radius: 50%;
     height: 50px;
+    transition: transform var(--transition-duration-default) var(--transition-function-ease-out-back);
     width: 50px;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 }
 
@@ -26,23 +31,35 @@
   flex-direction: row;
   gap: 26px;
   list-style: none;
+  margin: 0;
+  padding: 0;
 
-li a {
+  li {
+    position: relative;
+  }
+
+  li a {
     color: var(--color-secondary);
     font-family: var(--font-family-philosopher);
     font-size: var(--font-step--1);
     font-weight: bold;
     text-decoration: none;
+    transition: color var(--transition-duration-fast) ease;
+
+    &:hover {
+      color: var(--color-tertiary);
+    }
   }
 
   li:not(:last-child)::after {
     background-color: var(--color-tertiary);
     border-radius: 50%;
     content: '';
-    height: 12px;
+    height: 8px;
     position: absolute;
-    top: 36px;
-    transform: translateX(50%);
-    width: 12px;
+    right: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
   }
 }

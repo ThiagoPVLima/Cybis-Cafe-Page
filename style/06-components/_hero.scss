@@ -1,113 +1,209 @@
+// =============================================================================
+// Component: Hero
+// =============================================================================
+
 .hero {
   align-items: center;
   display: flex;
   flex-direction: column;
+  position: relative;
 
-  &__title {
-    color: var(--color-tertiary);
-    font-size: var(--font-step-title);
-    line-height: 210px;
+  // ─── Título SVG ─────────────────────────────────────────────────────────────
+
+  &__title-wrap {
+    line-height: 1;
+    padding-top: var(--space-xs);
     position: relative;
+    user-select: none;
+    width: min(960px, 100%);
   }
 
-  &__title-back {
-    color: var(--color-secondary);
-    position: absolute;
+  &__title-svg {
+    display: block;
+    height: auto;
+    width: 100%;
   }
 
-  &__title__clip {
-    clip-path: polygon(
-      0% 0%,
-      100% 0%,
-      100% 34%,
-      92% 34%,
-      92% 0,
-      45% 0,
-      45% 34%,
-      34% 34%,
-      34% 0
-    );
-  }
+  // ─── Slogan ─────────────────────────────────────────────────────────────────
 
   &__slogan {
-    align-self: flex-end;
     color: var(--color-secondary);
-    font-size: 16px;
-    line-height: 16px;
-    margin-left: 960px;
-    top: 300px;
-    text-align: end;
-    width: 150px;
+    font-size: var(--font-step--1);
+    line-height: 1.3;
     position: absolute;
+    right: calc(50% - 540px);
+    text-align: end;
+    top: 180px;
+    width: 140px;
+
+    @media screen and (max-width: 1200px) {
+      display: none;
+    }
   }
 
+  // ─── Xícara ─────────────────────────────────────────────────────────────────
+  // Posicionada absolutamente, centralizada horizontalmente.
+  // A coluna central ".hero__cup-space" no grid do singboard reserva espaço
+  // idêntico à largura da xícara, evitando qualquer sobreposição nas frases.
+
   &__cup {
-    height: 350px;
+    cursor: pointer;
+    height: 330px;
+    left: 50%;
     position: absolute;
-    top: 210px;
-    width: 340px;
+    top: 195px;
+    transform: translateX(-50%);
+    transition: transform var(--transition-duration-default)
+      var(--transition-function-ease-out-back);
+    width: 310px;
+    z-index: 2;
+
+    &:hover {
+      transform: translateX(-50%) scale(1.06) rotate(-3deg);
+    }
+
+    &:active {
+      transform: translateX(-50%) scale(0.95);
+    }
+
+    @media screen and (max-width: 900px) {
+      height: 220px;
+      top: 170px;
+      width: 200px;
+    }
+
+    @media screen and (max-width: 600px) {
+      display: none; // em mobile pequeno, evita sobreposição total
+    }
   }
+
+  // ─── Singboard ──────────────────────────────────────────────────────────────
+  // Grid de 3 colunas: [frase esquerda] [espaço xícara] [frase direita]
+  // + linha inferior do ticker
+  // A coluna central tem width fixo = largura da xícara + padding
 
   &__singboard {
     background-color: var(--color-secondary);
     border: 6px solid var(--color-tertiary);
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.40), -10px -5px 10px rgba(0, 0, 0, 0.30);
+    box-shadow:
+      0 5px 10px rgb(0 0 0 / 40%),
+      -10px -5px 10px rgb(0 0 0 / 30%);
     display: grid;
-    grid-column-gap: 500px;
-    height: 335px;
-    line-height: 6px;
-    width: 1120px;
     grid-template:
-      'florinda viwer' 268px
-      'slide-text slide-text' 67px / 1fr 1fr;
-      margin-top: 55px;
+      'florinda cup-space viwer' 260px
+      'slide-text slide-text slide-text' 67px
+      / 1fr 340px 1fr;
+    margin-top: 40px;
+    position: relative;
+    width: min(1120px, 100vw - 2rem);
+
+    @media screen and (max-width: 900px) {
+      grid-template:
+        'florinda cup-space viwer' 220px
+        'slide-text slide-text slide-text' 60px
+        / 1fr 220px 1fr;
+      margin-top: 30px;
+    }
+
+    @media screen and (max-width: 600px) {
+      grid-template:
+        'florinda' auto
+        'viwer' auto
+        'slide-text' 56px
+        / 1fr;
+      margin-top: var(--space-m);
+    }
+  }
+
+  // Coluna central vazia — apenas reserva espaço para a xícara absoluta
+  &__cup-space {
+    grid-area: cup-space;
   }
 
   &__cookie {
-    height: 85px;
-    width: 85px;
+    height: 72px;
+    width: 72px;
   }
 
   &__text {
-    line-height: 26px;
-    padding-top: 40px;
-    width: 300px;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.5;
+    padding: var(--space-m) var(--space-s) 0;
+
+    p {
+      color: var(--color-primary);
+      font-size: var(--font-step--1);
+      margin-bottom: var(--space-2xs);
+      margin-top: var(--space-3xs);
+    }
   }
 }
 
+// ─── Grid areas do singboard ─────────────────────────────────────────────────
+
 .florinda {
+  align-items: flex-end;
   grid-area: florinda;
+  padding-left: var(--space-m);
+  padding-right: var(--space-s);
   text-align: end;
+
+  @media screen and (max-width: 600px) {
+    align-items: center;
+    padding: var(--space-s);
+    text-align: center;
+  }
 }
 
 .viwer {
+  align-items: flex-start;
   grid-area: viwer;
+  padding-left: var(--space-s);
+  padding-right: var(--space-m);
   text-align: start;
+
+  @media screen and (max-width: 600px) {
+    align-items: center;
+    padding: var(--space-s);
+    text-align: center;
+  }
 }
+
+// ─── Ticker inferior ─────────────────────────────────────────────────────────
 
 .slide-text {
   background-color: var(--color-tertiary);
   color: var(--color-secondary);
+  font-family: var(--font-family-cooper);
   font-size: var(--font-step-2);
   grid-area: slide-text;
-  height: 60px;
-  letter-spacing: 6px;
+  height: 67px;
+  letter-spacing: 5px;
   line-height: 67px;
-  overflow: clip;
+  overflow: hidden;
   white-space: nowrap;
 
+  @media screen and (max-width: 600px) {
+    font-size: var(--font-step-1);
+    height: 56px;
+    line-height: 56px;
+  }
+
   &--animation {
-    animation: text-slider 30s linear infinite;
-    animation-play-state: running;
+    // Texto duplicado no HTML => translateX(-50%) faz loop perfeito
+    animation: text-slider 300s linear infinite;
+    display: inline-block;
   }
 }
 
 @keyframes text-slider {
-  0% {
-  transform: translateX(0%);
-}
+  from {
+    transform: translateX(0%);
+  }
 
-  100% {
-  transform: translateX(-100%);
-}
+  to {
+    transform: translateX(-50%);
+  }
 }

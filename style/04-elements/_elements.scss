@@ -1,43 +1,21 @@
-html {
-  position: relative;
-  background-color: var(--color-primary);
-  scroll-behavior: smooth;
+// =============================================================================
+// Elements: Root & Layout
+// =============================================================================
 
-  // &::after {
-  //   background-image: url('../img/cookie-bg-white.png');
-  //   background-repeat: repeat;
-  //   content: '';
-  //   height: 760px;
-  //   left: 0;
-  //   opacity: 0.25;
-  //   overflow: hidden;
-  //   position: absolute;
-  //   top: 0;
-  //   width: 100%;
-  //   z-index: var(--z-index-below);
-  // }
+html {
+  background-color: var(--color-primary);
+  position: relative;
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; // compensa a altura do nav
 }
 
 body {
-  // display: grid;
-  // grid-template-columns: 1fr 1280px 1fr;
-  // grid-template-areas:
-  //   '. header .'
-  //   '. main .'
-  //   '. footer .';
   display: flex;
   flex-direction: column;
-}
-
-header {
-  grid-area: header;
+  min-height: 100dvh;
+  overflow-x: hidden;
 }
 
 main {
-  grid-area: main;
-  height: auto;
-}
-
-footer {
-  grid-area: footer;
+  flex: 1;
 }
