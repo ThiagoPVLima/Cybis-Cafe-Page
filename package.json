@@ -1,4 +1,3 @@
-```json
 {
   "name": "basic-front-boilerplate",
   "version": "2.2.0",
@@ -85,4 +84,3 @@
     "@glidejs/glide": "^3.6.0"
   }
 }
-```
