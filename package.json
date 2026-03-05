@@ -1,3 +1,4 @@
+```json
 {
   "name": "basic-front-boilerplate",
   "version": "2.2.0",
@@ -68,14 +69,14 @@
   },
   "targets": {
     "modern": {
-      "publicUrl": "/Cybis-Cafe-Page/",
+      "publicUrl": "/",
       "engines": {
         "browsers": "last 1 year"
       }
     },
     "legacy": {
+      "publicUrl": "/",
       "engines": {
-        "publicUrl": "/Cybis-Cafe-Page/",
         "browsers": "> 0.5%, last 3 versions, not dead"
       }
     }
@@ -84,3 +85,4 @@
     "@glidejs/glide": "^3.6.0"
   }
 }
+```
