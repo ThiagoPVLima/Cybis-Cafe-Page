@@ -10,7 +10,7 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "parcel",
-    "build": "parcel build --public-url /Cybis-Cafe-Page/",
+    "build": "parcel build",
     "build-with-reporter": "parcel build --reporter @parcel/reporter-bundle-analyzer",
     "prepare": "husky install",
     "release": "semantic-release"
@@ -68,12 +68,14 @@
   },
   "targets": {
     "modern": {
+      "publicUrl": "/Cybis-Cafe-Page/",
       "engines": {
         "browsers": "last 1 year"
       }
     },
     "legacy": {
       "engines": {
+        "publicUrl": "/Cybis-Cafe-Page/",
         "browsers": "> 0.5%, last 3 versions, not dead"
       }
     }
