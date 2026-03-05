@@ -17,13 +17,33 @@
       rel="stylesheet"
       href="node_modules/@glidejs/glide/dist/css/glide.theme.min.css"
     />
+    <style>
+      body {
+        opacity: 1;
+        transition: opacity 0.3s ease;
+      }
+      body.page-leaving {
+        opacity: 0;
+      }
+      body.page-entering {
+        animation: page-in 0.4s ease forwards;
+      }
+      @keyframes page-in {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
   </head>
   <body>
-    <!-- ===================== HEADER ===================== -->
     <header
       class="header bg-color bg-color--bright bg-cookie bg-cookie--bright"
     >
-      <!-- Nav / Headline -->
       <div class="headline bg-color" id="home">
         <a href="index.html" aria-label="Ir para o início — Cybis Café">
           <img
@@ -62,14 +82,7 @@
         </nav>
       </div>
 
-      <!-- Hero -->
       <div class="hero">
-        <!--
-          TÍTULO HERO — SVG com tspan por letra.
-          Letras normais: cor secundária (marrom escuro #20190d).
-          'i' e 'é': laranja (#e36d0b) — pingo do i e acento visíveis.
-          viewBox calibrado para Cooper Black em ~120px de cap-height.
-        -->
         <div class="hero__title-wrap" aria-label="Cybis Café">
           <svg
             class="hero__title-svg"
@@ -103,7 +116,6 @@
 
         <p class="hero__slogan">Um lugar de loucos, para poucos</p>
 
-        <!-- Xícara interativa -->
         <img
           src="img/xicara.png"
           alt="Uma xícara com gatinhos fofos em volta dela."
@@ -123,13 +135,11 @@
           Seu navegador não suporta áudio HTML5.
         </audio>
 
-        <!-- Singboard: frases laterais + ticker -->
         <div
           class="hero__singboard"
           role="region"
           aria-label="Mensagens do café"
         >
-          <!-- Frase esquerda -->
           <div class="hero__text florinda">
             <img
               src="img/cookie.png"
@@ -144,10 +154,8 @@
             <p class="emphasis">Dona Florinda</p>
           </div>
 
-          <!-- Coluna central vazia: espaço reservado para a xícara flutuar -->
           <div class="hero__cup-space" aria-hidden="true"></div>
 
-          <!-- Frase direita -->
           <div class="hero__text viwer">
             <img
               src="img/cookie.png"
@@ -159,7 +167,6 @@
             <p class="emphasis">Viwer nº 1</p>
           </div>
 
-          <!-- Ticker inferior -->
           <div class="slide-text" aria-hidden="true">
             <p class="slide-text--animation">
               PROFESSIONAL STREAMER &bull; PROFESSIONAL STREAMER &bull;
@@ -178,15 +185,12 @@
       </div>
     </header>
 
-    <!-- ===================== MAIN ===================== -->
     <main class="main">
-      <!-- ABOUT -->
       <section
         class="about bg-color bg-color--dark"
         id="about"
         aria-labelledby="about-heading"
       >
-        <!-- Texto estático gigante — invade ~20% da seção bege acima -->
         <div class="about__tag" aria-hidden="true">
           <span class="about__tag-text"
             >• about • about • about • about • about • about • about • about •
@@ -228,7 +232,6 @@
         </div>
       </section>
 
-      <!-- SERVICES -->
       <section
         class="services bg-color bg-color--dark bg-cookie bg-cookie--dark"
         id="services"
@@ -237,23 +240,6 @@
         <h2 class="u-sr-only" id="services-heading">Services</h2>
 
         <div class="section-title__container">
-          <!--
-            SVG título — "— Services —"
-            'i' em laranja; traços em laranja; restante em cor primária (claro sobre escuro)
-          -->
-          <!--
-            Títulos de seção — técnica de 2 layers:
-            • Layer 1: texto completo na cor de fundo (claro sobre escuro)
-            • Layer 2: mesmo texto em laranja + clipPath que expõe apenas
-                       a faixa do topo (y 0–32) onde vivem pingos de i.
-            • Traços — recebem fill laranja via tspan diretamente.
-
-            Cooper Black, font-size 68, baseline y=65:
-              cap-height topo ≈ y 19  (65 − 68×0.68)
-              x-height topo   ≈ y 31  (65 − 68×0.50)
-              pingo do i      ≈ y 31–44 → coberto pelo clip y=0..33
-              traço — (emdash) ≈ y 42–48, fora do clip → tspan laranja
-          -->
           <svg
             class="section-title__svg"
             viewBox="0 0 518.31 98.00"
@@ -273,7 +259,7 @@
         </div>
 
         <div class="services__container">
-          <article class="card__container">
+          <article class="card__container" data-reveal>
             <img
               class="card__image"
               src="img/cookie.png"
@@ -290,7 +276,7 @@
             </p>
           </article>
 
-          <article class="card__container">
+          <article class="card__container" data-reveal="delay-1">
             <img
               class="card__image"
               src="img/cookie.png"
@@ -306,7 +292,7 @@
             </p>
           </article>
 
-          <article class="card__container">
+          <article class="card__container" data-reveal="delay-2">
             <img
               class="card__image"
               src="img/cookie.png"
@@ -322,7 +308,7 @@
             </p>
           </article>
 
-          <article class="card__container">
+          <article class="card__container" data-reveal="delay-3">
             <img
               class="card__image"
               src="img/cookie.png"
@@ -340,7 +326,6 @@
         </div>
       </section>
 
-      <!-- COOKIE -->
       <section
         class="cookie bg-color bg-color--bright bg-cookie bg-cookie--bright"
         id="cookie"
@@ -365,7 +350,6 @@
         <div class="cookie__tagline" aria-hidden="true"></div>
       </section>
 
-      <!-- REVIEWS — fundo escuro (igual Services) + biscoito orgânico laranja -->
       <section
         class="review bg-color bg-color--dark bg-cookie bg-cookie--organic"
         id="reviews"
@@ -374,10 +358,6 @@
         <h2 class="u-sr-only" id="reviews-heading">Reviews</h2>
 
         <div class="section-title__container">
-          <!--
-            SVG título — "— Reviews —"
-            'i' em laranja; traços em laranja
-          -->
           <svg
             class="section-title__svg"
             viewBox="0 0 521.03 98.00"
@@ -413,6 +393,7 @@
                 >
                   <img
                     src="img/atelier-iris-3.png"
+                    data-review="atelier-iris-3"
                     alt="Capa do jogo Atelier Iris 3"
                   />
                 </li>
@@ -422,7 +403,11 @@
                   aria-roledescription="slide"
                   aria-label="Slide 2 de 8"
                 >
-                  <img src="img/Bully_cover.png" alt="Capa do jogo Bully" />
+                  <img
+                    src="img/Bully_cover.png"
+                    data-review="bully"
+                    alt="Capa do jogo Bully"
+                  />
                 </li>
                 <li
                   class="glide__slide"
@@ -432,6 +417,7 @@
                 >
                   <img
                     src="img/crash-bandicoot.png"
+                    data-review="crash-bandicoot"
                     alt="Capa do jogo Crash Bandicoot"
                   />
                 </li>
@@ -443,6 +429,7 @@
                 >
                   <img
                     src="img/donkey-kong-country.png"
+                    data-review="donkey-kong-country"
                     alt="Capa do jogo Donkey Kong Country"
                   />
                 </li>
@@ -452,7 +439,11 @@
                   aria-roledescription="slide"
                   aria-label="Slide 5 de 8"
                 >
-                  <img src="img/fallout-3.png" alt="Capa do jogo Fallout 3" />
+                  <img
+                    src="img/fallout-3.png"
+                    data-review="fallout-3"
+                    alt="Capa do jogo Fallout 3"
+                  />
                 </li>
                 <li
                   class="glide__slide"
@@ -462,6 +453,7 @@
                 >
                   <img
                     src="img/Grand_Theft_Auto_San_Andreas_capa.png"
+                    data-review="gta-san-andreas"
                     alt="Capa do jogo Grand Theft Auto: San Andreas"
                   />
                 </li>
@@ -473,6 +465,7 @@
                 >
                   <img
                     src="img/mario-world.png"
+                    data-review="mario-world"
                     alt="Capa do jogo Super Mario World"
                   />
                 </li>
@@ -484,6 +477,7 @@
                 >
                   <img
                     src="img/rune-factory-special.png"
+                    data-review="rune-factory"
                     alt="Capa do jogo Rune Factory Special"
                   />
                 </li>
@@ -557,7 +551,6 @@
         </div>
       </section>
 
-      <!-- CLIENTES -->
       <section
         class="clientes bg-color bg-color--bright bg-cookie bg-cookie--bright"
         id="clientes"
@@ -566,10 +559,6 @@
         <h2 class="u-sr-only" id="clientes-heading">Clientes</h2>
 
         <div class="section-title__container">
-          <!--
-            SVG título — "— Clientes —"
-            'i' em laranja; traços em laranja; texto sobre fundo claro = cor escura
-          -->
           <svg
             class="section-title__svg"
             viewBox="0 0 518.38 98.00"
@@ -589,7 +578,7 @@
         </div>
 
         <div class="clientes__container">
-          <article class="card__container">
+          <article class="card__container" data-reveal>
             <img
               class="card__image card__image--clickable"
               id="img_velho"
@@ -611,7 +600,7 @@
             </blockquote>
           </article>
 
-          <article class="card__container">
+          <article class="card__container" data-reveal="delay-1">
             <img
               class="card__image card__image--clickable"
               src="img/homer.png"
@@ -634,7 +623,7 @@
             </blockquote>
           </article>
 
-          <article class="card__container">
+          <article class="card__container" data-reveal="delay-2">
             <img
               class="card__image card__image--clickable"
               src="img/pica-pau.png"
@@ -653,7 +642,7 @@
             </blockquote>
           </article>
 
-          <article class="card__container">
+          <article class="card__container" data-reveal="delay-3">
             <img
               class="card__image card__image--clickable"
               src="img/cosmo.png"
@@ -676,14 +665,13 @@
         </div>
       </section>
 
-      <!-- CTA -->
       <section
         class="cta bg-color bg-color--bright bg-cookie bg-cookie--bright"
         id="cta"
         aria-labelledby="cta-heading"
       >
         <div class="cta__container">
-          <div class="cta__info">
+          <div class="cta__info" data-reveal>
             <div class="cta__text">
               <h2 id="cta-heading">Assista quando quiser.</h2>
               <p class="cta__sub">De qualquer dispositivo.</p>
@@ -714,7 +702,7 @@
               </a>
             </div>
           </div>
-          <div class="cta__mockup">
+          <div class="cta__mockup" data-reveal="delay-2">
             <img
               src="img/mockup.png"
               alt="Telas de dispositivos mostrando imagens da live do Cybis Café."
@@ -724,10 +712,12 @@
       </section>
     </main>
 
-    <!-- ===================== FOOTER ===================== -->
     <footer class="footer" role="contentinfo">
       <div class="footer__align">
         <p class="footer__brand">Cybis Café</p>
+        <p style="opacity: 0.7; font-size: 0.9rem">
+          Seu refúgio digital com aroma de café ☕
+        </p>
 
         <nav class="footer__container" aria-label="Links do rodapé">
           <div class="footer__map">

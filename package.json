@@ -2,12 +2,15 @@
   "name": "basic-front-boilerplate",
   "version": "2.2.0",
   "description": "Boilerplate básico para projetos front-end com ênfase em HTML/CSS.",
-  "source": "index.html",
+  "source": [
+    "index.html",
+    "review.html"
+  ],
   "private": true,
   "scripts": {
     "start": "npm run dev",
     "dev": "parcel",
-    "build": "parcel build",
+    "build": "parcel build --public-url /Cybis-Cafe-Page/",
     "build-with-reporter": "parcel build --reporter @parcel/reporter-bundle-analyzer",
     "prepare": "husky install",
     "release": "semantic-release"

@@ -1,91 +1,97 @@
-// =============================================================================
-// Component: Footer
-// =============================================================================
-
 .footer {
-  color: var(--color-primary);
-  min-height: 725px;
-  padding-bottom: var(--space-2xl);
   position: relative;
+  color: #f5e9dc;
+  padding: var(--space-xl) 0;
   text-align: center;
+  overflow: hidden;
 
   &::before {
-    background-image: url('../img/footer-bg.png');
-    background-size: cover;
     content: '';
-    height: 100%;
-    left: 0;
     position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: var(--z-index-below);
+    inset: 0;
+    background:
+      linear-gradient(rgb(40 25 15 / 85%), rgb(20 12 8 / 95%)),
+      url('https://unsplash.com/pt-br/fotografias/bar-com-tematica-marrom-GXXYkSwndP4')
+        center/cover no-repeat;
+    z-index: -1;
   }
 
   &__align {
+    max-width: 900px;
     margin: 0 auto;
-    max-width: 1080px;
-    padding: var(--space-l) var(--space-m) 0;
-    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   &__brand {
     font-family: var(--font-family-cooper);
-    font-size: var(--space-l);
-    font-weight: 400;
-    margin-bottom: var(--space-s);
+    font-size: 2rem;
+    margin-bottom: var(--space-m);
   }
 
   &__container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-l);
-    justify-content: space-between;
-    padding-top: var(--space-m);
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(
+      3,
+      1fr
+    ); // 👈 reduz colunas (mais equilibrado)
 
-    @media screen and (max-width: 768px) {
-      gap: var(--space-m);
+    gap: var(--space-l);
+    justify-items: center;
+
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
     }
   }
 
   &__map {
+    text-align: center;
+    max-width: 160px;
+
     h2 {
       font-size: var(--font-step--1);
-      margin-bottom: var(--space-s);
-      text-decoration: underline;
+      margin-bottom: var(--space-xs);
+      color: #d6bfa7;
     }
 
     ul {
       list-style: none;
-      margin: 0;
       padding: 0;
+      margin: 0;
     }
 
     li {
-      margin-bottom: var(--space-3xs);
+      margin-bottom: 6px;
     }
   }
 
   a {
-    color: var(--color-primary);
+    color: #f5e9dc;
     font-size: var(--font-step--2);
     text-decoration: none;
-    transition: color var(--transition-duration-fast) ease;
+    opacity: 0.85;
+    transition: all 0.2s ease;
 
     &:hover {
-      color: var(--color-tertiary);
-      text-decoration: underline;
+      color: #c8a27a;
+      opacity: 1;
     }
-  }
-
-  &__credits,
-  &__copyright {
-    font-size: var(--font-step--2);
-    margin: 0;
-    opacity: 0.8;
-    text-align: center;
   }
 
   &__credits {
     margin-top: var(--space-l);
+    font-size: var(--font-step--2);
+    opacity: 0.6;
+  }
+
+  &__copyright {
+    font-size: var(--font-step--2);
+    opacity: 0.5;
   }
 }

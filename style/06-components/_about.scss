@@ -1,12 +1,6 @@
-// =============================================================================
-// Component: About
-// =============================================================================
-
 .about {
   position: relative;
   z-index: 2;
-
-  // ─── Inner: conteúdo principal ─────────────────────────────────────────────
 
   &__inner {
     align-items: center;
@@ -21,30 +15,23 @@
 
     @media screen and (max-width: 1080px) {
       flex-direction: column;
+      gap: var(--space-l);
       height: auto;
       padding: 80px var(--space-m) var(--space-xl);
-      gap: var(--space-l);
     }
   }
-
-  // ─── Tag estático gigante — invade a seção bege acima ──────────────────────
-  // Posicionado com top negativo para que ~20% do texto apareça
-  // dentro da seção anterior (header/bege), criando o efeito de watermark
-  // na transição entre seções.
 
   &__tag {
     left: 0;
     overflow: visible;
     pointer-events: none;
     position: absolute;
-    top: -35px; // invade ~20% da altura do texto para cima
+    top: -35px;
     width: 100%;
-    z-index: 10; // acima de tudo — inclusive dos pseudo-elementos de bg
+    z-index: 10;
   }
 
   &__tag-text {
-    // Cor bege (primary) para contrastar visualmente com o fundo bege claro
-    // e criar um efeito de watermark sobre a seção escura
     color: var(--color-primary);
     display: block;
     font-family: var(--font-family-cooper);
@@ -54,8 +41,6 @@
     text-transform: lowercase;
     white-space: nowrap;
   }
-
-  // ─── Foto ─────────────────────────────────────────────────────────────────
 
   &__photo-container {
     flex-shrink: 0;
@@ -76,8 +61,6 @@
     position: absolute;
     width: 100%;
   }
-
-  // ─── Apresentação textual ──────────────────────────────────────────────────
 
   &__presentation {
     font-size: var(--font-step-0);
@@ -112,8 +95,6 @@
     top: 720px;
   }
 }
-
-// ─── Elementos de apoio ───────────────────────────────────────────────────────
 
 .border-overlay {
   border: 6px solid white;

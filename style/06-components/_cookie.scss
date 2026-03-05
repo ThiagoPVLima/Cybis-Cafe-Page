@@ -1,7 +1,3 @@
-// =============================================================================
-// Component: Cookie
-// =============================================================================
-
 .cookie {
   align-items: center;
   display: flex;
@@ -12,8 +8,6 @@
   position: relative;
   width: 100vw;
 
-  // Faixas laranja — pseudo-elementos no __tagline (div com inset:0)
-  // evita conflito com ::before do bg-color que já usa esse pseudo-elemento
   &__tagline {
     inset: 0;
     pointer-events: none;
@@ -41,13 +35,10 @@
   &__tagline::before { top: 0; }
   &__tagline::after  { bottom: 0; }
 
-  // Container central: determina o espaço total do "sistema" biscoito+texto
-  // cookie__text (anel externo) + espaço + cookie__circle (anel interno)
-  // Aumentando o container em relação ao circle criamos o espaçamento desejado
   &__container {
     align-items: center;
     display: flex;
-    height: 520px;   // maior que o circle para dar espaço ao texto
+    height: 520px;
     justify-content: center;
     position: relative;
     width: 520px;
@@ -58,11 +49,10 @@
     }
   }
 
-  // Círculo interno com borda laranja — menor que o container
   &__circle {
     border: 2px solid var(--color-tertiary);
     border-radius: 50%;
-    height: 340px;   // mais espaço entre circle e borda do container
+    height: 340px;
     overflow: hidden;
     position: relative;
     width: 340px;
@@ -74,7 +64,6 @@
     }
   }
 
-  // Biscoito — gira devagar dentro do círculo
   &__big {
     animation: cookie-spin 200s linear infinite;
     display: block;
@@ -83,8 +72,6 @@
     width: 100%;
   }
 
-  // Texto "Professional Streamer" em anel — tamanho igual ao container
-  // O gap entre o círculo e o texto = (520 - 340) / 2 = 90px de cada lado
   &__text {
     animation: cookie-spin-reverse 180s linear infinite;
     height: 520px;

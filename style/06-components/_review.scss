@@ -1,15 +1,9 @@
-// =============================================================================
-// Component: Review (carrossel de capas de jogos)
-// =============================================================================
-
 .review {
   min-height: 720px;
   padding-bottom: var(--space-xl);
   padding-top: var(--space-3xs);
   position: relative;
 }
-
-// ─── Wrapper do carrossel ─────────────────────────────────────────────────────
 
 .glide-wrapper {
   align-items: center;
@@ -19,6 +13,8 @@
   padding: 0 var(--space-2xl);
 
   @media screen and (max-width: 600px) {
+    margin-bottom: 0;
+    margin-top: var(--space-l);
     padding: 0 var(--space-m);
   }
 
@@ -27,12 +23,11 @@
   }
 }
 
-// ─── Slides em formato retrato (capa de jogo) ─────────────────────────────────
-
 .glide__slide {
   img {
     aspect-ratio: 3 / 4;
     border-radius: var(--radius-medium);
+    cursor: pointer;
     display: block;
     object-fit: cover;
     transition:
@@ -41,13 +36,11 @@
     width: 100%;
 
     &:hover {
-      box-shadow: 0 8px 24px rgb(0 0 0 / 50%);
-      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 12px 32px rgb(0 0 0 / 60%);
+      transform: translateY(-6px) scale(1.03);
     }
   }
 }
-
-// ─── Setas ───────────────────────────────────────────────────────────────────
 
 .glide__arrows .glide__arrow {
   background: var(--color-tertiary);
@@ -74,21 +67,23 @@
   &--left {
     left: -22px;
   }
-
   &--right {
     right: -22px;
   }
 }
 
-// ─── Bullets ─────────────────────────────────────────────────────────────────
-
 .glide__bullets {
-  bottom: -2rem;
   display: flex;
   gap: var(--space-2xs);
   justify-content: center;
-  position: absolute;
+  margin-top: var(--space-m);
+  position: static;
   width: 100%;
+
+  @media screen and (max-width: 600px) {
+    margin-bottom: 0;
+    margin-top: var(--space-s);
+  }
 
   .glide__bullet {
     background: rgb(255 255 255 / 30%);

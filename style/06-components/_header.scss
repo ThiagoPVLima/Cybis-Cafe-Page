@@ -1,9 +1,10 @@
-// =============================================================================
-// Component: Header
-// =============================================================================
-
 .header {
   height: 720px;
   overflow: visible;
   position: relative;
+
+  @media screen and (max-width: 600px) {
+    height: auto;
+    padding-bottom: var(--space-m);
+  }
 }
