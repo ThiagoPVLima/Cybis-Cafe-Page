@@ -2,6 +2,7 @@
   align-items: center;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   position: relative;
 
   &__title-wrap {
@@ -66,12 +67,14 @@
     }
 
     @media screen and (max-width: 600px) {
-      height: 240px;
+      display: block;
+      height: 220px;
       left: 50%;
+      margin-bottom: var(--space-s);
       position: relative;
       top: auto;
       transform: translateX(-50%);
-      width: 220px;
+      width: 200px;
 
       &:hover {
         transform: translateX(-50%) scale(1.06) rotate(-3deg);
@@ -108,14 +111,21 @@
 
     @media screen and (max-width: 600px) {
       grid-template:
+        'florinda' auto
+        'viwer' auto
         'slide-text' 56px
         / 1fr;
-      margin-top: var(--space-s);
+      margin-top: 0;
+      width: 100%;
     }
   }
 
   &__cup-space {
     grid-area: cup-space;
+
+    @media screen and (max-width: 600px) {
+      display: none;
+    }
   }
 
   &__cookie {
@@ -135,7 +145,10 @@
     padding: var(--space-m) var(--space-s) 0;
 
     @media screen and (max-width: 600px) {
-      display: none;
+      align-items: center;
+      display: flex;
+      padding: var(--space-s) var(--space-m);
+      text-align: center;
     }
 
     p {
@@ -153,6 +166,12 @@
   padding-left: var(--space-m);
   padding-right: var(--space-s);
   text-align: end;
+
+  @media screen and (max-width: 600px) {
+    align-items: center;
+    padding: var(--space-s) var(--space-m) var(--space-2xs);
+    text-align: center;
+  }
 }
 
 .viwer {
@@ -161,6 +180,12 @@
   padding-left: var(--space-s);
   padding-right: var(--space-m);
   text-align: start;
+
+  @media screen and (max-width: 600px) {
+    align-items: center;
+    padding: var(--space-2xs) var(--space-m) var(--space-s);
+    text-align: center;
+  }
 }
 
 .slide-text {

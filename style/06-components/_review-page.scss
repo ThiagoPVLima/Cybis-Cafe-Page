@@ -142,3 +142,37 @@ body.page-entering {
     padding: var(--space-s) var(--space-m);
   }
 }
+
+.review-page__meta {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-s);
+  margin-top: var(--space-s);
+}
+
+.review-page__platforms,
+.review-page__score {
+  background: var(--color-tertiary);
+  border-radius: var(--radius-large);
+  color: white;
+  font-size: var(--font-step--1);
+  font-weight: 700;
+  padding: 0.3rem 0.8rem;
+}
+
+.review-page__score {
+  background: var(--color-quaternary);
+}
+
+.review-page__figure {
+  margin: 0;
+  width: 100%;
+}
+
+.review-page__image {
+  border-radius: var(--radius-large);
+  height: auto;
+  max-width: 100%;
+  width: 100%;
+}

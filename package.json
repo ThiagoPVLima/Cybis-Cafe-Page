@@ -4,7 +4,8 @@
   "description": "Boilerplate básico para projetos front-end com ênfase em HTML/CSS.",
   "source": [
     "index.html",
-    "review.html"
+    "review.html",
+    "admin.html"
   ],
   "private": true,
   "scripts": {
@@ -81,6 +82,7 @@
     }
   },
   "dependencies": {
-    "@glidejs/glide": "^3.6.0"
+    "@glidejs/glide": "^3.6.0",
+    "@supabase/supabase-js": "^2.98.0"
   }
 }

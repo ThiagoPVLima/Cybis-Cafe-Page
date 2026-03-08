@@ -1,5 +1,4 @@
 .review {
-  min-height: 720px;
   padding-bottom: var(--space-xl);
   padding-top: var(--space-3xs);
   position: relative;
@@ -76,12 +75,12 @@
   display: flex;
   gap: var(--space-2xs);
   justify-content: center;
+  margin-bottom: 0;
   margin-top: var(--space-m);
   position: static;
   width: 100%;
 
   @media screen and (max-width: 600px) {
-    margin-bottom: 0;
     margin-top: var(--space-s);
   }
 

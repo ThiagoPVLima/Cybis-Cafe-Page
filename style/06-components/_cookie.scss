@@ -32,8 +32,12 @@
     width: 100%;
   }
 
-  &__tagline::before { top: 0; }
-  &__tagline::after  { bottom: 0; }
+  &__tagline::before {
+    top: 0;
+  }
+  &__tagline::after {
+    bottom: 0;
+  }
 
   &__container {
     align-items: center;
@@ -90,11 +94,19 @@
 }
 
 @keyframes cookie-spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes cookie-spin-reverse {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to   { transform: translate(-50%, -50%) rotate(-360deg); }
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(-360deg);
+  }
 }
