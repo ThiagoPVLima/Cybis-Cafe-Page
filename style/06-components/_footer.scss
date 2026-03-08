@@ -7,12 +7,11 @@
     content: '';
     position: absolute;
     inset: 0;
-    background:
-      linear-gradient(
-        160deg,
-        hsl(25 40% 6% / 92%) 0%,
-        hsl(20 30% 4% / 97%) 100%
-      ),
+    background: linear-gradient(
+      160deg,
+      hsl(25 40% 6% / 92%) 0%,
+      hsl(20 30% 4% / 97%) 100%
+    );
     z-index: 0;
   }
 
