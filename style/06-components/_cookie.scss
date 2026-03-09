@@ -35,6 +35,7 @@
   &__tagline::before {
     top: 0;
   }
+  /* stylelint-disable-next-line rule-empty-line-before */
   &__tagline::after {
     bottom: 0;
   }
@@ -97,6 +98,7 @@
   from {
     transform: rotate(0deg);
   }
+  /* stylelint-disable-next-line rule-empty-line-before */
   to {
     transform: rotate(360deg);
   }
@@ -106,6 +108,7 @@
   from {
     transform: translate(-50%, -50%) rotate(0deg);
   }
+  /* stylelint-disable-next-line rule-empty-line-before */
   to {
     transform: translate(-50%, -50%) rotate(-360deg);
   }
