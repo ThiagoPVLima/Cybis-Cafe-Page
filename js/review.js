@@ -23,8 +23,8 @@ const LOCAL_COVERS = {
 
 document.documentElement.classList.add('js-ready')
 
-const SB_URL = localStorage.getItem('sb_url') || ''
-const SB_KEY = localStorage.getItem('sb_key') || ''
+const SB_URL = 'https://thapqeodawxffacnljij.supabase.co'
+const SB_KEY = 'sb_publishable_TZQOtUq1RwjDGBpWDb92UA_KZwAOHUS'
 
 const params = new URLSearchParams(window.location.search)
 const gameKey = params.get('game')
