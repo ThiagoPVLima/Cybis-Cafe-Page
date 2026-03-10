@@ -13,8 +13,7 @@
     width: min(960px, 100%);
 
     @media screen and (max-width: 600px) {
-      padding-left: var(--space-m);
-      padding-right: var(--space-m);
+      padding-inline: var(--space-m);
       width: 100%;
     }
   }
@@ -34,9 +33,20 @@
     text-align: end;
     top: 180px;
     width: 140px;
+    z-index: 6;
 
     @media screen and (max-width: 1200px) {
       display: none;
+    }
+
+    // Mobile: Posicionado do lado da xícara acima do quadro
+    @media screen and (max-width: 600px) {
+      display: block;
+      right: 5%;
+      top: 240px; // Ajustado para ficar ao lado da xícara
+      width: 100px;
+      font-size: 9px;
+      text-align: right;
     }
   }
 
@@ -50,7 +60,7 @@
     transition: transform var(--transition-duration-default)
       var(--transition-function-ease-out-back);
     width: 310px;
-    z-index: 2;
+    z-index: 10;
 
     &:hover {
       transform: translateX(-50%) scale(1.06) rotate(-3deg);
@@ -67,21 +77,17 @@
     }
 
     @media screen and (max-width: 600px) {
-      display: block;
-      height: 220px;
-      left: 50%;
-      margin-bottom: var(--space-s);
       position: relative;
       top: auto;
-      transform: translateX(-50%);
-      width: 200px;
+      left: auto;
+      transform: none;
+      margin: 20px auto -145px; // Mergulha bem no quadro
+      height: 240px;
+      width: 220px;
+      display: block;
 
       &:hover {
-        transform: translateX(-50%) scale(1.06) rotate(-3deg);
-      }
-
-      &:active {
-        transform: translateX(-50%) scale(0.95);
+        transform: scale(1.05);
       }
     }
   }
@@ -100,6 +106,7 @@
     margin-top: 40px;
     position: relative;
     width: min(1120px, 100vw - 2rem);
+    z-index: 1;
 
     @media screen and (max-width: 900px) {
       grid-template:
@@ -110,13 +117,14 @@
     }
 
     @media screen and (max-width: 600px) {
-      grid-template:
-        'florinda' auto
-        'viwer' auto
-        'slide-text' 56px
-        / 1fr;
+      display: flex;
+      flex-direction: column;
       margin-top: 0;
-      width: 100%;
+      width: calc(100% - 2rem);
+      padding-top: 135px;
+      padding-bottom: 0; // Remove espaço extra que causa a linha
+      border-radius: 4px;
+      overflow: hidden; // Corta qualquer vazamento
     }
   }
 
@@ -133,7 +141,14 @@
     width: 72px;
 
     @media screen and (max-width: 600px) {
-      display: none;
+      display: block;
+      position: absolute;
+      bottom: 85px; // Subiu um pouco
+      right: 20%; // Mais para a esquerda, perto do nome
+      height: 45px;
+      width: 45px;
+      opacity: 0.7;
+      z-index: 2;
     }
   }
 
@@ -146,8 +161,7 @@
 
     @media screen and (max-width: 600px) {
       align-items: center;
-      display: flex;
-      padding: var(--space-s) var(--space-m);
+      padding: var(--space-s) var(--space-m) var(--space-xl);
       text-align: center;
     }
 
@@ -155,36 +169,25 @@
       color: var(--color-primary);
       font-size: var(--font-step--1);
       margin-bottom: var(--space-2xs);
-      margin-top: var(--space-3xs);
     }
   }
 }
 
 .florinda {
-  align-items: flex-end;
   grid-area: florinda;
-  padding-left: var(--space-m);
-  padding-right: var(--space-s);
   text-align: end;
 
   @media screen and (max-width: 600px) {
-    align-items: center;
-    padding: var(--space-s) var(--space-m) var(--space-2xs);
     text-align: center;
+    padding-bottom: 20px;
   }
 }
 
 .viwer {
-  align-items: flex-start;
   grid-area: viwer;
-  padding-left: var(--space-s);
-  padding-right: var(--space-m);
-  text-align: start;
 
   @media screen and (max-width: 600px) {
-    align-items: center;
-    padding: var(--space-2xs) var(--space-m) var(--space-s);
-    text-align: center;
+    display: none;
   }
 }
 
@@ -199,11 +202,13 @@
   line-height: 67px;
   overflow: hidden;
   white-space: nowrap;
+  border: none; // Remove bordas fantasmas
 
   @media screen and (max-width: 600px) {
     font-size: var(--font-step-1);
     height: 56px;
     line-height: 56px;
+    margin-bottom: -1px; // Garante que "atropele" qualquer linha no fundo
   }
 
   &--animation {
@@ -213,6 +218,11 @@
 }
 
 @keyframes text-slider {
-  from { transform: translateX(0%); }
-  to   { transform: translateX(-50%); }
+  from {
+    transform: translateX(0%);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }

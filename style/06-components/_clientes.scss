@@ -6,7 +6,7 @@
     display: grid;
     gap: var(--space-m);
     grid-template-columns: repeat(4, 1fr);
-    margin: var(--space-m) auto var(--space-3xl);
+    margin: var(--space-m) auto;
     max-width: 1200px;
     padding: 0 var(--space-m);
     width: 100%;
@@ -89,7 +89,7 @@
     font-family: var(--font-family-cooper);
     font-size: var(--space-m);
     height: 80px;
-    left: -220;
+    left: 0;
     letter-spacing: 2px;
     line-height: 80px;
     overflow: hidden;

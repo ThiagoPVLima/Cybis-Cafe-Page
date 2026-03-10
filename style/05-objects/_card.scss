@@ -2,51 +2,59 @@
 // Object: Card
 // =============================================================================
 
-.card {
-  &__container {
-    max-height: 320px;
-    overflow: hidden;
-    padding: var(--space-xs) var(--space-s);
-    width: min(550px, 100%);
+.card__container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+  padding: var(--space-l);
+  width: 100%;
+  max-width: 420px;
+  border-radius: 16px;
+  border: 1px solid rgb(255 255 255 / 8%);
+  background: rgb(255 255 255 / 2%);
+  transition: transform 0.3s ease;
+}
 
-    @media screen and (max-width: 600px) {
-      max-height: none;
-      width: 100%;
-    }
-  }
+.card__container:hover {
+  transform: translateY(-6px);
+}
 
-  // Imagem circular com float para o texto fluir ao redor
-  &__image {
-    clip-path: circle(50%);
-    float: left;
-    height: 110px;
-    margin: 0 var(--space-s) var(--space-s) 0;
-    width: 110px;
-  }
+/* HEADER DO CARD */
 
-  // Imagens clicáveis (personagens na seção Clientes)
-  &__image--clickable {
-    cursor: pointer;
-    transition: transform var(--transition-duration-default) var(--transition-function-ease-out-back);
+.card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+}
 
-    &:hover {
-      transform: scale(1.08);
-    }
+/* COOKIE */
 
-    &:active {
-      transform: scale(0.95);
-    }
-  }
+.card__image {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  clip-path: circle(50%);
+  transform: rotate(-8deg);
+  transition: transform 0.3s ease;
+}
 
-  &__title {
-    font-size: var(--font-step-1);
-    line-height: 1.3;
-    margin-bottom: var(--space-2xs);
-  }
+.card__container:hover .card__image {
+  transform: rotate(6deg) scale(1.05);
+}
 
-  &__description {
-    font-size: var(--font-step--1);
-    line-height: 1.6;
-    margin: 0;
-  }
+/* TITLE */
+
+.card__title {
+  font-size: var(--font-step-1);
+  line-height: 1.25;
+  margin: 0;
+}
+
+/* TEXT */
+
+.card__description {
+  font-size: var(--font-step--1);
+  line-height: 1.6;
+  margin: 0;
+  opacity: 0.9;
 }
