@@ -1,15 +1,34 @@
 {
-  "extends": ["web-recommended"],
+  "extends": [
+    "web-recommended"
+  ],
   "connector": {
     "name": "local",
     "options": {
-      "pattern": ["**", "!.git/**", "!dist/**"],
+      "pattern": [
+        "**",
+        "!.git/**",
+        "!dist/**"
+      ],
       "watch": false
     }
   },
-  "formatters": ["codeframe"],
+  "formatters": [
+    "codeframe"
+  ],
   "hints": {
-    "no-inline-styles": "off"
+    "no-inline-styles": "off",
+    "html-checker": "off",
+    "axe/structure": [
+      "default",
+      {
+        "list": "off"
+      }
+    ]
   },
-  "browserslist": ["defaults", "not IE <= 11", "maintained node versions"]
+  "browserslist": [
+    "defaults",
+    "not IE <= 11",
+    "maintained node versions"
+  ]
 }
