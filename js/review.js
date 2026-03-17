@@ -41,6 +41,19 @@ async function fetchReview(slug) {
   return data
 }
 
+function ytEmbed(url) {
+  try {
+    const u = new URL(url)
+    const id =
+      u.searchParams.get('v') ??
+      (u.hostname === 'youtu.be' ? u.pathname.slice(1) : null) ??
+      u.pathname.split('/').pop()
+    return `https://www.youtube.com/embed/${id}`
+  } catch {
+    return ''
+  }
+}
+
 function renderReview(review) {
   if (!review) {
     document.querySelector('.review-page__content').innerHTML =
@@ -100,6 +113,7 @@ function renderReview(review) {
       bq.textContent = block.text
       body.appendChild(bq)
     } else if (block.type === 'image') {
+      if (!block.url) return
       const figure = document.createElement('figure')
       figure.className = 'review-page__figure'
       figure.setAttribute('data-reveal', '')
@@ -107,8 +121,22 @@ function renderReview(review) {
       img.src = block.url
       img.alt = ''
       img.className = 'review-page__image'
+      img.loading = 'lazy'
       figure.appendChild(img)
       body.appendChild(figure)
+    } else if (block.type === 'video') {
+      if (!block.url) return
+      const wrap = document.createElement('div')
+      wrap.className = 'review-page__video'
+      wrap.setAttribute('data-reveal', '')
+      wrap.innerHTML = `
+        <iframe
+          src="${ytEmbed(block.url)}"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>`
+      body.appendChild(wrap)
     }
   })
 
