@@ -115,11 +115,18 @@ body.page-entering {
 .review-page__quote::before {
   color: var(--color-tertiary);
   content: '"';
-  font-size: 4rem;
-  left: var(--space-s);
+  font-size: 5.5rem;
+  left: -15px;
   line-height: 1;
   position: absolute;
-  top: var(--space-xs);
+  top: -15px;
+  transform: rotate(20deg);
+}
+
+@media (min-width: 768px) {
+  .review-page__quote::before {
+    font-size: 8rem;
+  }
 }
 
 .review-page__not-found {
