@@ -34,19 +34,6 @@
   padding: var(--space-xl) var(--space-l) var(--space-l);
 }
 
-.footer__logo {
-  border-radius: 50%;
-  height: 200px;
-  width: 200px;
-  aspect-ratio: 1;
-  object-fit: cover;
-
-  @media (max-width: 480px) {
-    height: var(--space-3xl, 160px);
-    width: var(--space-3xl, 160px);
-  }
-}
-
 .footer__top {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -125,19 +112,36 @@
 
 .footer__nav {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr); // 3 Colunas no Desktop
   gap: var(--space-l);
 
-  @media (max-width: 480px) {
-    grid-template-columns: repeat(2, 1fr);
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr); // 2 Colunas (Links) no Mobile
 
-    // Seleciona a coluna da logo e centraliza
-    .footer__col:last-child {
-      grid-column: 1 / -1;
+    .footer__col--logo {
+      grid-column: 1 / -1; // Logo ocupa a linha toda abaixo
       display: flex;
       justify-content: center;
       margin-top: var(--space-m);
     }
+  }
+}
+
+// Estilização da imagem da logo
+.footer__logo-img {
+  max-width: 140px;
+  height: auto;
+  border-radius: 50%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 480px) {
+    max-width: 120px;
   }
 }
 
