@@ -43,150 +43,143 @@
       .login-screen {
         align-items: center;
         display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
         justify-content: center;
         min-height: 100vh;
         padding: 2rem;
       }
 
-      .login-logo {
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
+      .login-container {
+        max-width: 25rem;
+        position: relative;
+        width: 100%;
       }
 
-      .login-logo-icon {
-        align-items: center;
-        background: hsl(38 35% 11%);
-        border: 1px solid hsl(38 30% 22%);
-        border-radius: 50%;
-        display: flex;
-        font-size: 2rem;
-        height: 64px;
-        justify-content: center;
-        width: 64px;
+      .login-cookie {
+        animation: floatCookie 6s ease-in-out infinite;
+        position: absolute;
+        right: -1.25rem;
+        top: -3.4375rem;
+        z-index: 2;
       }
 
-      .login-logo-name {
+      .login-cookie img {
+        filter: drop-shadow(0 0.5rem 1rem hsl(30 40% 4% / 53%));
+        height: auto;
+        width: 6.875rem;
+      }
+
+      @keyframes floatCookie {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-0.875rem) rotate(5deg);
+        }
+      }
+
+      .login-box {
+        background: hsl(38 30% 11%);
+        border: 1px solid hsl(38 28% 22%);
+        border-radius: 1.25rem;
+        box-shadow: 0 1.5rem 3rem hsl(30 30% 3% / 60%);
+        padding: 2.5rem;
+      }
+
+      .login-box h2 {
         color: var(--color-primary);
         font-family: var(--font-family-philosopher);
-        font-size: 1.1rem;
+        font-size: 1.5rem;
         font-weight: 700;
-        letter-spacing: 0.02em;
+        margin-bottom: 0.3rem;
       }
 
-      .login-logo-name span {
+      .login-box h2 span {
         background: var(--gradient-primary);
         background-clip: text;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
 
-      .login-card {
-        background: hsl(38 30% 10%);
-        border: 1px solid hsl(38 25% 18%);
-        border-radius: 10px;
-        max-width: 340px;
-        padding: 1.75rem;
-        width: 100%;
+      .login-box > p {
+        color: hsl(38 20% 45%);
+        font-size: 0.85rem;
+        margin-bottom: 1.75rem;
       }
 
-      .login-field {
+      .login-input-group {
         display: flex;
         flex-direction: column;
-        gap: 4px;
-        margin-bottom: 0.75rem;
+        gap: 0.3125rem;
+        margin-bottom: 1rem;
       }
 
-      .login-field label {
-        color: hsl(38 20% 48%);
+      .login-input-group label {
+        color: hsl(38 22% 52%);
         font-size: 0.72rem;
         font-weight: 600;
-        letter-spacing: 0.08em;
+        letter-spacing: 0.09em;
         text-transform: uppercase;
       }
 
-      .login-field input {
+      .login-input-group input {
         background: hsl(38 25% 7%);
-        border: 1px solid hsl(38 25% 20%);
-        border-radius: 6px;
+        border: 1px solid hsl(38 25% 22%);
+        border-radius: 0.625rem;
         color: var(--color-primary);
         font-family: var(--font-family-sans-serif);
         font-size: 0.9rem;
         outline: none;
-        padding: 0.6rem 0.85rem;
-        transition: border-color 0.15s;
+        padding: 0.7rem 1rem;
+        transition: border-color 0.2s;
         width: 100%;
       }
 
-      .login-field input:focus {
+      .login-input-group input:focus {
         border-color: var(--color-tertiary);
       }
 
-      .login-submit {
+      .login-input-group input::placeholder {
+        color: hsl(38 15% 32%);
+      }
+
+      .btn-login {
         background: var(--gradient-primary);
         border: none;
-        border-radius: 6px;
+        border-radius: 0.625rem;
         color: hsl(30 30% 8%);
         cursor: pointer;
         font-family: var(--font-family-sans-serif);
-        font-size: 0.875rem;
+        font-size: 0.9rem;
         font-weight: 700;
-        margin-top: 0.25rem;
-        padding: 0.65rem;
+        margin-top: 0.5rem;
+        padding: 0.75rem;
         transition:
           opacity 0.15s,
-          transform 0.1s;
+          transform 0.15s;
         width: 100%;
       }
 
-      .login-submit:hover {
+      .btn-login:hover {
         opacity: 0.88;
-        transform: translateY(-1px);
+        transform: translateY(-0.125rem);
       }
-      .login-submit:active {
+      .btn-login:active {
         transform: translateY(0);
       }
 
-      .login-hint {
-        color: hsl(38 15% 35%);
-        font-size: 0.72rem;
-        margin-top: 1rem;
+      #loginMsg {
+        font-size: 0.82rem;
+        margin-bottom: 0.75rem;
+        min-height: 1rem;
         text-align: center;
       }
 
-      /* tagline marquee */
-      .tagline-strip {
-        align-items: center;
-        display: flex;
-        height: 20px;
-        overflow: hidden;
-        width: 340px;
+      #loginMsg.error {
+        color: hsl(0 65% 65%);
       }
-
-      .tagline-inner {
-        animation: marquee 22s linear infinite;
-        background: var(--gradient-primary);
-        background-clip: text;
-        -webkit-background-clip: text;
-        font-family: var(--font-family-philosopher);
-        font-size: 0.65rem;
-        letter-spacing: 0.18em;
-        opacity: 0.5;
-        padding-right: 2rem;
-        -webkit-text-fill-color: transparent;
-        white-space: nowrap;
-      }
-
-      @keyframes marquee {
-        from {
-          transform: translateX(0);
-        }
-        to {
-          transform: translateX(-50%);
-        }
+      #loginMsg.success {
+        color: hsl(140 55% 58%);
       }
 
       /* ── FIELDS ── */
@@ -513,7 +506,6 @@
         background: hsl(38 25% 12%);
         border-color: hsl(38 25% 20%);
       }
-
       .review-item.active {
         background: hsl(27 40% 11%);
         border-color: hsl(27 60% 28%);
@@ -610,13 +602,11 @@
         font-weight: 700;
       }
 
-      /* form grid */
       .form-row {
         display: grid;
         gap: 0 1rem;
         grid-template-columns: 1fr 1fr;
       }
-
       .form-full {
         grid-column: 1 / -1;
       }
@@ -664,7 +654,6 @@
         object-fit: cover;
         width: 38px;
       }
-
       .upload-text {
         flex: 1;
       }
@@ -690,13 +679,11 @@
         gap: 0.75rem;
         margin: 1.75rem 0 1.25rem;
       }
-
       .sec-divider-line {
         background: hsl(38 25% 16%);
         flex: 1;
         height: 1px;
       }
-
       .sec-divider-label {
         color: hsl(27 70% 48%);
         font-size: 0.65rem;
@@ -722,7 +709,6 @@
         margin-bottom: 1.5rem;
       }
 
-      /* bloco base */
       .sec-block {
         background: hsl(38 30% 13%);
         border: 1px solid hsl(38 30% 24%);
@@ -738,7 +724,6 @@
         box-shadow: 0 0 0 3px hsl(27 70% 45% / 12%);
       }
 
-      /* topbar do bloco */
       .sec-block__bar {
         align-items: center;
         background: hsl(38 28% 17%);
@@ -823,7 +808,6 @@
         pointer-events: none;
       }
 
-      /* corpo: texto */
       .sec-block__textarea {
         background: transparent;
         border: none;
@@ -845,7 +829,6 @@
         font-style: italic;
       }
 
-      /* corpo: imagem */
       .sec-block__img-area {
         align-items: center;
         border: 2px dashed hsl(38 25% 22%);
@@ -870,8 +853,8 @@
       }
 
       .sec-block__img-area--loaded {
-        border-style: solid;
         border-color: hsl(38 35% 25%);
+        border-style: solid;
         flex-direction: row;
         justify-content: flex-start;
         min-height: auto;
@@ -911,13 +894,11 @@
         color: hsl(38 15% 42%);
         font-size: 0.72rem;
       }
-
       .sec-block__img-placeholder {
         color: hsl(38 15% 38%);
         font-size: 0.82rem;
       }
 
-      /* corpo: video */
       .sec-block__video-area {
         padding: 0.75rem;
       }
@@ -950,7 +931,6 @@
       .sec-block__video-input input::placeholder {
         color: hsl(38 15% 35%);
       }
-
       .sec-block__video-icon {
         color: hsl(0 65% 58%);
         flex-shrink: 0;
@@ -980,7 +960,6 @@
         object-fit: cover;
         width: 80px;
       }
-
       .sec-block__video-info {
         display: flex;
         flex-direction: column;
@@ -1028,47 +1007,40 @@
 
   <body>
     <!-- ── LOGIN ── -->
-    <div class="login-screen" id="loginScreen">
-      <div class="login-logo">
-        <div class="login-logo-icon">🍪</div>
-        <span class="login-logo-name">Cybis <span>Café</span></span>
-      </div>
+    <div id="loginScreen" class="login-screen">
+      <div class="login-container">
+        <div class="login-cookie" aria-hidden="true">
+          <img src="img/big-cookie.png" alt="" />
+        </div>
 
-      <div class="tagline-strip">
-        <div class="tagline-inner">
-          Cybis Café &nbsp;✦&nbsp; Cybis Café &nbsp;✦&nbsp; Cybis Café
-          &nbsp;✦&nbsp; Cybis Café &nbsp;✦&nbsp; Cybis Café &nbsp;✦&nbsp; Cybis
-          Café &nbsp;✦&nbsp; Cybis Café &nbsp;✦&nbsp; Cybis Café &nbsp;✦&nbsp;
-          Cybis Café &nbsp;✦&nbsp; Cybis Café &nbsp;✦&nbsp; Cybis Café
-          &nbsp;✦&nbsp; Cybis Café &nbsp;✦&nbsp; Cybis Café &nbsp;✦&nbsp; Cybis
-          Café &nbsp;✦&nbsp; Cybis Café &nbsp;✦&nbsp; Cybis Café &nbsp;✦&nbsp;
-          Cybis Café &nbsp;✦&nbsp; Cybis Café &nbsp;✦&nbsp; Cybis Café
-          &nbsp;✦&nbsp; Cybis Café &nbsp;✦&nbsp;
-        </div>
-      </div>
+        <div class="login-box">
+          <h2>Cybis <span>Café</span></h2>
+          <p>Área restrita — acesso admin</p>
 
-      <div class="login-card">
-        <div id="loginError" class="error-msg" style="display: none"></div>
-        <div class="login-field">
-          <label for="loginEmail">E-mail</label>
-          <input
-            type="email"
-            id="loginEmail"
-            placeholder="seu@email.com"
-            autocomplete="email"
-          />
+          <div id="loginMsg"></div>
+
+          <div class="login-input-group">
+            <label for="loginEmail">E-mail</label>
+            <input
+              type="email"
+              id="loginEmail"
+              placeholder="seu@email.com"
+              autocomplete="email"
+            />
+          </div>
+
+          <div class="login-input-group">
+            <label for="loginPassword">Senha</label>
+            <input
+              type="password"
+              id="loginPassword"
+              placeholder="••••••••"
+              autocomplete="current-password"
+            />
+          </div>
+
+          <button class="btn-login" id="loginBtn">Entrar</button>
         </div>
-        <div class="login-field">
-          <label for="loginPassword">Senha</label>
-          <input
-            type="password"
-            id="loginPassword"
-            placeholder="••••••••"
-            autocomplete="current-password"
-          />
-        </div>
-        <button class="login-submit" id="loginBtn">Entrar</button>
-        <p class="login-hint">Área restrita · Cybis Café Admin</p>
       </div>
     </div>
 
@@ -1278,7 +1250,12 @@
           email: $('loginEmail').value.trim(),
           password: $('loginPassword').value,
         })
-        if (error) return showMsg('loginError', error.message, false, true)
+        if (error) {
+          const el = $('loginMsg')
+          el.className = 'error'
+          el.textContent = error.message
+          return
+        }
         mountAdmin(data.user)
       })
 
@@ -1585,7 +1562,6 @@
           wrapper.appendChild(div)
         })
 
-        // move
         wrapper.querySelectorAll('[data-move]').forEach(btn => {
           btn.addEventListener('click', () => {
             const [i, dir] = btn.dataset.move.split(':').map(Number)
@@ -1597,7 +1573,6 @@
           })
         })
 
-        // remove
         wrapper.querySelectorAll('[data-remove]').forEach(btn => {
           btn.addEventListener('click', () => {
             if (!confirm('Remover este bloco?')) return
@@ -1606,7 +1581,6 @@
           })
         })
 
-        // text auto-resize
         wrapper.querySelectorAll('[data-sec-text]').forEach(ta => {
           requestAnimationFrame(() => {
             ta.style.height = 'auto'
@@ -1619,10 +1593,8 @@
           })
         })
 
-        // drag & drop
         initDrag(wrapper)
 
-        // video url — re-render on blur (não a cada tecla)
         wrapper.querySelectorAll('[data-sec-url]').forEach(inp => {
           inp.addEventListener('blur', () => {
             const idx = Number(inp.dataset.secUrl)
@@ -1633,7 +1605,6 @@
           })
         })
 
-        // image upload
         sections.forEach((sec, i) => {
           if (sec.type !== 'image') return
           const input = document.getElementById(`secImg${i}`)
@@ -1752,11 +1723,6 @@
         } catch {
           return ''
         }
-      }
-
-      function ytEmbed(url) {
-        const id = ytId(url)
-        return id ? `https://www.youtube.com/embed/${id}` : ''
       }
 
       // ── Drag & drop ───────────────────────────────────────────────────────────
