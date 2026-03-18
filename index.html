@@ -3,980 +3,1824 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <!-- Primary Meta -->
-    <title>Cybis Café</title>
-    <meta
-      name="description"
-      content="Cybis Café — Um lugar de loucos para poucos. Lives, reviews e muito entretenimento com Raphael Cybis."
-    />
-    <meta name="author" content="Raphael Cybis" />
-    <meta name="theme-color" content="#20190d" />
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://cybis-cafe-page.vercel.app/" />
-    <meta property="og:title" content="Cybis Café" />
-    <meta
-      property="og:description"
-      content="Um lugar de loucos para poucos. Lives, reviews e muito entretenimento com Raphael Cybis."
-    />
-    <meta
-      property="og:image"
-      content="https://cybis-cafe-page.vercel.app/img/Cybis-Cafe-Logo.png"
-    />
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://cybis-cafe-page.vercel.app/" />
-    <meta name="twitter:title" content="Cybis Café" />
-    <meta
-      name="twitter:description"
-      content="Um lugar de loucos para poucos. Lives, reviews e muito entretenimento com Raphael Cybis."
-    />
-    <meta
-      name="twitter:image"
-      content="https://cybis-cafe-page.vercel.app/img/Cybis-Cafe-Logo.png"
-    />
-
-    <!-- Favicons -->
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="img/favicon_io/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="img/favicon_io/favicon-16x16.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="img/favicon_io/apple-touch-icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="192x192"
-      href="img/favicon_io/android-chrome-192x192.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="512x512"
-      href="img/favicon_io/android-chrome-512x512.png"
-    />
-    <link rel="manifest" href="img/favicon_io/site.webmanifest" />
-
-    <!-- Styles -->
+    <title>Admin — Cybis Café</title>
     <link rel="stylesheet" href="style/index.scss" />
-    <link
-      rel="stylesheet"
-      href="node_modules/@glidejs/glide/dist/css/glide.core.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="node_modules/@glidejs/glide/dist/css/glide.theme.min.css"
-    />
-
     <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
       body {
-        opacity: 1;
-        transition: opacity 0.3s ease;
+        background: var(--color-secondary);
+        color: var(--color-primary);
+        font-family: var(--font-family-sans-serif);
+        font-size: 14px;
+        line-height: 1.5;
+        min-height: 100vh;
+        position: relative;
       }
-      body.page-leaving {
-        opacity: 0;
+
+      body::after {
+        background-image: url('./img/black.png');
+        background-repeat: repeat;
+        content: '';
+        inset: 0;
+        opacity: 0.1;
+        pointer-events: none;
+        position: fixed;
+        z-index: 0;
       }
-      body.page-entering {
-        animation: page-in 0.4s ease forwards;
+
+      #loginScreen,
+      #adminScreen {
+        position: relative;
+        z-index: 1;
       }
-      @keyframes page-in {
-        from {
-          opacity: 0;
-          transform: translateY(12px);
+
+      /* ── LOGIN ── */
+      .login-screen {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 2rem;
+      }
+
+      .login-container {
+        max-width: 400px;
+        position: relative;
+        width: 100%;
+      }
+
+      .login-cookie {
+        animation: floatCookie 6s ease-in-out infinite;
+        position: absolute;
+        right: -20px;
+        top: -55px;
+        z-index: 2;
+      }
+
+      .login-cookie img {
+        filter: drop-shadow(0 8px 16px hsl(38 40% 5% / 60%));
+        height: auto;
+        width: 110px;
+      }
+
+      @keyframes floatCookie {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
         }
-        to {
-          opacity: 1;
-          transform: translateY(0);
+        50% {
+          transform: translateY(-14px) rotate(5deg);
         }
+      }
+
+      .login-box {
+        background: hsl(38 30% 11%);
+        border: 1px solid hsl(38 28% 22%);
+        border-radius: 20px;
+        box-shadow: 0 24px 48px hsl(30 20% 3% / 60%);
+        padding: 2.5rem;
+      }
+
+      .login-box h2 {
+        color: var(--color-primary);
+        font-family: var(--font-family-philosopher);
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.3rem;
+      }
+
+      .login-box h2 span {
+        background: var(--gradient-primary);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .login-box > p {
+        color: hsl(38 15% 45%);
+        font-size: 0.85rem;
+        margin-bottom: 1.75rem;
+      }
+
+      .login-input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        margin-bottom: 1rem;
+      }
+
+      .login-input-group label {
+        color: hsl(38 20% 52%);
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      .login-input-group input {
+        background: hsl(38 25% 7%);
+        border: 1px solid hsl(38 25% 20%);
+        border-radius: 10px;
+        color: var(--color-primary);
+        font-family: var(--font-family-sans-serif);
+        font-size: 0.9rem;
+        outline: none;
+        padding: 0.7rem 1rem;
+        transition: border-color 0.2s;
+        width: 100%;
+      }
+
+      .login-input-group input:focus {
+        border-color: var(--color-tertiary);
+      }
+
+      .login-input-group input::placeholder {
+        color: hsl(38 15% 30%);
+      }
+
+      .btn-login {
+        background: var(--gradient-primary);
+        border: none;
+        border-radius: 10px;
+        color: hsl(30 30% 8%);
+        cursor: pointer;
+        font-family: var(--font-family-sans-serif);
+        font-size: 0.9rem;
+        font-weight: 700;
+        margin-top: 0.5rem;
+        padding: 0.75rem;
+        transition:
+          opacity 0.15s,
+          transform 0.15s;
+        width: 100%;
+      }
+
+      .btn-login:hover {
+        opacity: 0.88;
+        transform: translateY(-2px);
+      }
+      .btn-login:active {
+        transform: translateY(0);
+      }
+
+      #loginMsg {
+        font-size: 0.82rem;
+        margin-top: 0.75rem;
+        min-height: 1rem;
+        text-align: center;
+      }
+
+      #loginMsg.error {
+        color: hsl(0 65% 65%);
+      }
+      #loginMsg.success {
+        color: hsl(140 55% 58%);
+      }
+
+      /* ── FIELDS ── */
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        margin-bottom: 1rem;
+      }
+
+      .form-group label {
+        color: hsl(38 25% 50%);
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        background: hsl(38 30% 7%);
+        border: 1px solid hsl(38 30% 22%);
+        border-radius: 6px;
+        color: var(--color-primary);
+        font-family: var(--font-family-sans-serif);
+        font-size: 0.9rem;
+        outline: none;
+        padding: 0.65rem 0.9rem;
+        transition: border-color 0.15s;
+        width: 100%;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        border-color: hsl(27 70% 40%);
+      }
+
+      .form-group textarea {
+        min-height: 88px;
+        resize: vertical;
+      }
+
+      /* ── BUTTONS ── */
+      .btn {
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-family: var(--font-family-sans-serif);
+        font-size: 0.85rem;
+        font-weight: 600;
+        padding: 0.65rem 1.25rem;
+        transition:
+          opacity 0.15s,
+          transform 0.1s;
+      }
+
+      .btn:hover {
+        opacity: 0.85;
+        transform: translateY(-1px);
+      }
+      .btn:active {
+        transform: translateY(0);
+      }
+
+      .btn-primary {
+        background: var(--gradient-primary);
+        color: hsl(30 30% 8%);
+        font-weight: 700;
+        width: 100%;
+      }
+
+      .btn-secondary {
+        background: hsl(38 30% 14%);
+        border: 1px solid hsl(38 30% 22%);
+        color: var(--color-primary);
+      }
+
+      .btn-danger {
+        background: transparent;
+        border: 1px solid hsl(0 50% 28%);
+        color: hsl(0 65% 58%);
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+      }
+
+      .btn-ghost {
+        background: transparent;
+        border: 1px solid hsl(38 30% 22%);
+        color: hsl(38 20% 50%);
+        font-size: 0.78rem;
+        padding: 0.35rem 0.65rem;
+      }
+
+      .btn-sm {
+        font-size: 0.8rem;
+        padding: 0.35rem 0.7rem;
+      }
+
+      .btn-pill {
+        border: none;
+        border-radius: 999px;
+        cursor: pointer;
+        font-family: var(--font-family-sans-serif);
+        font-size: 0.73rem;
+        font-weight: 600;
+        padding: 0.28rem 0.75rem;
+        transition: opacity 0.15s;
+      }
+
+      .btn-pill:hover {
+        opacity: 0.8;
+      }
+
+      .btn-add-text {
+        background: hsl(38 25% 16%);
+        border: 1px solid hsl(38 25% 24%);
+        color: var(--color-primary);
+      }
+      .btn-add-quote {
+        background: hsl(27 40% 14%);
+        border: 1px solid hsl(27 40% 22%);
+        color: hsl(27 80% 65%);
+      }
+      .btn-add-image {
+        background: hsl(200 35% 12%);
+        border: 1px solid hsl(200 35% 20%);
+        color: hsl(200 75% 70%);
+      }
+      .btn-add-video {
+        background: hsl(0 40% 14%);
+        border: 1px solid hsl(0 40% 22%);
+        color: hsl(0 75% 72%);
+      }
+
+      /* ── MESSAGES ── */
+      .error-msg {
+        background: hsl(0 35% 12%);
+        border: 1px solid hsl(0 45% 25%);
+        border-radius: 6px;
+        color: hsl(0 65% 70%);
+        font-size: 0.82rem;
+        margin-bottom: 1rem;
+        padding: 0.65rem 1rem;
+      }
+
+      .success-msg {
+        background: hsl(140 35% 10%);
+        border: 1px solid hsl(140 40% 22%);
+        border-radius: 6px;
+        color: hsl(140 55% 62%);
+        font-size: 0.82rem;
+        margin-bottom: 1rem;
+        padding: 0.65rem 1rem;
+      }
+
+      .badge {
+        background: var(--color-tertiary);
+        border-radius: 999px;
+        color: hsl(30 30% 8%);
+        font-size: 0.65rem;
+        font-weight: 700;
+        padding: 0.1rem 0.4rem;
+      }
+
+      /* ── ADMIN LAYOUT ── */
+      .admin-screen {
+        display: none;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      .admin-header {
+        align-items: center;
+        background: hsl(38 40% 7%);
+        border-bottom: 1px solid hsl(38 30% 17%);
+        display: flex;
+        gap: 1rem;
+        height: 54px;
+        justify-content: space-between;
+        overflow: hidden;
+        padding: 0 1.5rem;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .admin-header::after {
+        background: var(--gradient-primary);
+        bottom: 0;
+        content: '';
+        height: 2px;
+        left: 0;
+        opacity: 0.6;
+        position: absolute;
+        right: 0;
+      }
+
+      .admin-header-left {
+        align-items: center;
+        display: flex;
+        gap: 1.25rem;
+      }
+
+      .header-back {
+        align-items: center;
+        color: hsl(38 20% 45%);
+        display: inline-flex;
+        font-size: 0.78rem;
+        gap: 5px;
+        text-decoration: none;
+        transition: color 0.15s;
+      }
+
+      .header-back:hover {
+        color: var(--color-primary);
+      }
+      .header-back svg {
+        height: 13px;
+        width: 13px;
+      }
+
+      .header-sep {
+        background: hsl(38 20% 20%);
+        height: 18px;
+        width: 1px;
+      }
+
+      .header-brand {
+        color: var(--color-primary);
+        font-family: var(--font-family-philosopher);
+        font-size: 1rem;
+        font-weight: 700;
+      }
+
+      .header-brand span {
+        background: var(--gradient-primary);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .admin-header-right {
+        align-items: center;
+        display: flex;
+        gap: 0.75rem;
+      }
+
+      #userEmail {
+        color: hsl(38 20% 45%);
+        font-size: 0.78rem;
+      }
+
+      /* ── BODY GRID ── */
+      .admin-body {
+        display: grid;
+        flex: 1;
+        grid-template-columns: 290px 1fr;
+        min-height: calc(100vh - 54px);
+      }
+
+      @media (max-width: 860px) {
+        .admin-body {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* ── SIDEBAR ── */
+      .sidebar {
+        background: hsl(38 35% 8%);
+        border-right: 1px solid hsl(38 25% 15%);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .sidebar-header {
+        border-bottom: 1px solid hsl(38 25% 22%);
+        padding: 1.1rem 1rem 0.85rem;
+      }
+
+      .sidebar-top {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.75rem;
+      }
+
+      .sidebar-heading {
+        align-items: center;
+        color: hsl(38 25% 48%);
+        display: flex;
+        font-family: var(--font-family-philosopher);
+        font-size: 0.78rem;
+        font-weight: 700;
+        gap: 0.5rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .review-list {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        gap: 3px;
+        overflow-y: auto;
+        padding: 0.6rem;
+      }
+
+      .review-item {
+        align-items: center;
+        border: 1px solid transparent;
+        border-radius: 6px;
+        cursor: pointer;
+        display: flex;
+        gap: 0.7rem;
+        padding: 0.55rem 0.7rem;
+        transition:
+          background 0.12s,
+          border-color 0.12s;
+      }
+
+      .review-item:hover {
+        background: hsl(38 25% 12%);
+        border-color: hsl(38 25% 20%);
+      }
+
+      .review-item.active {
+        background: hsl(27 40% 11%);
+        border-color: hsl(27 60% 28%);
+      }
+
+      .review-item img {
+        background: hsl(38 25% 14%);
+        border-radius: 4px;
+        flex-shrink: 0;
+        height: 48px;
+        object-fit: cover;
+        width: 36px;
+      }
+
+      .review-item-info {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .review-item-title {
+        color: var(--color-primary);
+        font-size: 0.83rem;
+        font-weight: 500;
+        margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .review-item-slug {
+        color: hsl(38 20% 42%);
+        font-size: 0.7rem;
+        margin: 1px 0 0;
+      }
+
+      .loading {
+        color: hsl(38 15% 42%);
+        font-size: 0.82rem;
+        padding: 2rem 1rem;
+        text-align: center;
+      }
+
+      /* ── EDITOR ── */
+      .panel {
+        overflow-y: auto;
+        padding: 2rem;
+      }
+
+      .editor-empty {
+        align-items: center;
+        color: hsl(38 15% 38%);
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        justify-content: center;
+        min-height: 340px;
+        text-align: center;
+      }
+
+      .editor-empty-icon {
+        align-items: center;
+        border: 1.5px solid hsl(38 25% 20%);
+        border-radius: 50%;
+        display: flex;
+        font-size: 24px;
+        height: 56px;
+        justify-content: center;
+        margin-bottom: 0.25rem;
+        width: 56px;
+      }
+
+      .editor-header {
+        align-items: flex-start;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        justify-content: space-between;
+        margin-bottom: 1.75rem;
+      }
+
+      .editor-eyebrow {
+        color: hsl(27 70% 48%);
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        margin-bottom: 0.2rem;
+        text-transform: uppercase;
+      }
+
+      #editorTitle {
+        color: var(--color-primary);
+        font-family: var(--font-family-philosopher);
+        font-size: 1.25rem;
+        font-weight: 700;
+      }
+
+      /* form grid */
+      .form-row {
+        display: grid;
+        gap: 0 1rem;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .form-full {
+        grid-column: 1 / -1;
+      }
+
+      /* ── UPLOAD ── */
+      .upload-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        margin-bottom: 1rem;
+      }
+
+      .upload-label {
+        color: hsl(38 25% 50%);
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .upload-area {
+        align-items: center;
+        background: hsl(38 30% 7%);
+        border: 1px dashed hsl(38 25% 22%);
+        border-radius: 6px;
+        cursor: pointer;
+        display: flex;
+        gap: 0.7rem;
+        padding: 0.7rem 0.9rem;
+        transition: border-color 0.15s;
+      }
+
+      .upload-area:hover {
+        border-color: hsl(27 60% 35%);
+      }
+      .upload-area input[type='file'] {
+        display: none;
+      }
+
+      .upload-preview {
+        border-radius: 3px;
+        display: none;
+        flex-shrink: 0;
+        height: 50px;
+        object-fit: cover;
+        width: 38px;
+      }
+
+      .upload-text {
+        flex: 1;
+      }
+      .upload-filename {
+        color: var(--color-primary);
+        font-size: 0.82rem;
+      }
+      .upload-hint {
+        color: hsl(38 15% 40%);
+        font-size: 0.7rem;
+        margin-top: 1px;
+      }
+      .upload-status {
+        color: hsl(38 15% 42%);
+        font-size: 0.7rem;
+        margin-top: 3px;
+      }
+
+      /* ── SECTION DIVIDER ── */
+      .sec-divider {
+        align-items: center;
+        display: flex;
+        gap: 0.75rem;
+        margin: 1.75rem 0 1.25rem;
+      }
+
+      .sec-divider-line {
+        background: hsl(38 25% 16%);
+        flex: 1;
+        height: 1px;
+      }
+
+      .sec-divider-label {
+        color: hsl(27 70% 48%);
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      /* ── ADD SECTION BUTTONS ── */
+      .add-section-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-bottom: 1.25rem;
+      }
+
+      /* ── BLOCKS LIST ── */
+      .sections-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+      }
+
+      /* bloco base */
+      .sec-block {
+        background: hsl(38 30% 13%);
+        border: 1px solid hsl(38 30% 24%);
+        border-radius: 8px;
+        overflow: hidden;
+        transition:
+          border-color 0.15s,
+          box-shadow 0.15s;
+      }
+
+      .sec-block:focus-within {
+        border-color: hsl(27 70% 45%);
+        box-shadow: 0 0 0 3px hsl(27 70% 45% / 12%);
+      }
+
+      /* topbar do bloco */
+      .sec-block__bar {
+        align-items: center;
+        background: hsl(38 28% 17%);
+        border-bottom: 1px solid hsl(38 28% 24%);
+        cursor: grab;
+        display: flex;
+        gap: 0.5rem;
+        justify-content: space-between;
+        padding: 0.4rem 0.6rem;
+      }
+
+      .sec-block__bar:active {
+        cursor: grabbing;
+      }
+      .sec-block.drag-over {
+        border-color: var(--color-tertiary);
+        opacity: 0.6;
+      }
+      .sec-block.dragging {
+        opacity: 0.4;
+      }
+
+      .sec-block__type {
+        border-radius: 4px;
+        font-size: 0.6rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        padding: 0.2rem 0.6rem;
+        text-transform: uppercase;
+      }
+
+      .sec-block__type--para {
+        background: hsl(38 35% 20%);
+        color: hsl(38 75% 78%);
+      }
+      .sec-block__type--quote {
+        background: hsl(27 45% 20%);
+        color: hsl(27 85% 78%);
+      }
+      .sec-block__type--image {
+        background: hsl(200 45% 18%);
+        color: hsl(200 85% 78%);
+      }
+      .sec-block__type--video {
+        background: hsl(0 45% 18%);
+        color: hsl(0 85% 78%);
+      }
+
+      .sec-block__actions {
+        align-items: center;
+        display: flex;
+        gap: 1px;
+      }
+
+      .sec-block__btn {
+        align-items: center;
+        background: transparent;
+        border: none;
+        border-radius: 4px;
+        color: hsl(38 20% 45%);
+        cursor: pointer;
+        display: flex;
+        height: 26px;
+        justify-content: center;
+        transition:
+          background 0.12s,
+          color 0.12s;
+        width: 26px;
+      }
+
+      .sec-block__btn:hover {
+        background: hsl(38 25% 20%);
+        color: var(--color-primary);
+      }
+      .sec-block__btn--del:hover {
+        background: hsl(0 40% 18%);
+        color: hsl(0 80% 72%);
+      }
+      .sec-block__btn:disabled {
+        cursor: default;
+        opacity: 0.2;
+        pointer-events: none;
+      }
+
+      /* corpo: texto */
+      .sec-block__textarea {
+        background: transparent;
+        border: none;
+        color: var(--color-primary);
+        display: block;
+        font-family: var(--font-family-sans-serif);
+        font-size: 0.9rem;
+        line-height: 1.65;
+        min-height: 90px;
+        outline: none;
+        overflow: hidden;
+        padding: 0.75rem 1rem;
+        resize: none;
+        width: 100%;
+      }
+
+      .sec-block__textarea::placeholder {
+        color: hsl(38 15% 30%);
+        font-style: italic;
+      }
+
+      /* corpo: imagem */
+      .sec-block__img-area {
+        align-items: center;
+        border: 2px dashed hsl(38 25% 22%);
+        border-radius: 6px;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        justify-content: center;
+        margin: 0.75rem;
+        min-height: 100px;
+        padding: 1rem;
+        text-align: center;
+        transition:
+          border-color 0.15s,
+          background 0.15s;
+      }
+
+      .sec-block__img-area:hover {
+        background: hsl(38 25% 12%);
+        border-color: hsl(38 40% 35%);
+      }
+
+      .sec-block__img-area--loaded {
+        border-style: solid;
+        border-color: hsl(38 35% 25%);
+        flex-direction: row;
+        justify-content: flex-start;
+        min-height: auto;
+        padding: 0.6rem 0.75rem;
+        text-align: left;
+      }
+
+      .sec-block__img-preview {
+        border-radius: 4px;
+        flex-shrink: 0;
+        height: 64px;
+        object-fit: cover;
+        width: 48px;
+      }
+
+      .sec-block__img-wide {
+        border-radius: 6px;
+        display: block;
+        height: auto;
+        margin: 0 0.75rem 0.75rem;
+        max-height: 200px;
+        object-fit: cover;
+        width: calc(100% - 1.5rem);
+      }
+
+      .sec-block__img-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+      .sec-block__img-name {
+        color: var(--color-primary);
+        font-size: 0.82rem;
+        font-weight: 500;
+      }
+      .sec-block__img-hint {
+        color: hsl(38 15% 42%);
+        font-size: 0.72rem;
+      }
+
+      .sec-block__img-placeholder {
+        color: hsl(38 15% 38%);
+        font-size: 0.82rem;
+      }
+
+      /* corpo: video */
+      .sec-block__video-area {
+        padding: 0.75rem;
+      }
+
+      .sec-block__video-input {
+        align-items: center;
+        background: hsl(38 25% 7%);
+        border: 1px solid hsl(38 25% 20%);
+        border-radius: 6px;
+        display: flex;
+        gap: 0.5rem;
+        padding: 0.55rem 0.75rem;
+        transition: border-color 0.15s;
+      }
+
+      .sec-block__video-input:focus-within {
+        border-color: hsl(27 60% 40%);
+      }
+
+      .sec-block__video-input input {
+        background: transparent;
+        border: none;
+        color: var(--color-primary);
+        flex: 1;
+        font-family: var(--font-family-sans-serif);
+        font-size: 0.85rem;
+        outline: none;
+      }
+
+      .sec-block__video-input input::placeholder {
+        color: hsl(38 15% 35%);
+      }
+
+      .sec-block__video-icon {
+        color: hsl(0 65% 58%);
+        flex-shrink: 0;
+        font-size: 0.85rem;
+      }
+
+      .sec-block__video-preview {
+        align-items: center;
+        background: hsl(38 25% 8%);
+        border: 1px solid hsl(38 25% 22%);
+        border-radius: 6px;
+        display: flex;
+        gap: 0.75rem;
+        margin-top: 0.5rem;
+        padding: 0.6rem 0.75rem;
+        text-decoration: none;
+      }
+
+      .sec-block__video-preview:hover {
+        border-color: hsl(0 60% 45%);
+      }
+
+      .sec-block__video-thumb {
+        border-radius: 4px;
+        flex-shrink: 0;
+        height: 48px;
+        object-fit: cover;
+        width: 80px;
+      }
+
+      .sec-block__video-info {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        min-width: 0;
+      }
+      .sec-block__video-title {
+        color: var(--color-primary);
+        font-size: 0.8rem;
+        font-weight: 500;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .sec-block__video-sub {
+        color: hsl(0 65% 58%);
+        font-size: 0.7rem;
+      }
+
+      .sec-block__video-empty {
+        align-items: center;
+        border: 2px dashed hsl(38 25% 20%);
+        border-radius: 6px;
+        color: hsl(38 15% 35%);
+        display: flex;
+        font-size: 0.78rem;
+        gap: 0.5rem;
+        justify-content: center;
+        margin-top: 0.6rem;
+        padding: 1.25rem;
+      }
+
+      /* ── SAVE BAR ── */
+      .save-bar {
+        align-items: center;
+        border-top: 1px solid hsl(38 25% 16%);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 0.5rem;
+        padding-top: 1.25rem;
       }
     </style>
   </head>
+
   <body>
-    <header
-      class="header bg-color bg-color--bright bg-cookie bg-cookie--bright"
-    >
-      <div class="headline bg-color" id="home">
-        <a href="index.html" aria-label="Ir para o início — Cybis Café">
-          <img
-            src="img/Cybis-Cafe-Logo.png"
-            alt="Logo do Cybis Café."
-            class="headline__logo"
-          />
-        </a>
-        <nav aria-label="Redes sociais">
-          <ul class="headline__social">
-            <li>
-              <a href="#" target="_blank" rel="noopener noreferrer">Twitter</a>
-            </li>
-            <li>
-              <a
-                href="https://www.youtube.com/@CybisCafe"
-                target="_blank"
-                rel="noopener noreferrer"
-                >YouTube</a
-              >
-            </li>
-            <li>
-              <a href="#" target="_blank" rel="noopener noreferrer"
-                >Instagram</a
-              >
-            </li>
-            <li>
-              <a
-                href="https://www.twitch.tv/cybiscafe"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Twitch</a
-              >
-            </li>
-          </ul>
-        </nav>
-      </div>
-
-      <div class="hero">
-        <div class="hero__title-wrap" aria-label="Cybis Café">
-          <svg
-            class="hero__title-svg"
-            viewBox="0 0 795.76 150.00"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <path
-              d="M0 54.7201C0 53.6001 0.0799998 52.0001 0.24 49.9201C0.8 44.0801 2.28 38.8001 4.68 34.0801C8.84 26.0801 14.36 19.7601 21.24 15.1201C24.76 12.7201 29.12 10.7201 34.32 9.12008C37.28 8.32008 39.76 7.80008 41.76 7.56008C46.56 7.08008 50.38 7.02008 53.22 7.38008C56.06 7.74008 59.8 8.72008 64.44 10.3201C65.56 10.6401 66.76 11.0401 68.04 11.5201C69.48 12.1601 70.66 12.3801 71.58 12.1801C72.5 11.9801 74.04 11.1601 76.2 9.72008C77 9.48008 77.8 9.44008 78.6 9.60008C79.48 9.84008 80.92 10.9601 82.92 12.9601C85.24 15.4401 87.24 19.0401 88.92 23.7601C91.48 31.2001 91.48 37.0401 88.92 41.2801C86.68 44.8801 83.72 46.9401 80.04 47.4601C76.36 47.9801 73.44 46.9201 71.28 44.2801C70.32 43.1601 68.84 41.1201 66.84 38.1601C66.52 37.4401 65.96 36.5201 65.16 35.4001C64.2 33.9601 62.6 32.4801 60.36 30.9601C59.48 30.3201 58.48 29.6801 57.36 29.0401C51.6 26.0001 46.34 25.5801 41.58 27.7801C36.82 29.9801 34.08 34.0401 33.36 39.9601C32.96 43.4001 33.24 47.3601 34.2 51.8401C34.6 53.6801 35.36 55.8801 36.48 58.4401C39.92 66.1201 44.62 71.4001 50.58 74.2801C56.54 77.1601 62.92 77.4801 69.72 75.2401C72.2 74.2801 74.28 73.2001 75.96 72.0001C76.28 71.7601 76.7 71.4601 77.22 71.1001C77.74 70.7401 78.08 70.4801 78.24 70.3201C79.28 69.2801 80.52 68.2401 81.96 67.2001C82.76 66.4801 83.92 66.4401 85.44 67.0801C86.96 67.7201 88.16 68.9601 89.04 70.8001C90.32 73.4401 90.52 76.7201 89.64 80.6401C89 84.0001 87.64 86.6201 85.56 88.5001C83.48 90.3801 79.2 92.8801 72.72 96.0001C63.68 100.24 54.4 102 44.88 101.28C37.6 100.8 31.08 99.0001 25.32 95.8801C21.16 93.5601 17.76 91.1801 15.12 88.7401C12.48 86.3001 9.8 82.9601 7.08 78.7201C3 72.2401 0.72 65.6401 0.24 58.9201C0.0799998 57.1601 0 55.7601 0 54.7201ZM178.08 37.6801C178.32 38.0801 178.6 38.6801 178.92 39.4801C179.88 41.8801 179.72 43.9601 178.44 45.7201H178.32L172.56 49.2001C170.32 50.4801 168.56 52.1601 167.28 54.2401C166 56.3201 164.44 59.9001 162.6 64.9801C160.76 70.0601 157.64 79.4801 153.24 93.2401C152.6 95.4001 152.08 97.0401 151.68 98.1601C151.44 99.1201 151.08 100.08 150.6 101.04C149.48 103.84 148.44 105.96 147.48 107.4C143.4 114.12 139.2 118.76 134.88 121.32C131.36 123.24 127.72 124.44 123.96 124.92C116.12 126.04 109.64 124.8 104.52 121.2C99.4 117.6 97.08 113.28 97.56 108.24C97.88 104.4 98.76 101.62 100.2 99.9001C101.64 98.1801 104.04 96.9601 107.4 96.2401C114.76 94.8001 119.68 98.7201 122.16 108C122.32 108.32 122.48 109 122.64 110.04C122.64 110.52 122.84 110.96 123.24 111.36C124.12 112.24 124.88 112.28 125.52 111.48C126.64 110.44 127.32 108.72 127.56 106.32C127.8 104.32 126.92 100.96 124.92 96.2401L115.2 76.8001C108.16 62.4801 104.28 54.8001 103.56 53.7601C102.92 52.8001 101.88 51.9601 100.44 51.2401L97.2 49.6801L96.6 49.5601C95.32 49.1601 94.64 47.7601 94.56 45.3601C94.4 43.6801 95.12 41.8801 96.72 39.9601C98.32 38.1201 102.56 36.5601 109.44 35.2801C112.88 34.5601 118.04 34.3201 124.92 34.5601L125.88 34.6801L130.44 34.9201C131.64 35.0001 133.36 35.2001 135.6 35.5201C138.48 36.0801 140.5 37.5401 141.66 39.9001C142.82 42.2601 142.64 44.8001 141.12 47.5201C140.88 48.0001 140.44 48.7201 139.8 49.6801C139.32 50.4001 139.48 51.8001 140.28 53.8801L140.4 54.2401L142.32 58.6801C142.56 59.4001 142.92 60.1201 143.4 60.8401C144.68 63.5601 145.6 65.2001 146.16 65.7601C146.8 66.3201 147.52 65.9601 148.32 64.6801C149.52 62.1201 150.4 59.5601 150.96 57.0001C151.68 53.7201 151.98 51.7401 151.86 51.0601C151.74 50.3801 150.76 48.8801 148.92 46.5601C147.24 44.4001 146.82 42.2201 147.66 40.0201C148.5 37.8201 150.4 36.3201 153.36 35.5201C154.8 35.1201 156.4 34.8401 158.16 34.6801C160.24 34.5201 162.92 34.4401 166.2 34.4401C169.56 34.3601 172.06 34.5601 173.7 35.0401C175.34 35.5201 176.8 36.4001 178.08 37.6801ZM224.04 42.9601L225.96 41.2801C226.36 40.9601 226.96 40.4801 227.76 39.8401C228.56 39.2001 229.12 38.7801 229.44 38.5801C229.76 38.3801 230.24 38.0201 230.88 37.5001C231.52 36.9801 232 36.6401 232.32 36.4801C232.64 36.3201 233.08 36.0401 233.64 35.6401C234.2 35.2401 234.66 34.9601 235.02 34.8001C235.38 34.6401 235.82 34.4401 236.34 34.2001C236.86 33.9601 237.34 33.7801 237.78 33.6601C238.22 33.5401 238.72 33.4201 239.28 33.3001C239.84 33.1801 240.4 33.0801 240.96 33.0001C242.8 32.7601 244.48 32.6401 246 32.6401C251.76 32.6401 256.6 34.1201 260.52 37.0801C264.44 40.0401 267.16 44.1601 268.68 49.4401C269.88 52.8801 270.28 57.8801 269.88 64.4401C269.64 67.4001 268.96 70.5201 267.84 73.8001C265.52 81.1601 261.8 87.0801 256.68 91.5601C249.64 97.7201 241.88 101.16 233.4 101.88C230.6 102.12 227.84 102.12 225.12 101.88C221.2 101.4 218.14 100.72 215.94 99.8401C213.74 98.9601 210.28 97.0801 205.56 94.2001C204.28 93.4801 203.58 93.1401 203.46 93.1801C203.34 93.2201 202.28 94.0801 200.28 95.7601C200.12 95.8401 199.9 95.9601 199.62 96.1201C199.34 96.2801 199.12 96.4001 198.96 96.4801C196.8 97.8401 194.92 98.5201 193.32 98.5201C191.88 98.6001 190.7 98.0201 189.78 96.7801C188.86 95.5401 188.56 94.0801 188.88 92.4001L189 91.9201L190.44 86.8801C191.64 83.2801 192.32 79.8001 192.48 76.4401C193.92 47.2401 193.68 31.4401 191.76 29.0401C191.36 28.5601 190.48 28.5201 189.12 28.9201C188.4 29.1601 187.84 29.2001 187.44 29.0401C185.12 28.1601 183.76 26.9001 183.36 25.2601C182.96 23.6201 183.56 21.7201 185.16 19.5601C187 17.3201 191.24 14.9201 197.88 12.3601C202.68 10.6801 207.44 9.56008 212.16 9.00008L213.36 8.88008L217.2 8.64008C220 8.40008 221.88 8.64008 222.84 9.36008C223.8 10.0801 224.32 11.6801 224.4 14.1601V21.2401L224.16 30.9601L224.04 38.1601V42.9601ZM225.72 85.5601C227 88.5201 229.64 88.3601 233.64 85.0801C236.68 82.2001 238.2 77.1201 238.2 69.8401C238.2 61.2801 236 55.7601 231.6 53.2801C229.52 52.0001 227.48 52.7601 225.48 55.5601C224.76 56.7601 224.4 58.0401 224.4 59.4001L224.16 65.2801V66.9601C224.24 73.9201 224.36 78.3401 224.52 80.2201C224.68 82.1001 225.08 83.8801 225.72 85.5601ZM278.28 46.4401C278.44 44.8401 279.24 43.5001 280.68 42.4201C279.24 43.5001 279.24 43.5001 280.68 42.4201C282.12 41.3401 285.04 40.0401 289.44 38.5201C291.12 37.8001 293.68 37.0001 297.12 36.1201C300.88 35.1601 303.88 34.5201 306.12 34.2001C311.72 33.4001 314.98 33.5601 315.9 34.6801C314.98 33.5601 314.98 33.5601 315.9 34.6801C316.82 35.8001 317 39.7601 316.44 46.5601V47.7601L316.2 65.4001C316.04 76.1201 316.12 82.0801 316.44 83.2801C316.76 84.5601 317.64 85.6001 319.08 86.4001C319.24 86.4001 319.44 86.4801 319.68 86.6401C321.52 87.6001 322.68 88.6201 323.16 89.7001C322.68 88.6201 322.68 88.6201 323.16 89.7001C323.64 90.7801 323.6 92.3201 323.04 94.3201C322.48 96.2401 321.06 97.7601 318.78 98.8801C321.06 97.7601 321.06 97.7601 318.78 98.8801C316.5 100 312.84 100.76 307.8 101.16C306.36 101.32 304.12 101.4 301.08 101.4L297.48 101.16L289.92 100.8C287.52 100.64 285.64 100.44 284.28 100.2C281.4 99.8001 279.52 98.6201 278.64 96.6601C279.52 98.6201 279.52 98.6201 278.64 96.6601C277.76 94.7001 278.08 92.4001 279.6 89.7601C280.24 88.5601 281.6 87.2801 283.68 85.9201C284.24 85.6001 284.66 84.4001 284.94 82.3201C284.66 84.4001 284.66 84.4001 284.94 82.3201C285.22 80.2401 285.48 75.8001 285.72 69.0001C285.88 62.7601 285.7 58.6201 285.18 56.5801C285.7 58.6201 285.7 58.6201 285.18 56.5801C284.66 54.5401 283.4 52.8401 281.4 51.4801C279.08 50.2001 278.04 48.5201 278.28 46.4401ZM331.68 84.4801V82.6801C331.92 79.9601 332.8 78.1001 334.32 77.1001C335.84 76.1001 337.88 76.0401 340.44 76.9201C341.96 77.4801 343.8 79.0401 345.96 81.6001C347.56 83.6001 349.24 85.0801 351 86.0401C354.44 87.7201 356.88 88.2001 358.32 87.4801C360.16 86.3601 360.52 84.8401 359.4 82.9201C359 82.2801 358.08 81.4801 356.64 80.5201C355.36 79.8801 352.2 78.4401 347.16 76.2001C345.16 75.3201 342.72 73.5601 339.84 70.9201C338.72 69.8001 337.76 68.7201 336.96 67.6801C334.24 63.8401 332.9 59.7401 332.94 55.3801C332.98 51.0201 334.36 46.8801 337.08 42.9601C339.16 40.0001 341.96 37.6001 345.48 35.7601C349 33.9201 352.96 32.8801 357.36 32.6401C359.6 32.5601 363.16 33.0401 368.04 34.0801C368.68 34.3201 369.36 34.3201 370.08 34.0801H370.2L372.36 33.1201C372.68 32.9601 373 32.8801 373.32 32.8801C376.36 32.0801 378.84 32.1801 380.76 33.1801C382.68 34.1801 384.8 36.6001 387.12 40.4401C388.96 43.5601 389.68 46.7201 389.28 49.9201C388.96 52.6401 387.8 54.4801 385.8 55.4401C383.8 56.4001 381.12 56.2001 377.76 54.8401C376.24 54.2801 374.32 52.7201 372 50.1601C369.2 47.3601 366.64 46.3201 364.32 47.0401C363.2 47.4401 362.46 48.0801 362.1 48.9601C361.74 49.8401 361.84 50.6001 362.4 51.2401C363.6 53.0001 364.92 54.2801 366.36 55.0801C367.8 55.8801 372.32 58.0801 379.92 61.6801C381.36 62.3201 383.2 63.7601 385.44 66.0001C392.72 73.2001 393.72 81.3601 388.44 90.4801C384.76 96.7201 378.84 100.44 370.68 101.64C367.64 102.2 363.2 102.08 357.36 101.28C353.36 100.8 349.36 100.68 345.36 100.92C344.96 100.92 344.2 101 343.08 101.16C340.76 101.48 338.12 99.2001 335.16 94.3201C334.68 93.7601 334.08 92.7601 333.36 91.3201C332.4 89.0001 331.84 86.7201 331.68 84.4801ZM442.92 54.7201C442.92 53.6001 443 52.0001 443.16 49.9201C443.72 44.0801 445.2 38.8001 447.6 34.0801C451.76 26.0801 457.28 19.7601 464.16 15.1201C467.68 12.7201 472.04 10.7201 477.24 9.12008C480.2 8.32008 482.68 7.80008 484.68 7.56008C489.48 7.08008 493.3 7.02008 496.14 7.38008C498.98 7.74008 502.72 8.72008 507.36 10.3201C508.48 10.6401 509.68 11.0401 510.96 11.5201C512.4 12.1601 513.58 12.3801 514.5 12.1801C515.42 11.9801 516.96 11.1601 519.12 9.72008C519.92 9.48008 520.72 9.44008 521.52 9.60008C522.4 9.84008 523.84 10.9601 525.84 12.9601C528.16 15.4401 530.16 19.0401 531.84 23.7601C534.4 31.2001 534.4 37.0401 531.84 41.2801C529.6 44.8801 526.64 46.9401 522.96 47.4601C519.28 47.9801 516.36 46.9201 514.2 44.2801C513.24 43.1601 511.76 41.1201 509.76 38.1601C509.44 37.4401 508.88 36.5201 508.08 35.4001C507.12 33.9601 505.52 32.4801 503.28 30.9601C502.4 30.3201 501.4 29.6801 500.28 29.0401C494.52 26.0001 489.26 25.5801 484.5 27.7801C479.74 29.9801 477 34.0401 476.28 39.9601C475.88 43.4001 476.16 47.3601 477.12 51.8401C477.52 53.6801 478.28 55.8801 479.4 58.4401C482.84 66.1201 487.54 71.4001 493.5 74.2801C499.46 77.1601 505.84 77.4801 512.64 75.2401C515.12 74.2801 517.2 73.2001 518.88 72.0001C519.2 71.7601 519.62 71.4601 520.14 71.1001C520.66 70.7401 521 70.4801 521.16 70.3201C522.2 69.2801 523.44 68.2401 524.88 67.2001C525.68 66.4801 526.84 66.4401 528.36 67.0801C529.88 67.7201 531.08 68.9601 531.96 70.8001C533.24 73.4401 533.44 76.7201 532.56 80.6401C531.92 84.0001 530.56 86.6201 528.48 88.5001C526.4 90.3801 522.12 92.8801 515.64 96.0001C506.6 100.24 497.32 102 487.8 101.28C480.52 100.8 474 99.0001 468.24 95.8801C464.08 93.5601 460.68 91.1801 458.04 88.7401C455.4 86.3001 452.72 82.9601 450 78.7201C445.92 72.2401 443.64 65.6401 443.16 58.9201C443 57.1601 442.92 55.7601 442.92 54.7201ZM541.8 81.8401C541.96 77.2001 543.78 73.1401 547.26 69.6601C550.74 66.1801 555.76 63.7201 562.32 62.2801C563.6 61.8801 565.08 61.6801 566.76 61.6801C572.52 61.6001 576.12 61.7201 577.56 62.0401C577.72 62.1201 577.96 62.0201 578.28 61.7401C578.6 61.4601 578.9 61.0201 579.18 60.4201C579.46 59.8201 579.6 59.1601 579.6 58.4401C579.6 57.0001 579.28 54.6801 578.64 51.4801L577.92 48.4801V48.2401C577.36 46.4001 576.36 45.1801 574.92 44.5801C573.48 43.9801 572 44.1201 570.48 45.0001C568.64 46.2801 567.04 47.9601 565.68 50.0401C563.76 52.8401 561.96 54.8201 560.28 55.9801C558.6 57.1401 556.68 57.8001 554.52 57.9601C552.12 58.1201 550.12 57.4201 548.52 55.8601C546.92 54.3001 546.16 52.3201 546.24 49.9201C546.32 47.3601 547.2 45.1001 548.88 43.1401C550.56 41.1801 553.44 39.2001 557.52 37.2001C561.12 35.3601 565.76 34.0801 571.44 33.3601C575.76 32.7201 579.62 32.5001 583.02 32.7001C586.42 32.9001 589.4 33.2601 591.96 33.7801C594.52 34.3001 596.74 35.2601 598.62 36.6601C600.5 38.0601 602.08 39.6601 603.36 41.4601C604.64 43.2601 605.64 45.5801 606.36 48.4201C607.08 51.2601 607.58 54.3001 607.86 57.5401C608.14 60.7801 608.28 64.5601 608.28 68.8801C608.28 69.5201 608.26 70.4201 608.22 71.5801C608.18 72.7401 608.12 73.6001 608.04 74.1601C607.96 77.6001 608.18 79.9001 608.7 81.0601C609.22 82.2201 610.68 83.4801 613.08 84.8401C614.52 85.5601 615.38 86.8801 615.66 88.8001C615.94 90.7201 615.48 92.7601 614.28 94.9201C611.8 99.0801 606.08 101.4 597.12 101.88C591.52 102.2 587.28 100.8 584.4 97.6801L583.8 96.9601L582.84 95.6401C582.28 94.8401 581.82 94.4601 581.46 94.5001C581.1 94.5401 580.52 95.0401 579.72 96.0001C575.88 100.24 570.52 102.24 563.64 102C554.04 101.76 547.4 98.2801 543.72 91.5601C542.28 88.6001 541.64 85.3601 541.8 81.8401ZM574.68 87.6001C575.72 87.8401 576.72 87.6801 577.68 87.1201C578.64 86.5601 579.16 86.0001 579.24 85.4401C579.24 84.7201 579.28 83.7201 579.36 82.4401C579.44 81.1601 579.48 80.2401 579.48 79.6801C579.48 75.8401 579.06 73.3801 578.22 72.3001C577.38 71.2201 575.72 71.2001 573.24 72.2401C571.24 72.8801 570 74.9201 569.52 78.3601C569.2 81.0001 569.5 83.1201 570.42 84.7201C571.34 86.3201 572.76 87.2801 574.68 87.6001ZM623.04 52.8001C623.52 50.7201 624.08 49.3201 624.72 48.6001C625.36 47.8801 626.6 47.2801 628.44 46.8001C629.32 46.5601 629.86 46.2801 630.06 45.9601C630.26 45.6401 630.24 44.9601 630 43.9201C629.68 42.8801 628.48 40.5601 626.4 36.9601C625.44 35.2001 625.12 32.5201 625.44 28.9201C625.92 23.9601 628 19.7601 631.68 16.3201C635.36 12.8801 640.32 10.5601 646.56 9.36008C649.6 8.88008 652.76 8.76008 656.04 9.00008C662.6 9.48008 667.8 11.1201 671.64 13.9201C675.48 16.7201 677.64 19.9201 678.12 23.5201C678.52 27.2801 677.68 30.3201 675.6 32.6401C673.52 34.9601 670.6 36.0801 666.84 36.0001C662.44 35.8401 657.72 32.4801 652.68 25.9201C652.2 25.2001 651.52 24.7601 650.64 24.6001C648.96 24.3601 647.64 24.7401 646.68 25.7401C645.72 26.7401 645.4 28.2001 645.72 30.1201C646.12 33.0801 648.8 36.0801 653.76 39.1201L657.12 40.9201L658.32 41.6401C659.6 42.2001 661.2 43.5601 663.12 45.7201C663.28 45.8801 664.64 45.9601 667.2 45.9601H668.4L670.56 46.0801C672.4 46.2401 673.66 46.8601 674.34 47.9401C675.02 49.0201 675.28 50.9201 675.12 53.6401C674.96 56.4401 674.48 58.3201 673.68 59.2801C672.88 60.2401 671.32 60.8401 669 61.0801C665.96 61.2401 664.24 61.2801 663.84 61.2001C662.96 61.0401 662.52 62.1601 662.52 64.5601V68.4001C662.6 73.0401 662.92 76.5001 663.48 78.7801C664.04 81.0601 664.94 82.7601 666.18 83.8801C667.42 85.0001 669.48 86.0401 672.36 87.0001C673.08 87.1601 673.72 88.1601 674.28 90.0001C675.48 94.8001 672.28 98.0801 664.68 99.8401C662.68 100.4 659.44 100.84 654.96 101.16C651.6 101.48 647.96 101.52 644.04 101.28C639.48 101.04 636.32 100.72 634.56 100.32C630.48 99.3601 627.76 97.9201 626.4 96.0001C625.04 94.0801 625 91.9601 626.28 89.6401C626.84 88.5201 628.64 87.0801 631.68 85.3201C632.24 84.9201 632.68 84.3201 633 83.5201C633.8 81.3601 634.32 77.8401 634.56 72.9601C634.72 67.0401 634.54 63.6001 634.02 62.6401C633.5 61.6801 631.48 61.3201 627.96 61.5601C625.72 61.7201 624.16 61.0601 623.28 59.5801C622.4 58.1001 622.32 55.8401 623.04 52.8001ZM679.08 70.9201C679 70.1201 678.96 68.9601 678.96 67.4401C679.2 54.4001 685.4 44.4801 697.56 37.6801C703.4 34.4001 709.32 32.7201 715.32 32.6401C719.56 32.6401 724.08 33.6401 728.88 35.6401C733.92 37.8001 738 40.7801 741.12 44.5801C738 40.7801 738 40.7801 741.12 44.5801C744.24 48.3801 746.2 52.6001 747 57.2401C747.64 61.0801 747.76 63.6801 747.36 65.0401C747.76 63.6801 747.76 63.6801 747.36 65.0401C746.96 66.4001 745.76 67.7201 743.76 69.0001C741.76 70.2801 738.02 71.1001 732.54 71.4601C727.06 71.8201 719.6 71.4401 710.16 70.3201C709.92 70.1601 709.48 70.0801 708.84 70.0801C707.08 70.4001 706.56 71.6401 707.28 73.8001C707.68 75.4801 708.92 77.4401 711 79.6801C716.52 86.0001 725.08 85.9601 736.68 79.5601C737.64 79.0001 738.16 78.6801 738.24 78.6001C738.64 78.3601 739.52 78.5201 740.88 79.0801C742.72 79.8801 744 81.3201 744.72 83.4001C745.84 87.0801 742.84 91.3201 735.72 96.1201C728.12 101.24 719 103.08 708.36 101.64C695.16 100.04 686.2 93.2001 681.48 81.1201C680.12 77.6801 679.32 74.2801 679.08 70.9201Z"
-              fill="#20190D"
-            />
-            <path
-              d="M278.4 21.12C278.16 19.36 278.48 17.86 279.36 16.62C278.48 17.86 278.48 17.86 279.36 16.62C280.24 15.38 282 14.04 284.64 12.6C285.84 12.04 287.36 11.4 289.2 10.68C291.12 9.88 293.2 9.36 295.44 9.12C298.88 8.56 302.04 8.48 304.92 8.88C309.32 9.36 312.42 10.82 314.22 13.26C312.42 10.82 312.42 10.82 314.22 13.26C316.02 15.7 316.24 18.32 314.88 21.12C313.28 24.56 308.64 27.16 300.96 28.92C294.16 30.36 288.8 30.28 284.88 28.68C288.8 30.28 288.8 30.28 284.88 28.68C280.96 27.08 278.8 24.56 278.4 21.12ZM708.96 17.64L726 1.2C726.64 0.4 727.16 0 727.56 0C727.16 0 727.16 0 727.56 0C727.96 0 728.48 0.36 729.12 1.08L738 10.08C738.64 10.64 738.9 11.3 738.78 12.06C738.9 11.3 738.9 11.3 738.78 12.06C738.66 12.82 738.2 13.44 737.4 13.92L717.72 26.04C716.68 26.68 716 27 715.68 27C716 27 716 27 715.68 27C715.36 27 714.8 26.68 714 26.04L709.2 21.84C707.6 20.48 707.52 19.08 708.96 17.64Z"
-              fill="#E36D0B"
-            />
-            <path
-              d="M278.4 21.12C278.16 19.36 278.48 17.86 279.36 16.62C278.48 17.86 278.48 17.86 279.36 16.62C280.24 15.38 282 14.04 284.64 12.6C285.84 12.04 287.36 11.4 289.2 10.68C291.12 9.88 293.2 9.36 295.44 9.12C298.88 8.56 302.04 8.48 304.92 8.88C309.32 9.36 312.42 10.82 314.22 13.26C312.42 10.82 312.42 10.82 314.22 13.26C316.02 15.7 316.24 18.32 314.88 21.12C313.28 24.56 308.64 27.16 300.96 28.92C294.16 30.36 288.8 30.28 284.88 28.68C288.8 30.28 288.8 30.28 284.88 28.68C280.96 27.08 278.8 24.56 278.4 21.12ZM708.96 17.64L726 1.2C726.64 0.4 727.16 0 727.56 0C727.16 0 727.16 0 727.56 0C727.96 0 728.48 0.36 729.12 1.08L738 10.08C738.64 10.64 738.9 11.3 738.78 12.06C738.9 11.3 738.9 11.3 738.78 12.06C738.66 12.82 738.2 13.44 737.4 13.92L717.72 26.04C716.68 26.68 716 27 715.68 27C716 27 716 27 715.68 27C715.36 27 714.8 26.68 714 26.04L709.2 21.84C707.6 20.48 707.52 19.08 708.96 17.64Z"
-              fill="#E36D0B"
-            />
-            <path
-              d="M716.76 57.2401L720.12 57.1201H720.48C722.48 56.8001 723.7 56.1401 724.14 55.1401C723.7 56.1401 723.7 56.1401 724.14 55.1401C724.58 54.1401 724.36 52.3601 723.48 49.8001C723.24 49.0001 722.64 48.0001 721.68 46.8001C719.84 45.2001 717.76 44.6401 715.44 45.1201C717.76 44.6401 717.76 44.6401 715.44 45.1201C713.12 45.6001 711.24 47.0801 709.8 49.5601C709.32 50.6801 709.04 51.5601 708.96 52.2001C708.4 54.8401 708.5 56.3801 709.26 56.8201C708.5 56.3801 708.5 56.3801 709.26 56.8201C710.02 57.2601 712.52 57.4001 716.76 57.2401Z"
-              fill="#E36D0B"
-            />
-            <path
-              d="M716.76 57.2401L720.12 57.1201H720.48C722.48 56.8001 723.7 56.1401 724.14 55.1401C723.7 56.1401 723.7 56.1401 724.14 55.1401C724.58 54.1401 724.36 52.3601 723.48 49.8001C723.24 49.0001 722.64 48.0001 721.68 46.8001C719.84 45.2001 717.76 44.6401 715.44 45.1201C717.76 44.6401 717.76 44.6401 715.44 45.1201C713.12 45.6001 711.24 47.0801 709.8 49.5601C709.32 50.6801 709.04 51.5601 708.96 52.2001C708.4 54.8401 708.5 56.3801 709.26 56.8201C708.5 56.3801 708.5 56.3801 709.26 56.8201C710.02 57.2601 712.52 57.4001 716.76 57.2401Z"
-              fill="#E2D9C9"
-            />
-          </svg>
+    <!-- ── LOGIN ── -->
+    <div id="loginScreen" class="login-screen">
+      <div class="login-container">
+        <div class="login-cookie" aria-hidden="true">
+          <img src="img/big-cookie.png" alt="" />
         </div>
 
-        <p class="hero__slogan">Um lugar de loucos, para poucos</p>
+        <div class="login-box">
+          <h2>Cybis <span>Café</span></h2>
+          <p>Área restrita — acesso admin</p>
 
-        <img
-          src="img/xicara.png"
-          alt="Uma xícara com gatinhos fofos em volta dela."
-          class="hero__cup"
-          id="hero_cup"
-          role="button"
-          tabindex="0"
-          aria-label="Clique para ouvir um miado"
-        />
+          <div id="loginMsg"></div>
 
-        <audio id="miau1" preload="auto">
-          <source src="sounds/jess.mp3" type="audio/mpeg" />
-          Seu navegador não suporta áudio HTML5.
-        </audio>
-        <audio id="miau2" preload="auto">
-          <source src="sounds/dilera.mp3" type="audio/mpeg" />
-          Seu navegador não suporta áudio HTML5.
-        </audio>
-
-        <div
-          class="hero__singboard"
-          role="region"
-          aria-label="Mensagens do café"
-        >
-          <div class="hero__text florinda">
-            <img
-              src="img/cookie.png"
-              alt=""
-              class="hero__cookie"
-              aria-hidden="true"
+          <div class="login-input-group">
+            <label for="loginEmail">E-mail</label>
+            <input
+              type="email"
+              id="loginEmail"
+              placeholder="seu@email.com"
+              autocomplete="email"
             />
-            <p>
-              "Gostaria de entrar para tomar uma xícara de
-              <span class="emphasis">café</span>?"
-            </p>
-            <p class="emphasis">Dona Florinda</p>
           </div>
 
-          <div class="hero__cup-space" aria-hidden="true"></div>
-
-          <div class="hero__text viwer">
-            <img
-              src="img/cookie.png"
-              alt=""
-              class="hero__cookie"
-              aria-hidden="true"
+          <div class="login-input-group">
+            <label for="loginPassword">Senha</label>
+            <input
+              type="password"
+              id="loginPassword"
+              placeholder="••••••••"
+              autocomplete="current-password"
             />
-            <p>"Linha tênue entre a liberdade e as grades."</p>
-            <p class="emphasis">Viwer nº 1</p>
           </div>
 
-          <div class="slide-text" aria-hidden="true">
-            <p class="slide-text--animation">
-              PROFESSIONAL STREAMER &bull; PROFESSIONAL STREAMER &bull;
-              PROFESSIONAL STREAMER &bull; PROFESSIONAL STREAMER &bull;
-              PROFESSIONAL STREAMER &bull; PROFESSIONAL STREAMER &bull;
-              PROFESSIONAL STREAMER &bull; PROFESSIONAL STREAMER &bull;
-              PROFESSIONAL STREAMER &bull; PROFESSIONAL STREAMER &bull;
-              &nbsp;PROFESSIONAL STREAMER &bull; PROFESSIONAL STREAMER &bull;
-              PROFESSIONAL STREAMER &bull; PROFESSIONAL STREAMER &bull;
-              PROFESSIONAL STREAMER &bull; PROFESSIONAL STREAMER &bull;
-              PROFESSIONAL STREAMER &bull; PROFESSIONAL STREAMER &bull;
-              PROFESSIONAL STREAMER &bull; PROFESSIONAL STREAMER &bull; &nbsp;
-            </p>
-          </div>
+          <button class="btn-login" id="loginBtn">Entrar</button>
         </div>
       </div>
-    </header>
+    </div>
 
-    <main class="main">
-      <section
-        class="about bg-color bg-color--dark"
-        id="about"
-        aria-labelledby="about-heading"
-      >
-        <div class="about__tag" aria-hidden="true">
-          <span class="about__tag-text"
-            >• about • about • about • about • about • about • about • about •
-            about • about • about • about • about • about • about • about •
-            about • about • about • about •</span
-          >
-        </div>
-
-        <div class="about__inner about-bg bg-cookie bg-cookie--dark">
-          <div class="perfil">
-            <div class="about__photo-container">
-              <img
-                src="img/raphael-cybis.png"
-                alt="Raphael Cybis — Streamer"
-                class="about__photo"
-              />
-              <div class="border-overlay" aria-hidden="true"></div>
-            </div>
-            <p class="about__name" id="about-heading">Raphael Cybis</p>
-          </div>
-
-          <div class="about__presentation">
-            <div class="vertical-line" aria-hidden="true"></div>
-            <div class="im" aria-hidden="true">I'M</div>
-            <p>
-              Prazer! Meu nome é Raphael, eu sou um grande fã de videogames e da
-              cultura japonesa. Adoro fazer piadas, geralmente elas são meio
-              toscas mas esse é meu tipo de humor. Eu sempre busco aprender algo
-              novo em cada jogo.
-            </p>
-            <p>
-              Comecei a fazer lives como uma forma de me conectar com outras
-              pessoas. Falar com pessoas desconhecidas enquanto jogo é algo novo
-              e bem desafiador pra mim, mas ao mesmo tempo bem divertido.
-            </p>
-            <p>Sejam bem-vindos às minhas lives! E que começem os jogos!</p>
-          </div>
-
-          <img src="img/arrow.png" alt="Seta para baixo" class="about__arrow" />
-        </div>
-      </section>
-
-      <section
-        class="services bg-color bg-color--dark bg-cookie bg-cookie--dark"
-        id="services"
-        aria-labelledby="services-heading"
-      >
-        <h2 class="u-sr-only" id="services-heading">Services</h2>
-
-        <div class="section-title__container">
-          <svg
-            class="section-title__svg"
-            viewBox="0 0 518.31 98.00"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <path
-              fill="#e2d9c9"
-              d="M22.312 45.088V37.744H63.52V45.088Z M92.624 47.332Q92.556 46.72 92.556 45.428Q92.624 43.932 93.78 42.946Q94.936 41.96 96.5 42.164Q97.792 42.3 98.77799999999999 43.082Q99.764 43.864000000000004 101.328 45.904L102.824 48.012L103.164 48.488Q104.048 49.78 106.7 51.276Q108.4 51.956 108.604 52.024Q112.684 53.18000000000001 115.03 52.636Q117.376 52.092 118.124 50.392Q119.00800000000001 48.42 117.172 47.332Q116.016 46.72 107.176 43.932Q105.408 43.388000000000005 104.524 42.980000000000004Q100.92 41.212 99.152 39.716Q93.78 35.16 92.896 29.176000000000002Q92.352 25.368000000000002 93.168 22.512Q93.984 19.656 96.5 16.732Q98.94800000000001 13.944000000000003 102.824 12.04Q105.34 10.816000000000003 107.04 10.475999999999999Q111.188 9.456000000000003 113.874 9.490000000000002Q116.56 9.524000000000001 122.0 10.612000000000002Q123.224 10.884 126.28399999999999 9.932000000000002Q130.024 8.572000000000003 134.784 16.323999999999998Q136.96 19.588 135.736 23.124000000000002Q135.124 25.368000000000002 133.356 26.252000000000002Q131.588 27.136000000000003 129.412 26.252000000000002Q128.12 25.776000000000003 126.79400000000001 24.790000000000003Q125.468 23.804000000000002 122.34 20.948Q121.592 20.200000000000003 118.53200000000001 19.588Q116.356 19.247999999999998 114.384 20.064Q113.22800000000001 20.54 112.82000000000001 21.56Q112.412 22.58 112.888 23.532000000000004Q113.364 24.756 114.99600000000001 25.708Q118.19200000000001 27.067999999999998 122.068 27.816000000000003Q127.304 28.836 129.888 30.332Q139.612 35.704 137.98000000000002 46.856Q137.50400000000002 49.576 136.212 52.024Q134.104 55.968 130.364 58.484Q126.624 61.0 120.436 62.292Q117.58 62.904 112.82 62.904Q108.264 62.836000000000006 104.72800000000001 61.952000000000005Q98.472 60.388000000000005 96.43199999999999 58.382000000000005Q94.392 56.376000000000005 93.1 50.256Q92.76 48.692 92.624 47.332Z M142.876 45.632000000000005Q142.80800000000002 44.952 142.80800000000002 43.660000000000004Q143.012 32.576 153.348 26.796Q158.312 24.008000000000003 163.412 23.939999999999998Q167.01600000000002 23.939999999999998 171.096 25.64Q175.38 27.476 178.032 30.706Q180.68400000000003 33.936 181.364 37.88Q181.90800000000002 41.144000000000005 181.568 42.300000000000004Q181.228 43.456 179.52800000000002 44.544000000000004Q177.828 45.632000000000005 173.17000000000002 45.938Q168.512 46.244 160.488 45.292Q160.28400000000002 45.156000000000006 159.74 45.156000000000006Q158.244 45.428 158.85600000000002 47.264Q159.19600000000003 48.692 160.964 50.596000000000004Q165.656 55.968 175.51600000000002 50.528000000000006Q176.33200000000002 50.05200000000001 176.4 49.984Q176.74 49.78 177.89600000000002 50.256Q179.46 50.93600000000001 180.072 52.704Q181.024 55.832 174.972 59.912000000000006Q168.512 64.26400000000001 159.46800000000002 63.040000000000006Q148.24800000000002 61.68000000000001 144.23600000000002 51.412000000000006Q143.08 48.488 142.876 45.632000000000005ZM163.00400000000002 38.016000000000005 164.90800000000002 37.948H165.11200000000002Q166.812 37.676 167.186 36.826Q167.56 35.976 166.812 33.8Q166.608 33.120000000000005 165.792 32.1Q164.228 30.740000000000002 162.25600000000003 31.148000000000003Q160.28400000000002 31.556 159.06 33.664Q158.65200000000002 34.616 158.584 35.16Q158.108 37.404 158.75400000000002 37.778000000000006Q159.4 38.152 163.00400000000002 38.016000000000005Z M186.32800000000003 31.42Q186.39600000000002 29.788000000000004 187.92600000000002 28.564000000000004Q189.45600000000002 27.340000000000003 193.53600000000003 25.980000000000004Q195.91600000000003 25.164 198.36400000000003 24.756Q204.96000000000004 23.736000000000004 205.98000000000002 24.008000000000003Q207.00000000000003 24.28 207.47600000000003 26.252000000000002Q207.544 26.524 207.68 27.340000000000003L207.81600000000003 28.156L207.88400000000001 28.631999999999998Q208.02 29.176000000000002 208.156 29.448Q208.22400000000002 29.72 208.46200000000002 29.788Q208.70000000000002 29.856 208.90400000000002 29.720000000000002Q209.10800000000003 29.584000000000003 209.65200000000002 28.224000000000004Q209.85600000000002 27.68 210.12800000000001 27.340000000000003Q212.848 23.055999999999997 218.15200000000002 23.939999999999998Q219.37600000000003 24.144 220.94000000000003 24.96Q226.58400000000003 27.748000000000005 225.70000000000002 34.548Q225.42800000000003 37.404 224.13600000000002 39.104Q221.75600000000003 42.368 218.39000000000004 42.504000000000005Q215.02400000000003 42.64 212.30400000000003 39.648Q211.76000000000002 38.968 211.556 38.628Q211.01200000000003 37.948 210.46800000000002 37.132000000000005Q209.788 36.316 208.76800000000003 37.472Q208.22400000000002 38.084 208.122 40.124Q208.02 42.164 208.29200000000003 50.188Q208.29200000000003 51.412000000000006 208.97200000000004 52.29600000000001Q209.51600000000002 53.248000000000005 210.12800000000001 53.690000000000005Q210.74 54.132000000000005 212.64400000000003 54.88Q213.8 55.356 214.20800000000003 57.464000000000006Q214.48000000000002 59.164 213.29000000000002 60.252Q212.10000000000002 61.34 208.76800000000003 62.224000000000004Q205.84400000000002 63.108000000000004 197.88800000000003 62.836000000000006Q195.57600000000002 62.7 194.42000000000002 62.496Q190.81600000000003 61.884 189.55800000000002 61.374Q188.3 60.864000000000004 187.68800000000002 59.776Q186.12400000000002 56.852000000000004 188.64000000000001 54.948Q190.544 53.52 190.88400000000001 52.29600000000001L191.36 50.868Q191.63200000000003 36.928 191.08800000000002 36.384Q191.02 36.316 190.74800000000002 36.316Q190.47600000000003 36.384 190.27200000000002 36.248000000000005L190.204 36.18000000000001L189.04800000000003 35.5L188.436 35.092Q186.26000000000002 33.392 186.32800000000003 31.42Z M225.22400000000002 29.04Q225.496 26.932000000000002 228.93 25.844Q232.364 24.756 240.864 24.96Q241.40800000000002 24.96 242.53000000000003 25.028000000000002Q243.65200000000002 25.096000000000004 244.19600000000003 25.096000000000004L245.14800000000002 25.164L247.936 25.436Q251.74400000000003 25.912 251.88000000000002 28.768Q252.084 30.876 249.228 32.848Q248.95600000000002 33.05200000000001 249.5 35.024L249.63600000000002 35.228L250.92800000000003 38.084Q251.06400000000002 38.492000000000004 251.54000000000002 39.444Q252.01600000000002 40.396 252.22000000000003 40.94Q252.35600000000002 41.28 252.798 41.382000000000005Q253.24 41.484 253.512 41.28Q254.12400000000002 40.94 255.28000000000003 39.104Q255.96 38.356 256.368 37.268L256.572 36.792L257.456 34.684Q258.0 33.256 257.728 32.474000000000004Q257.456 31.692 256.096 30.468Q254.60000000000002 29.176000000000002 255.96 27.340000000000003Q257.184 25.572000000000003 263.44 25.028Q264.46000000000004 24.96 265.956 24.96Q270.988 25.028 272.348 25.912Q273.572 26.728 273.674 28.122Q273.776 29.516 272.688 30.400000000000002Q271.872 31.012 270.92 31.42Q268.26800000000003 32.644000000000005 267.21400000000006 34.31Q266.16 35.976 261.944 45.428Q260.72 48.08 260.04 49.644000000000005Q259.22400000000005 51.684000000000005 255.89200000000002 57.464000000000006L255.144 58.824000000000005L254.26000000000002 60.252Q252.424 63.312000000000005 249.84000000000003 63.550000000000004Q247.25600000000003 63.788000000000004 245.42000000000002 61.136Q243.99200000000002 59.232000000000006 240.66000000000003 53.18000000000001Q240.388 52.636 237.872 47.876000000000005Q237.328 46.788000000000004 236.104 44.612Q230.86800000000002 34.684 230.18800000000002 34.072Q230.05200000000002 33.936 229.10000000000002 33.732Q228.89600000000002 33.664 228.62400000000002 33.596000000000004Q227.06 32.916 226.38000000000002 32.032Q225.08800000000002 30.536 225.22400000000002 29.04Z M275.884 31.760 Q276.020 30.400 277.244 29.482 Q276.020 30.400 277.244 29.482 Q278.468 28.564 282.208 27.272 Q283.636 26.660 286.560 25.912 Q289.756 25.096 291.660 24.824 Q296.420 24.144 297.202 25.096 Q296.420 24.144 297.202 25.096 Q297.984 26.048 297.508 31.828 L297.508 32.508 L297.372 42.504 Q297.236 51.616 297.508 52.636 Q297.780 53.724 299.004 54.404 Q299.140 54.404 299.344 54.540 Q300.908 55.356 301.316 56.274 Q300.908 55.356 301.316 56.274 Q301.724 57.192 301.248 58.892 Q300.772 60.524 298.834 61.476 Q300.772 60.524 298.834 61.476 Q296.896 62.428 292.612 62.768 Q291.388 62.904 288.804 62.904 L286.764 62.768 L282.480 62.564 Q280.440 62.428 279.284 62.224 Q276.836 61.884 276.088 60.218 Q276.836 61.884 276.088 60.218 Q275.340 58.552 276.632 56.308 Q277.176 55.288 278.944 54.132 Q279.420 53.860 279.658 52.092 Q279.420 53.860 279.658 52.092 Q279.896 50.324 280.100 44.544 Q280.236 39.240 279.794 37.506 Q280.236 39.240 279.794 37.506 Q279.352 35.772 277.652 34.616 Q275.680 33.528 275.884 31.760 Z M306.144 43.932Q306.008 40.396 307.028 37.540000000000006Q309.34 30.604000000000003 316.20799999999997 26.660000000000004Q319.948 24.620000000000005 325.116 24.076Q331.508 23.6 335.452 25.096000000000004Q339.872 26.728 342.15 29.38Q344.428 32.032 344.292 35.16Q344.08799999999997 40.6 339.872 42.43600000000001Q336.948 43.728 334.398 42.606Q331.848 41.484 330.42 38.42400000000001Q329.604 36.656000000000006 329.264 35.568Q328.71999999999997 33.868 325.932 34.480000000000004Q324.776 34.82 323.756 36.384Q321.852 38.968 323.484 43.32000000000001Q325.252 48.760000000000005 329.944 49.712Q331.78 50.120000000000005 333.344 49.81400000000001Q334.908 49.508 338.376 48.08Q338.58 47.944 339.668 47.944Q341.436 47.876000000000005 342.558 49.27Q343.68 50.664 343.544 53.112Q343.408 56.104000000000006 338.784 59.43600000000001Q336.54 61.068000000000005 333.20799999999997 62.156000000000006Q327.08799999999997 64.26400000000001 320.968 62.496Q318.452 61.952000000000005 316.68399999999997 60.79600000000001Q307.64 55.832 306.348 46.108000000000004Q306.144 45.088 306.144 43.932Z M348.304 45.632000000000005Q348.236 44.952 348.236 43.660000000000004Q348.44 32.576 358.77599999999995 26.796Q363.74 24.008000000000003 368.84 23.939999999999998Q372.44399999999996 23.939999999999998 376.524 25.64Q380.808 27.476 383.46 30.706Q386.11199999999997 33.936 386.792 37.88Q387.336 41.144000000000005 386.996 42.300000000000004Q386.656 43.456 384.956 44.544000000000004Q383.256 45.632000000000005 378.59799999999996 45.938Q373.94 46.244 365.916 45.292Q365.712 45.156000000000006 365.168 45.156000000000006Q363.67199999999997 45.428 364.284 47.264Q364.62399999999997 48.692 366.392 50.596000000000004Q371.084 55.968 380.94399999999996 50.528000000000006Q381.76 50.05200000000001 381.828 49.984Q382.168 49.78 383.32399999999996 50.256Q384.888 50.93600000000001 385.5 52.704Q386.452 55.832 380.4 59.912000000000006Q373.94 64.26400000000001 364.89599999999996 63.040000000000006Q353.676 61.68000000000001 349.664 51.412000000000006Q348.508 48.488 348.304 45.632000000000005ZM368.43199999999996 38.016000000000005 370.33599999999996 37.948H370.53999999999996Q372.24 37.676 372.61400000000003 36.826Q372.988 35.976 372.24 33.8Q372.036 33.120000000000005 371.21999999999997 32.1Q369.656 30.740000000000002 367.68399999999997 31.148000000000003Q365.712 31.556 364.488 33.664Q364.08 34.616 364.012 35.16Q363.536 37.404 364.182 37.778000000000006Q364.828 38.152 368.43199999999996 38.016000000000005Z M391.756 53.316V52.29600000000001Q391.96 49.984 393.25199999999995 49.134Q394.544 48.284000000000006 396.71999999999997 49.032000000000004Q398.01199999999994 49.508 399.84799999999996 51.684000000000005Q401.20799999999997 53.384 402.70399999999995 54.2Q405.628 55.628 406.852 55.016000000000005Q408.41599999999994 54.06400000000001 407.46399999999994 52.432Q407.12399999999997 51.888000000000005 405.9 51.072Q404.81199999999995 50.528000000000006 400.52799999999996 48.624Q398.828 47.876000000000005 396.37999999999994 45.632000000000005Q395.42799999999994 44.68000000000001 394.74799999999993 43.79600000000001Q392.436 40.532000000000004 392.46999999999997 36.82600000000001Q392.50399999999996 33.120000000000005 394.816 29.788000000000004Q396.58399999999995 27.272 399.57599999999996 25.708Q402.568 24.144 406.30799999999994 23.939999999999998Q408.212 23.872 412.35999999999996 24.756Q412.90399999999994 24.96 413.51599999999996 24.756H413.58399999999995L414.80799999999994 24.212000000000003Q415.08 24.076 415.352 24.076Q417.936 23.396 419.568 24.246000000000002Q421.2 25.096000000000004 423.17199999999997 28.36Q424.736 31.012 424.39599999999996 33.732Q424.12399999999997 36.044 422.424 36.86Q420.72399999999993 37.676 417.86799999999994 36.52Q416.57599999999996 36.044 414.604 33.868Q412.22399999999993 31.488000000000003 410.25199999999995 32.1Q409.29999999999995 32.44 408.99399999999997 33.188Q408.688 33.936 409.164 34.480000000000004Q410.18399999999997 35.976 411.40799999999996 36.656Q412.63199999999995 37.336 419.092 40.396Q420.316 40.94 422.21999999999997 42.844Q428.40799999999996 48.964 423.91999999999996 56.716Q420.792 62.02 413.85599999999994 63.040000000000006Q411.27199999999993 63.516000000000005 406.30799999999994 62.836000000000006Q402.90799999999996 62.428000000000004 399.508 62.632000000000005Q399.16799999999995 62.632000000000005 398.21599999999995 62.768Q396.24399999999997 63.040000000000006 393.72799999999995 58.892Q393.31999999999994 58.416000000000004 392.70799999999997 57.19200000000001Q391.89199999999994 55.220000000000006 391.756 53.316Z M454.792 45.088V37.744H495.99999999999994V45.088Z"
-            />
-            <path
-              fill="#e36d0b"
-              d="M275.952 17.412 Q275.748 15.916 276.496 14.862 Q275.748 15.916 276.496 14.862 Q277.244 13.808 279.488 12.584 Q280.508 12.108 282.072 11.496 Q283.704 10.816 285.608 10.612 Q288.532 10.136 290.980 10.476 Q294.720 10.884 296.250 12.958 Q294.720 10.884 296.250 12.958 Q297.780 15.032 296.624 17.412 Q295.264 20.336 288.736 21.832 Q282.956 23.056 279.624 21.696 Q282.956 23.056 279.624 21.696 Q276.292 20.336 275.952 17.412 Z"
-            />
-          </svg>
-        </div>
-
-        <div class="services__container">
-          <article class="card__container" data-reveal>
-            <div class="card__header">
-              <img
-                class="card__image"
-                src="img/cookie.png"
-                alt=""
-                aria-hidden="true"
-              />
-              <h3 class="card__title emphasis">Gameplay Duvidosa</h3>
-            </div>
-
-            <p class="card__description">
-              Live com o puro suco do entretenimento. Prepare-se para uma
-              jornada épica onde a única constante são as jogadas questionáveis,
-              mas a diversão é garantida. As estratégias são um enigma — desafio
-              você a decifrar cada momento nesse universo de loucuras
-              imprevisíveis.
-            </p>
-          </article>
-
-          <article class="card__container" data-reveal="delay-1">
-            <div class="card__header">
-              <img
-                class="card__image"
-                src="img/cookie.png"
-                alt=""
-                aria-hidden="true"
-              />
-              <h3 class="card__title emphasis">Clima de Rivalidade</h3>
-            </div>
-
-            <p class="card__description">
-              Bem-vindo à terra de ninguém onde a amizade é forte, mas a
-              rivalidade é mais ainda. Cada vitória é uma celebração e cada
-              derrota é uma ameaça ao condicionamento físico do próximo.
-              Amizades são postas à prova, tudo em prol do conteúdo.
-            </p>
-          </article>
-
-          <article class="card__container" data-reveal="delay-2">
-            <div class="card__header">
-              <img
-                class="card__image"
-                src="img/cookie.png"
-                alt=""
-                aria-hidden="true"
-              />
-              <h3 class="card__title emphasis">Reviews Questionáveis</h3>
-            </div>
-
-            <p class="card__description">
-              Explorando os confins da moralidade, minhas reviews desafiam as
-              fronteiras éticas e te convidam a questionar o que é certo e
-              errado. "MEUS REVIEWS", não seus. Logo o que importa é apenas a
-              minha opinião.
-            </p>
-          </article>
-
-          <article class="card__container" data-reveal="delay-3">
-            <div class="card__header">
-              <img
-                class="card__image"
-                src="img/cookie.png"
-                alt=""
-                aria-hidden="true"
-              />
-              <h3 class="card__title emphasis">Horário Inconstante</h3>
-            </div>
-
-            <p class="card__description">
-              Não existe horário fixo — existe o momento certo. As lives
-              aparecem quando menos se espera, tornando cada transmissão uma
-              surpresa. A única certeza é que, quando começar, vai valer a pena
-              estar lá.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section
-        class="cookie bg-color bg-color--bright bg-cookie bg-cookie--bright"
-        id="cookie"
-        aria-label="Seção decorativa Cybis Café"
-      >
-        <div class="cookie__tagline" aria-hidden="true"></div>
-        <div class="cookie__container">
-          <img
-            class="cookie__text"
-            src="img/professional-streamer.png"
-            alt="Texto rotativo: Professional Streamer"
-          />
-          <div class="cookie__circle" aria-hidden="true">
-            <img
-              class="cookie__big"
-              src="img/big-cookie.png"
-              alt="Grande biscoito."
-            />
-          </div>
-        </div>
-        <div aria-hidden="true"></div>
-        <div class="cookie__tagline" aria-hidden="true"></div>
-      </section>
-
-      <section
-        class="review bg-color bg-color--dark bg-cookie bg-cookie--organic"
-        id="reviews"
-        aria-labelledby="reviews-heading"
-      >
-        <h2 class="u-sr-only" id="reviews-heading">Reviews</h2>
-
-        <div class="section-title__container">
-          <svg
-            class="section-title__svg"
-            viewBox="0 0 521.03 98.00"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <path
-              fill="#e2d9c9"
-              d="M22.312 45.088V37.744H63.52V45.088Z  M92.69200000000001 15.168Q92.42 13.399999999999999 93.678 12.379999999999999Q94.936 11.36 98.744 10.782Q102.552 10.204 109.624 10.204H117.036H117.444L120.98 9.863999999999997Q122.0 9.796 124.176 9.796Q127.44 10.0 130.228 10.612000000000002Q136.552 12.107999999999997 139.54399999999998 15.95Q142.536 19.792 141.788 25.232Q141.312 28.020000000000003 139.918 30.332000000000004Q138.524 32.644000000000005 136.62 33.732Q134.988 34.548 134.648 34.684Q134.308 34.888000000000005 134.104 35.29600000000001Q133.9 35.908 134.24 36.112Q134.44400000000002 36.18000000000001 134.92000000000002 36.282000000000004Q135.39600000000002 36.384 135.6 36.452Q139.0 37.2 141.38 40.09Q143.76 42.980000000000004 144.644 47.536L145.05200000000002 49.712L145.188 50.732Q145.46 52.84 145.936 53.35Q146.412 53.86 148.792 54.744Q149.404 54.948 149.88 55.492000000000004Q151.308 57.19200000000001 149.812 59.64Q148.112 62.7 139.88400000000001 63.108000000000004Q133.764 63.516000000000005 130.568 61.476000000000006Q127.372 59.43600000000001 125.468 54.336000000000006Q125.06 53.18000000000001 125.06 52.976Q123.02000000000001 46.312000000000005 122.408 43.932Q122.34 43.048 120.912 41.824Q120.028 41.076 118.6 40.872Q117.58 40.668000000000006 116.934 40.77Q116.288 40.872 116.01599999999999 41.11Q115.744 41.348 115.744 41.620000000000005Q115.94800000000001 48.556000000000004 116.356 51.82000000000001Q116.76400000000001 53.52 117.206 53.996Q117.648 54.472 119.552 55.356Q120.504 55.832 120.912 57.328Q121.32 58.96 120.13 60.388000000000005Q118.94 61.816 116.22 62.428000000000004Q112.072 63.176 103.368 62.836000000000006Q98.608 62.632000000000005 96.70400000000001 62.190000000000005Q94.8 61.748000000000005 93.848 60.728Q92.76 59.572 92.76 57.974000000000004Q92.76 56.376000000000005 93.644 55.832Q94.46 55.356 95.82 54.676Q97.928 53.52 98.064 45.768L98.132 41.620000000000005L98.268 36.724000000000004Q98.336 29.652 97.724 23.124000000000002L97.588 22.375999999999998L97.384 20.811999999999998Q97.112 19.384 96.70400000000001 18.942Q96.296 18.5 94.392 17.480000000000004Q92.896 16.732 92.69200000000001 15.168ZM115.336 28.496000000000002Q115.47200000000001 31.896 115.88 32.202Q116.288 32.508 119.48400000000001 31.828000000000003Q120.98 31.488000000000003 121.96600000000001 29.482Q122.952 27.476 122.68 24.212000000000003Q122.476 20.54 120.572 19.247999999999998Q118.736 18.024 117.30799999999999 18.296Q115.88 18.567999999999998 115.47200000000001 19.927999999999997L115.404 21.968000000000004L115.268 26.728Q115.268 27.951999999999998 115.336 28.496000000000002Z M153.212 45.632000000000005Q153.144 44.952 153.144 43.660000000000004Q153.34799999999998 32.576 163.684 26.796Q168.648 24.008000000000003 173.748 23.939999999999998Q177.352 23.939999999999998 181.432 25.64Q185.716 27.476 188.368 30.706Q191.01999999999998 33.936 191.7 37.88Q192.244 41.144000000000005 191.904 42.300000000000004Q191.564 43.456 189.86399999999998 44.544000000000004Q188.164 45.632000000000005 183.50599999999997 45.938Q178.84799999999998 46.244 170.82399999999998 45.292Q170.62 45.156000000000006 170.076 45.156000000000006Q168.57999999999998 45.428 169.192 47.264Q169.53199999999998 48.692 171.29999999999998 50.596000000000004Q175.992 55.968 185.852 50.528000000000006Q186.668 50.05200000000001 186.736 49.984Q187.076 49.78 188.232 50.256Q189.796 50.93600000000001 190.408 52.704Q191.36 55.832 185.308 59.912000000000006Q178.84799999999998 64.26400000000001 169.804 63.040000000000006Q158.584 61.68000000000001 154.572 51.412000000000006Q153.416 48.488 153.212 45.632000000000005ZM173.34 38.016000000000005 175.244 37.948H175.448Q177.148 37.676 177.522 36.826Q177.896 35.976 177.148 33.8Q176.944 33.120000000000005 176.128 32.1Q174.564 30.740000000000002 172.59199999999998 31.148000000000003Q170.62 31.556 169.396 33.664Q168.988 34.616 168.92 35.16Q168.444 37.404 169.08999999999997 37.778000000000006Q169.736 38.152 173.34 38.016000000000005Z M194.216 29.04Q194.488 26.932000000000002 197.922 25.844Q201.356 24.756 209.856 24.96Q210.4 24.96 211.522 25.028000000000002Q212.644 25.096000000000004 213.18800000000002 25.096000000000004L214.14000000000001 25.164L216.928 25.436Q220.736 25.912 220.872 28.768Q221.076 30.876 218.22 32.848Q217.948 33.05200000000001 218.49200000000002 35.024L218.62800000000001 35.228L219.92000000000002 38.084Q220.056 38.492000000000004 220.532 39.444Q221.008 40.396 221.21200000000002 40.94Q221.348 41.28 221.79000000000002 41.382000000000005Q222.232 41.484 222.50400000000002 41.28Q223.116 40.94 224.272 39.104Q224.952 38.356 225.36 37.268L225.56400000000002 36.792L226.448 34.684Q226.99200000000002 33.256 226.72000000000003 32.474000000000004Q226.448 31.692 225.088 30.468Q223.592 29.176000000000002 224.952 27.340000000000003Q226.17600000000002 25.572000000000003 232.43200000000002 25.028Q233.452 24.96 234.948 24.96Q239.98000000000002 25.028 241.34 25.912Q242.56400000000002 26.728 242.666 28.122Q242.768 29.516 241.68 30.400000000000002Q240.864 31.012 239.912 31.42Q237.26 32.644000000000005 236.20600000000002 34.31Q235.15200000000002 35.976 230.936 45.428Q229.712 48.08 229.032 49.644000000000005Q228.216 51.684000000000005 224.88400000000001 57.464000000000006L224.136 58.824000000000005L223.252 60.252Q221.416 63.312000000000005 218.832 63.550000000000004Q216.248 63.788000000000004 214.412 61.136Q212.984 59.232000000000006 209.65200000000002 53.18000000000001Q209.38 52.636 206.864 47.876000000000005Q206.32 46.788000000000004 205.096 44.612Q199.86 34.684 199.18 34.072Q199.044 33.936 198.092 33.732Q197.888 33.664 197.616 33.596000000000004Q196.052 32.916 195.372 32.032Q194.08 30.536 194.216 29.04Z M244.876 31.760 Q245.012 30.400 246.236 29.482 Q245.012 30.400 246.236 29.482 Q247.460 28.564 251.200 27.272 Q252.628 26.660 255.552 25.912 Q258.748 25.096 260.652 24.824 Q265.412 24.144 266.194 25.096 Q265.412 24.144 266.194 25.096 Q266.976 26.048 266.500 31.828 L266.500 32.508 L266.364 42.504 Q266.228 51.616 266.500 52.636 Q266.772 53.724 267.996 54.404 Q268.132 54.404 268.336 54.540 Q269.900 55.356 270.308 56.274 Q269.900 55.356 270.308 56.274 Q270.716 57.192 270.240 58.892 Q269.764 60.524 267.826 61.476 Q269.764 60.524 267.826 61.476 Q265.888 62.428 261.604 62.768 Q260.380 62.904 257.796 62.904 L255.756 62.768 L251.472 62.564 Q249.432 62.428 248.276 62.224 Q245.828 61.884 245.080 60.218 Q245.828 61.884 245.080 60.218 Q244.332 58.552 245.624 56.308 Q246.168 55.288 247.936 54.132 Q248.412 53.860 248.650 52.092 Q248.412 53.860 248.650 52.092 Q248.888 50.324 249.092 44.544 Q249.228 39.240 248.786 37.506 Q249.228 39.240 248.786 37.506 Q248.344 35.772 246.644 34.616 Q244.672 33.528 244.876 31.760 Z M275.204 45.632000000000005Q275.136 44.952 275.136 43.660000000000004Q275.34000000000003 32.576 285.676 26.796Q290.64 24.008000000000003 295.74 23.939999999999998Q299.344 23.939999999999998 303.42400000000004 25.64Q307.708 27.476 310.36 30.706Q313.012 33.936 313.692 37.88Q314.236 41.144000000000005 313.896 42.300000000000004Q313.55600000000004 43.456 311.856 44.544000000000004Q310.156 45.632000000000005 305.49800000000005 45.938Q300.84000000000003 46.244 292.81600000000003 45.292Q292.612 45.156000000000006 292.068 45.156000000000006Q290.572 45.428 291.184 47.264Q291.524 48.692 293.29200000000003 50.596000000000004Q297.98400000000004 55.968 307.844 50.528000000000006Q308.66 50.05200000000001 308.728 49.984Q309.068 49.78 310.22400000000005 50.256Q311.788 50.93600000000001 312.40000000000003 52.704Q313.35200000000003 55.832 307.3 59.912000000000006Q300.84000000000003 64.26400000000001 291.796 63.040000000000006Q280.576 61.68000000000001 276.564 51.412000000000006Q275.408 48.488 275.204 45.632000000000005ZM295.332 38.016000000000005 297.236 37.948H297.44Q299.14 37.676 299.514 36.826Q299.88800000000003 35.976 299.14 33.8Q298.93600000000004 33.120000000000005 298.12 32.1Q296.55600000000004 30.740000000000002 294.58400000000006 31.148000000000003Q292.612 31.556 291.38800000000003 33.664Q290.98 34.616 290.91200000000003 35.16Q290.43600000000004 37.404 291.082 37.778000000000006Q291.728 38.152 295.332 38.016000000000005Z M316.412 28.700000000000003Q317.228 26.048000000000002 322.736 25.368000000000002Q324.64 25.096000000000004 326.816 25.028Q328.71999999999997 24.892000000000003 332.188 25.028Q336.88 25.300000000000004 338.546 25.674000000000003Q340.212 26.048000000000002 341.096 26.796Q343.748 29.244 341.572 31.556Q340.688 32.44 342.388 35.5L342.796 36.248000000000005L343.884 37.948L345.312 40.328L345.38 40.396Q345.856 40.6 346.43399999999997 40.498000000000005Q347.012 40.396 347.828 39.308Q348.644 38.22 349.324 36.384Q350.14 34.276 345.448 31.556Q344.7 31.284000000000002 344.76800000000003 29.89Q344.836 28.496000000000002 345.856 27.544000000000004Q347.488 25.980000000000004 352.656 25.503999999999998L356.328 25.096000000000004H357.008Q358.436 24.892000000000003 360.272 25.028Q370.132 25.368000000000002 370.132 29.312000000000005Q370.132 29.924 369.928 30.264000000000003Q369.724 30.604000000000003 368.5 32.032Q367.548 33.392 367.82 35.29600000000001L369.18 37.88Q369.384 38.356 370.744 40.532000000000004Q371.016 41.008 371.764 40.804Q372.512 40.6 373.26 39.648Q374.144 38.492000000000004 375.096 36.724000000000004Q376.592 34.344 376.72799999999995 33.69800000000001Q376.864 33.05200000000001 376.32 31.896L376.18399999999997 31.692L375.368 30.604000000000003Q374.96 30.195999999999998 374.688 29.108000000000004Q374.348 27.816000000000003 375.3 26.864Q376.252 25.912 378.496 25.436Q381.012 24.96 385.024 24.96Q385.15999999999997 24.96 386.384 25.028000000000002Q387.608 25.096000000000004 388.832 25.232Q391.212 25.503999999999998 391.994 26.864Q392.776 28.224000000000004 391.824 30.060000000000002Q391.416 30.944000000000003 388.9 31.76Q387.336 32.236000000000004 386.79200000000003 32.78Q386.248 33.324 385.296 35.16L380.604 44.816L379.584 46.92400000000001L375.776 54.540000000000006Q371.832 62.36000000000001 369.452 63.38Q367.956 64.128 366.8 63.652Q365.644 63.176 364.352 61.408L362.448 58.688L361.496 57.396Q358.572 52.772000000000006 358.368 52.29600000000001Q355.58 46.72 354.764 46.176Q353.88 45.632000000000005 353.132 46.652Q351.976 48.964 351.432 50.188Q351.15999999999997 51.004000000000005 349.73199999999997 53.792Q349.528 54.2 349.086 55.050000000000004Q348.644 55.900000000000006 348.508 56.172000000000004Q345.448 61.884 343.16999999999996 63.278Q340.892 64.672 338.852 62.496Q337.9 61.68000000000001 334.772 56.30800000000001L327.904 44.612Q324.096 37.472 323.076 36.078Q322.056 34.684 319.608 33.528000000000006Q317.364 32.44 316.65 31.352Q315.936 30.264000000000003 316.412 28.700000000000003Z M394.476 53.316V52.29600000000001Q394.68 49.984 395.972 49.134Q397.264 48.284000000000006 399.44 49.032000000000004Q400.73199999999997 49.508 402.568 51.684000000000005Q403.928 53.384 405.424 54.2Q408.348 55.628 409.572 55.016000000000005Q411.13599999999997 54.06400000000001 410.18399999999997 52.432Q409.844 51.888000000000005 408.62 51.072Q407.532 50.528000000000006 403.248 48.624Q401.548 47.876000000000005 399.09999999999997 45.632000000000005Q398.14799999999997 44.68000000000001 397.46799999999996 43.79600000000001Q395.156 40.532000000000004 395.19 36.82600000000001Q395.224 33.120000000000005 397.536 29.788000000000004Q399.304 27.272 402.296 25.708Q405.288 24.144 409.02799999999996 23.939999999999998Q410.932 23.872 415.08 24.756Q415.62399999999997 24.96 416.236 24.756H416.304L417.52799999999996 24.212000000000003Q417.8 24.076 418.072 24.076Q420.656 23.396 422.288 24.246000000000002Q423.92 25.096000000000004 425.892 28.36Q427.456 31.012 427.116 33.732Q426.844 36.044 425.144 36.86Q423.44399999999996 37.676 420.58799999999997 36.52Q419.296 36.044 417.324 33.868Q414.94399999999996 31.488000000000003 412.972 32.1Q412.02 32.44 411.714 33.188Q411.408 33.936 411.884 34.480000000000004Q412.904 35.976 414.128 36.656Q415.352 37.336 421.812 40.396Q423.036 40.94 424.94 42.844Q431.128 48.964 426.64 56.716Q423.512 62.02 416.57599999999996 63.040000000000006Q413.99199999999996 63.516000000000005 409.02799999999996 62.836000000000006Q405.628 62.428000000000004 402.228 62.632000000000005Q401.888 62.632000000000005 400.936 62.768Q398.964 63.040000000000006 396.448 58.892Q396.03999999999996 58.416000000000004 395.428 57.19200000000001Q394.61199999999997 55.220000000000006 394.476 53.316Z  M457.512 45.088V37.744H498.71999999999997V45.088Z"
-            />
-            <path
-              fill="#e36d0b"
-              d="M244.944 17.412 Q244.740 15.916 245.488 14.862 Q244.740 15.916 245.488 14.862 Q246.236 13.808 248.480 12.584 Q249.500 12.108 251.064 11.496 Q252.696 10.816 254.600 10.612 Q257.524 10.136 259.972 10.476 Q263.712 10.884 265.242 12.958 Q263.712 10.884 265.242 12.958 Q266.772 15.032 265.616 17.412 Q264.256 20.336 257.728 21.832 Q251.948 23.056 248.616 21.696 Q251.948 23.056 248.616 21.696 Q245.284 20.336 244.944 17.412 Z"
-            />
-          </svg>
-        </div>
-
-        <div class="glide-wrapper">
-          <div
-            class="glide"
-            role="region"
-            aria-label="Carrossel de reviews de jogos"
-            aria-roledescription="carousel"
-          >
-            <div class="glide__track" data-glide-el="track">
-              <ul class="glide__slides">
-                <li
-                  class="glide__slide"
-                  role="group"
-                  aria-roledescription="slide"
-                  aria-label="Slide 1 de 8"
-                >
-                  <img
-                    src="img/atelier-iris-3.png"
-                    data-review="atelier-iris-3"
-                    alt="Capa do jogo Atelier Iris 3"
-                  />
-                </li>
-                <li
-                  class="glide__slide"
-                  role="group"
-                  aria-roledescription="slide"
-                  aria-label="Slide 2 de 8"
-                >
-                  <img
-                    src="img/Bully_cover.png"
-                    data-review="bully"
-                    alt="Capa do jogo Bully"
-                  />
-                </li>
-                <li
-                  class="glide__slide"
-                  role="group"
-                  aria-roledescription="slide"
-                  aria-label="Slide 3 de 8"
-                >
-                  <img
-                    src="img/crash-bandicoot.png"
-                    data-review="crash-bandicoot"
-                    alt="Capa do jogo Crash Bandicoot"
-                  />
-                </li>
-                <li
-                  class="glide__slide"
-                  role="group"
-                  aria-roledescription="slide"
-                  aria-label="Slide 4 de 8"
-                >
-                  <img
-                    src="img/donkey-kong-country.png"
-                    data-review="donkey-kong-country"
-                    alt="Capa do jogo Donkey Kong Country"
-                  />
-                </li>
-                <li
-                  class="glide__slide"
-                  role="group"
-                  aria-roledescription="slide"
-                  aria-label="Slide 5 de 8"
-                >
-                  <img
-                    src="img/fallout-3.png"
-                    data-review="fallout-3"
-                    alt="Capa do jogo Fallout 3"
-                  />
-                </li>
-                <li
-                  class="glide__slide"
-                  role="group"
-                  aria-roledescription="slide"
-                  aria-label="Slide 6 de 8"
-                >
-                  <img
-                    src="img/Grand_Theft_Auto_San_Andreas_capa.png"
-                    data-review="gta-san-andreas"
-                    alt="Capa do jogo Grand Theft Auto: San Andreas"
-                  />
-                </li>
-                <li
-                  class="glide__slide"
-                  role="group"
-                  aria-roledescription="slide"
-                  aria-label="Slide 7 de 8"
-                >
-                  <img
-                    src="img/mario-world.png"
-                    data-review="mario-world"
-                    alt="Capa do jogo Super Mario World"
-                  />
-                </li>
-                <li
-                  class="glide__slide"
-                  role="group"
-                  aria-roledescription="slide"
-                  aria-label="Slide 8 de 8"
-                >
-                  <img
-                    src="img/rune-factory-special.png"
-                    data-review="rune-factory"
-                    alt="Capa do jogo Rune Factory Special"
-                  />
-                </li>
-              </ul>
-            </div>
-
-            <div class="glide__arrows" data-glide-el="controls">
-              <button
-                class="glide__arrow glide__arrow--left"
-                data-glide-dir="<"
-                aria-label="Slide anterior"
-              >
-                &#8249;
-              </button>
-              <button
-                class="glide__arrow glide__arrow--right"
-                data-glide-dir=">"
-                aria-label="Próximo slide"
-              >
-                &#8250;
-              </button>
-            </div>
-
-            <div
-              class="glide__bullets"
-              data-glide-el="controls[nav]"
-              aria-label="Navegação do carrossel"
+    <!-- ── ADMIN ── -->
+    <div class="admin-screen" id="adminScreen">
+      <header class="admin-header">
+        <div class="admin-header-left">
+          <a href="index.html" class="header-back">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
             >
-              <button
-                class="glide__bullet"
-                data-glide-dir="=0"
-                aria-label="Ir para slide 1"
-              ></button>
-              <button
-                class="glide__bullet"
-                data-glide-dir="=1"
-                aria-label="Ir para slide 2"
-              ></button>
-              <button
-                class="glide__bullet"
-                data-glide-dir="=2"
-                aria-label="Ir para slide 3"
-              ></button>
-              <button
-                class="glide__bullet"
-                data-glide-dir="=3"
-                aria-label="Ir para slide 4"
-              ></button>
-              <button
-                class="glide__bullet"
-                data-glide-dir="=4"
-                aria-label="Ir para slide 5"
-              ></button>
-              <button
-                class="glide__bullet"
-                data-glide-dir="=5"
-                aria-label="Ir para slide 6"
-              ></button>
-              <button
-                class="glide__bullet"
-                data-glide-dir="=6"
-                aria-label="Ir para slide 7"
-              ></button>
-              <button
-                class="glide__bullet"
-                data-glide-dir="=7"
-                aria-label="Ir para slide 8"
-              ></button>
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+            Voltar ao site
+          </a>
+          <div class="header-sep"></div>
+          <span class="header-brand">☕ Cybis <span>Café</span> — Admin</span>
+        </div>
+        <div class="admin-header-right">
+          <span id="userEmail"></span>
+          <button class="btn btn-ghost btn-sm" id="logoutBtn">Sair</button>
+        </div>
+      </header>
+
+      <div class="admin-body">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+          <div class="sidebar-header">
+            <div class="sidebar-top">
+              <span class="sidebar-heading">
+                🍪 Reviews <span class="badge" id="reviewCount">0</span>
+              </span>
             </div>
+            <button
+              class="btn btn-primary"
+              id="newReviewBtn"
+              style="font-size: 0.82rem; padding: 0.55rem 1rem"
+            >
+              + Nova review
+            </button>
           </div>
-        </div>
-      </section>
-
-      <section
-        class="clientes bg-color bg-color--bright bg-cookie bg-cookie--bright"
-        id="clientes"
-        aria-labelledby="clientes-heading"
-      >
-        <h2 class="u-sr-only" id="clientes-heading">Clientes</h2>
-
-        <div class="section-title__container">
-          <svg
-            class="section-title__svg"
-            viewBox="0 0 518.38 98.00"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <path
-              fill="#20190d"
-              d="M22.312 45.088V37.744H63.52V45.088Z  M92.556 36.452Q92.556 35.5 92.69200000000001 33.732Q93.168 28.768 95.208 24.756Q98.744 17.956000000000003 104.592 14.012Q107.584 11.972000000000001 112.004 10.612000000000002Q114.52000000000001 9.932000000000002 116.22 9.728000000000002Q120.3 9.32 122.714 9.626000000000001Q125.128 9.932000000000002 129.072 11.292000000000002Q130.024 11.564 131.112 11.972000000000001Q132.336 12.515999999999998 133.118 12.346Q133.9 12.176000000000002 135.736 10.951999999999998Q136.416 10.747999999999998 137.096 10.884Q137.844 11.088000000000001 139.544 12.787999999999997Q141.51600000000002 14.896 142.94400000000002 18.908Q145.12 25.232 142.94400000000002 28.836Q141.04000000000002 31.896 137.912 32.338Q134.784 32.78 132.948 30.536Q132.132 29.584000000000003 130.43200000000002 27.067999999999998Q130.16 26.456000000000003 129.48000000000002 25.503999999999998Q128.664 24.28 126.76 22.988Q126.012 22.444000000000003 125.06 21.9Q120.164 19.316000000000003 116.118 21.186Q112.072 23.055999999999997 111.46000000000001 28.088Q111.12 31.012 111.936 34.82Q112.276 36.384 113.22800000000001 38.56Q116.152 45.088 121.21799999999999 47.536Q126.28399999999999 49.984 132.064 48.08Q134.172 47.264 135.6 46.244Q135.872 46.040000000000006 136.31400000000002 45.734Q136.756 45.428 136.892 45.292Q137.776 44.408 139.0 43.524Q139.68 42.912000000000006 140.972 43.456Q142.264 44.0 143.012 45.56400000000001Q144.1 47.80800000000001 143.352 51.14Q142.808 53.996 141.04 55.59400000000001Q139.272 57.19200000000001 133.764 59.844Q126.08000000000001 63.44800000000001 117.988 62.836000000000006Q111.8 62.428000000000004 106.904 59.776Q103.368 57.804 101.124 55.730000000000004Q98.88 53.656000000000006 96.568 50.05200000000001Q93.1 44.544000000000004 92.69200000000001 38.832Q92.556 37.336 92.556 36.452Z M148.72400000000002 19.792Q148.24800000000002 18.363999999999997 149.268 16.664Q151.104 13.468000000000004 161.848 10.951999999999998Q163.072 10.68 164.43200000000002 10.543999999999997L167.83200000000002 10.271999999999998Q170.96 10.0 171.674 10.815999999999999Q172.388 11.631999999999998 172.32000000000002 15.304000000000002L172.252 17.276000000000003L171.98000000000002 28.768Q171.912 30.740000000000002 171.98000000000002 34.14L172.252 42.572L172.388 47.196000000000005L172.524 49.576V49.984L172.79600000000002 52.5Q172.93200000000002 53.928000000000004 173.51000000000002 54.642Q174.08800000000002 55.356 175.99200000000002 56.30800000000001Q176.67200000000003 56.444 176.63800000000003 57.702Q176.604 58.96 175.448 60.184000000000005Q174.428 61.272000000000006 172.45600000000002 61.952000000000005Q169.192 62.972 161.57600000000002 62.904Q161.23600000000002 62.904 160.62400000000002 62.836Q160.012 62.768 159.74 62.768H159.536L156.204 62.224000000000004Q152.26000000000002 61.612 151.17200000000003 60.456Q149.88000000000002 59.300000000000004 149.88000000000002 57.702000000000005Q149.88000000000002 56.104000000000006 150.96800000000002 55.56Q152.056 54.948 153.07600000000002 54.540000000000006Q153.62 54.268 153.96 53.18Q154.3 52.092 154.572 48.692Q154.84400000000002 45.292 154.98000000000002 38.832Q155.388 32.032 154.98000000000002 28.496Q154.572 24.96 153.79000000000002 23.906000000000002Q153.008 22.852000000000004 150.49200000000002 21.832Q149.20000000000002 21.288000000000004 148.72400000000002 19.792Z M181.296 31.760 Q181.432 30.400 182.656 29.482 Q181.432 30.400 182.656 29.482 Q183.880 28.564 187.620 27.272 Q189.048 26.660 191.972 25.912 Q195.168 25.096 197.072 24.824 Q201.832 24.144 202.614 25.096 Q201.832 24.144 202.614 25.096 Q203.396 26.048 202.920 31.828 L202.920 32.508 L202.784 42.504 Q202.648 51.616 202.920 52.636 Q203.192 53.724 204.416 54.404 Q204.552 54.404 204.756 54.540 Q206.320 55.356 206.728 56.274 Q206.320 55.356 206.728 56.274 Q207.136 57.192 206.660 58.892 Q206.184 60.524 204.246 61.476 Q206.184 60.524 204.246 61.476 Q202.308 62.428 198.024 62.768 Q196.800 62.904 194.216 62.904 L192.176 62.768 L187.892 62.564 Q185.852 62.428 184.696 62.224 Q182.248 61.884 181.500 60.218 Q182.248 61.884 181.500 60.218 Q180.752 58.552 182.044 56.308 Q182.588 55.288 184.356 54.132 Q184.832 53.860 185.070 52.092 Q184.832 53.860 185.070 52.092 Q185.308 50.324 185.512 44.544 Q185.648 39.240 185.206 37.506 Q185.648 39.240 185.206 37.506 Q184.764 35.772 183.064 34.616 Q181.092 33.528 181.296 31.760 Z M211.624 45.632000000000005Q211.556 44.952 211.556 43.660000000000004Q211.76 32.576 222.096 26.796Q227.06 24.008000000000003 232.16 23.939999999999998Q235.764 23.939999999999998 239.844 25.64Q244.128 27.476 246.78 30.706Q249.43200000000002 33.936 250.112 37.88Q250.656 41.144000000000005 250.316 42.300000000000004Q249.976 43.456 248.276 44.544000000000004Q246.576 45.632000000000005 241.918 45.938Q237.26 46.244 229.236 45.292Q229.032 45.156000000000006 228.488 45.156000000000006Q226.992 45.428 227.604 47.264Q227.94400000000002 48.692 229.712 50.596000000000004Q234.404 55.968 244.264 50.528000000000006Q245.08 50.05200000000001 245.148 49.984Q245.488 49.78 246.644 50.256Q248.208 50.93600000000001 248.82 52.704Q249.772 55.832 243.72 59.912000000000006Q237.26 64.26400000000001 228.216 63.040000000000006Q216.996 61.68000000000001 212.984 51.412000000000006Q211.828 48.488 211.624 45.632000000000005ZM231.752 38.016000000000005 233.656 37.948H233.86Q235.56 37.676 235.934 36.826Q236.308 35.976 235.56 33.8Q235.356 33.120000000000005 234.54 32.1Q232.976 30.740000000000002 231.00400000000002 31.148000000000003Q229.032 31.556 227.808 33.664Q227.4 34.616 227.332 35.16Q226.856 37.404 227.502 37.778000000000006Q228.148 38.152 231.752 38.016000000000005Z M255.07600000000002 31.216Q255.484 29.312000000000005 257.728 28.428000000000004L261.06 27.0L261.196 26.864000000000004Q264.664 25.64 267.79200000000003 24.756H267.86L272.076 24.008000000000003Q274.86400000000003 23.6 275.986 24.450000000000003Q277.108 25.300000000000004 277.108 27.544000000000004V27.816000000000003L277.04 29.448Q277.04 29.924 277.108 30.195999999999998Q277.176 30.332 277.346 30.264Q277.516 30.195999999999998 277.856 29.992000000000004Q278.06 29.924 278.536 29.380000000000003L278.672 29.176000000000002L279.488 28.020000000000003Q280.168 27.0 281.324 26.048000000000002Q284.112 23.939999999999998 288.192 23.939999999999998Q289.00800000000004 23.939999999999998 291.32 24.212000000000003Q295.264 24.823999999999998 297.236 26.048Q299.208 27.272 300.704 30.128Q301.656 31.76 301.928 34.276Q302.20000000000005 36.792 302.336 44.068L302.47200000000004 49.508V50.664Q302.47200000000004 52.772000000000006 302.71000000000004 53.384Q302.94800000000004 53.996 304.172 55.016000000000005Q304.37600000000003 55.152 304.58000000000004 55.356Q304.784 55.56 305.022 55.83200000000001Q305.26 56.104000000000006 305.396 56.24Q306.552 57.396 306.314 58.994Q306.076 60.592000000000006 304.58000000000004 61.34Q303.56 61.816 301.452 62.224000000000004L298.664 62.7L297.98400000000004 62.768Q294.856 63.040000000000006 290.776 62.768Q287.036 62.496 286.084 62.224000000000004Q283.772 61.612 282.752 60.626000000000005Q281.732 59.64 281.868 58.348000000000006Q281.93600000000004 57.328 282.34400000000005 56.648Q282.752 55.968 284.112 54.608000000000004Q284.656 53.996 284.724 51.208000000000006L284.79200000000003 50.732L284.928 47.672000000000004Q285.336 39.172 282.88800000000003 36.996Q281.528 35.908 279.99800000000005 36.18Q278.468 36.452 277.856 37.88Q277.244 38.968 277.312 43.79600000000001Q277.38 51.412000000000006 277.55 52.568000000000005Q277.72 53.724000000000004 279.148 55.900000000000006Q279.624 56.580000000000005 279.76 57.804Q279.896 59.844 278.16200000000003 60.966Q276.428 62.088 271.80400000000003 62.7Q270.988 62.836000000000006 270.58000000000004 62.836000000000006Q269.968 62.904 266.976 62.904Q264.25600000000003 62.904 263.30400000000003 62.768Q257.796 61.816 256.844 60.79600000000001Q253.78400000000002 57.872 258.0 55.56Q259.29200000000003 54.948 259.7 52.772000000000006L259.76800000000003 52.636L260.108 44.884Q260.38 38.356 259.802 36.82600000000001Q259.224 35.29600000000001 256.028 34.412000000000006Q255.824 34.412000000000006 255.348 33.120000000000005Q254.94 31.896 255.07600000000002 31.216Z M316.88800000000003 33.256 314.168 33.120000000000005H313.896Q311.17600000000004 33.188 310.59800000000007 32.542Q310.02000000000004 31.896 310.36 28.904000000000003Q310.428 27.951999999999998 312.40000000000003 26.456000000000003Q314.30400000000003 25.232 320.492 21.968000000000004Q320.62800000000004 21.9 320.832 21.73Q321.036 21.560000000000002 322.192 20.642000000000003Q323.348 19.724000000000004 325.048 18.432000000000002Q327.156 16.936 328.312 16.732Q331.30400000000003 16.052 332.46000000000004 17.072Q333.61600000000004 18.092 333.548 21.22L333.34400000000005 24.620000000000005V24.892000000000003Q333.276 25.503999999999998 333.548 25.64Q333.82000000000005 25.776000000000003 334.908 25.776000000000003Q335.04400000000004 25.776000000000003 337.696 25.844Q340.552 26.048000000000002 341.98 25.912Q343.27200000000005 25.776000000000003 344.156 27.884Q344.564 28.904000000000003 344.36 30.264000000000003Q343.884 32.44 342.86400000000003 32.916Q341.84400000000005 33.392 337.90000000000003 33.46H335.52000000000004H334.976Q333.548 33.392 333.41200000000003 34.106Q333.276 34.82 333.548 39.58Q333.684 43.388000000000005 333.548 47.264V47.400000000000006L333.88800000000003 49.440000000000005Q334.704 54.336000000000006 340.89200000000005 50.868Q342.184 50.05200000000001 343.612 51.752Q344.428 52.568000000000005 344.428 55.016000000000005Q344.428 57.396 339.396 60.660000000000004Q336.132 62.836000000000006 331.44000000000005 63.176Q321.444 63.992000000000004 318.18 56.988Q317.09200000000004 54.88 316.82000000000005 51.718Q316.548 48.556000000000004 316.61600000000004 39.036Q316.61600000000004 37.2 316.88800000000003 33.256Z M348.372 45.632000000000005Q348.30400000000003 44.952 348.30400000000003 43.660000000000004Q348.50800000000004 32.576 358.844 26.796Q363.808 24.008000000000003 368.908 23.939999999999998Q372.512 23.939999999999998 376.59200000000004 25.64Q380.87600000000003 27.476 383.528 30.706Q386.18 33.936 386.86 37.88Q387.404 41.144000000000005 387.064 42.300000000000004Q386.72400000000005 43.456 385.024 44.544000000000004Q383.324 45.632000000000005 378.66600000000005 45.938Q374.00800000000004 46.244 365.98400000000004 45.292Q365.78000000000003 45.156000000000006 365.236 45.156000000000006Q363.74 45.428 364.35200000000003 47.264Q364.692 48.692 366.46000000000004 50.596000000000004Q371.15200000000004 55.968 381.012 50.528000000000006Q381.82800000000003 50.05200000000001 381.896 49.984Q382.236 49.78 383.39200000000005 50.256Q384.956 50.93600000000001 385.56800000000004 52.704Q386.52000000000004 55.832 380.468 59.912000000000006Q374.00800000000004 64.26400000000001 364.964 63.040000000000006Q353.744 61.68000000000001 349.732 51.412000000000006Q348.576 48.488 348.372 45.632000000000005ZM368.5 38.016000000000005 370.404 37.948H370.608Q372.308 37.676 372.682 36.826Q373.05600000000004 35.976 372.308 33.8Q372.10400000000004 33.120000000000005 371.288 32.1Q369.72400000000005 30.740000000000002 367.75200000000007 31.148000000000003Q365.78000000000003 31.556 364.55600000000004 33.664Q364.148 34.616 364.08000000000004 35.16Q363.60400000000004 37.404 364.25 37.778000000000006Q364.896 38.152 368.5 38.016000000000005Z M391.824 53.316V52.29600000000001Q392.028 49.984 393.32000000000005 49.134Q394.612 48.284000000000006 396.788 49.032000000000004Q398.08 49.508 399.916 51.684000000000005Q401.276 53.384 402.772 54.2Q405.696 55.628 406.92 55.016000000000005Q408.484 54.06400000000001 407.532 52.432Q407.192 51.888000000000005 405.968 51.072Q404.88 50.528000000000006 400.596 48.624Q398.896 47.876000000000005 396.448 45.632000000000005Q395.496 44.68000000000001 394.816 43.79600000000001Q392.504 40.532000000000004 392.538 36.82600000000001Q392.572 33.120000000000005 394.884 29.788000000000004Q396.652 27.272 399.644 25.708Q402.636 24.144 406.376 23.939999999999998Q408.28 23.872 412.428 24.756Q412.972 24.96 413.584 24.756H413.652L414.876 24.212000000000003Q415.148 24.076 415.42 24.076Q418.004 23.396 419.636 24.246000000000002Q421.26800000000003 25.096000000000004 423.24 28.36Q424.804 31.012 424.464 33.732Q424.192 36.044 422.492 36.86Q420.79200000000003 37.676 417.936 36.52Q416.644 36.044 414.672 33.868Q412.29200000000003 31.488000000000003 410.32 32.1Q409.368 32.44 409.062 33.188Q408.756 33.936 409.232 34.480000000000004Q410.252 35.976 411.476 36.656Q412.7 37.336 419.16 40.396Q420.384 40.94 422.288 42.844Q428.476 48.964 423.988 56.716Q420.86 62.02 413.924 63.040000000000006Q411.34000000000003 63.516000000000005 406.376 62.836000000000006Q402.976 62.428000000000004 399.576 62.632000000000005Q399.236 62.632000000000005 398.284 62.768Q396.312 63.040000000000006 393.796 58.892Q393.388 58.416000000000004 392.776 57.19200000000001Q391.96 55.220000000000006 391.824 53.316Z  M454.86 45.088V37.744H496.068V45.088Z"
-            />
-            <path
-              fill="#e36d0b"
-              d="M181.364 17.412 Q181.160 15.916 181.908 14.862 Q181.160 15.916 181.908 14.862 Q182.656 13.808 184.900 12.584 Q185.920 12.108 187.484 11.496 Q189.116 10.816 191.020 10.612 Q193.944 10.136 196.392 10.476 Q200.132 10.884 201.662 12.958 Q200.132 10.884 201.662 12.958 Q203.192 15.032 202.036 17.412 Q200.676 20.336 194.148 21.832 Q188.368 23.056 185.036 21.696 Q188.368 23.056 185.036 21.696 Q181.704 20.336 181.364 17.412 Z"
-            />
-          </svg>
-        </div>
-
-        <div class="clientes__container">
-          <article class="card__container" data-reveal>
-            <img
-              class="card__image card__image--clickable"
-              id="img_velho"
-              src="img/velho.png"
-              alt="Vovô do Café"
-              role="button"
-              tabindex="0"
-              aria-label="Ouvir fala do Vovô do Café"
-            />
-            <audio id="audio1" preload="auto">
-              <source src="sounds/velho.mp3" type="audio/mpeg" />
-              Seu navegador não suporta o elemento de áudio.
-            </audio>
-            <h3 class="card__title emphasis">Vovô do Café</h3>
-            <blockquote class="card__description">
-              <p>"Quero cafééééé ÉÉÉÉÉÉÉÉÉÉÉÉÉ</p>
-              <p>Isso aqui tá uma porcaria!! Que não... Merda nenhuma.</p>
-              <p>Desculpe!"</p>
-            </blockquote>
-          </article>
-
-          <article class="card__container" data-reveal="delay-1">
-            <img
-              class="card__image card__image--clickable"
-              src="img/homer.png"
-              alt="Homer Simpson"
-              role="button"
-              tabindex="0"
-              aria-label="Ouvir fala do Homer"
-            />
-            <audio id="audio2" preload="auto">
-              <source src="sounds/homer.mp3" type="audio/mpeg" />
-              Seu navegador não suporta o elemento de áudio.
-            </audio>
-            <h3 class="card__title emphasis">Homer</h3>
-            <blockquote class="card__description">
-              <p>
-                "Existem três jeitos de fazer as coisas: O jeito certo, o jeito
-                errado e o meu jeito. Que é igual ao jeito errado, só que mais
-                rápido."
-              </p>
-            </blockquote>
-          </article>
-
-          <article class="card__container" data-reveal="delay-2">
-            <img
-              class="card__image card__image--clickable"
-              src="img/pica-pau.png"
-              alt="Pica-Pau"
-              role="button"
-              tabindex="0"
-              aria-label="Ouvir fala do Pica-Pau"
-            />
-            <audio id="audio3" preload="auto">
-              <source src="sounds/pica-pau.mp3" type="audio/mpeg" />
-              Seu navegador não suporta o elemento de áudio.
-            </audio>
-            <h3 class="card__title emphasis">Pica-Pau</h3>
-            <blockquote class="card__description">
-              <p>"Essa gente inventa cada coisa."</p>
-            </blockquote>
-          </article>
-
-          <article class="card__container" data-reveal="delay-3">
-            <img
-              class="card__image card__image--clickable"
-              src="img/cosmo.png"
-              alt="Cosmo"
-              role="button"
-              tabindex="0"
-              aria-label="Ouvir fala do Cosmo"
-            />
-            <audio id="audio4" preload="auto">
-              <source src="sounds/cosmo.mp3" type="audio/mpeg" />
-              Seu navegador não suporta o elemento de áudio.
-            </audio>
-            <h3 class="card__title emphasis">Cosmo</h3>
-            <blockquote class="card__description">
-              <p>"Uau! É sensacional! Café café café café!"</p>
-            </blockquote>
-          </article>
-        </div>
-        <div class="clientes__tag" aria-hidden="true"></div>
-      </section>
-
-      <section
-        class="cta bg-color bg-color--bright bg-cookie bg-cookie--bright"
-        id="cta"
-        aria-labelledby="cta-heading"
-      >
-        <div class="cta__container">
-          <div class="cta__info" data-reveal>
-            <div class="cta__text">
-              <h2 id="cta-heading">Assista quando quiser.</h2>
-              <p class="cta__sub">De qualquer dispositivo.</p>
-              <p>
-                Assista pelo celular, computador, tablet ou outros aparelhos.
-                Assista quando e onde quiser — não existem mais desculpas para
-                começar hoje.
-              </p>
-            </div>
-            <div class="cta__buttons">
-              <a
-                class="cta__buttons--yt"
-                href="https://www.youtube.com/@CybisCafe"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Assistir no YouTube"
-              >
-                <img src="img/Youtube-Logo.png" alt="YouTube" />
-              </a>
-              <a
-                class="cta__buttons--ttv"
-                href="https://www.twitch.tv/cybiscafe"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Assistir na Twitch"
-              >
-                <img src="img/Twitch-Logo.png" alt="Twitch" />
-              </a>
-            </div>
+          <div class="review-list" id="reviewList">
+            <p class="loading">Carregando...</p>
           </div>
-          <div class="cta__mockup" data-reveal="delay-2">
-            <img
-              src="img/mockup.png"
-              alt="Telas de dispositivos mostrando imagens da live do Cybis Café."
-            />
-          </div>
-        </div>
-      </section>
-    </main>
+        </aside>
 
-    <footer class="footer" role="contentinfo">
-      <div class="footer__inner">
-        <div class="footer__top">
-          <div class="footer__brand-block">
-            <p class="footer__brand">Cybis Café</p>
-            <p class="footer__tagline">
-              Seu refúgio digital com aroma de café ☕
+        <!-- EDITOR -->
+        <main class="panel" id="editorPanel">
+          <div class="editor-empty" id="editorPlaceholder">
+            <div class="editor-empty-icon">🍪</div>
+            <p>Selecione uma review ou crie uma nova</p>
+            <p style="font-size: 0.75rem; opacity: 0.5">
+              Um café de loucos para poucos ✦
             </p>
-
-            <a href="admin.html" class="footer__admin-link">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                width="14"
-                height="14"
-              >
-                <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                <path
-                  d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"
-                />
-              </svg>
-              Painel Admin
-            </a>
-
-            <div class="footer__socials">
-              <a
-                class="footer__social-link"
-                href="https://www.twitch.tv/cybiscafe"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Twitch"
-              >
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path
-                    d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"
-                  />
-                </svg>
-              </a>
-              <a
-                class="footer__social-link"
-                href="https://www.youtube.com/@CybisCafe"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="YouTube"
-              >
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path
-                    d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
-                  />
-                </svg>
-              </a>
-              <a
-                class="footer__social-link"
-                href="#"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-              >
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path
-                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"
-                  />
-                </svg>
-              </a>
-              <a
-                class="footer__social-link"
-                href="#"
-                rel="noopener noreferrer"
-                aria-label="Twitter/X"
-              >
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path
-                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
-                  />
-                </svg>
-              </a>
-              <a
-                class="footer__social-link"
-                href="#"
-                rel="noopener noreferrer"
-                aria-label="Discord"
-              >
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path
-                    d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026c.462-.62.874-1.275 1.226-1.963.021-.04.001-.088-.041-.104a13.201 13.201 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028z"
-                  />
-                </svg>
-              </a>
-            </div>
           </div>
 
-          <nav class="footer__nav" aria-label="Links do rodapé">
-            <div class="footer__col">
-              <h3>Navegação</h3>
-              <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#reviews">Reviews</a></li>
-                <li><a href="#clientes">Clientes</a></li>
-                <li><a href="#cookie">Cookie</a></li>
-                <li><a href="#cta">Call to Action</a></li>
-              </ul>
+          <div id="editorContent" style="display: none">
+            <div class="editor-header">
+              <div>
+                <p class="editor-eyebrow">✦ editando</p>
+                <h2 id="editorTitle">Nova review</h2>
+              </div>
+              <button
+                class="btn btn-danger"
+                id="deleteReviewBtn"
+                style="display: none"
+              >
+                🗑 Excluir
+              </button>
             </div>
 
-            <div class="footer__col">
-              <h3>Developer</h3>
-              <ul>
-                <li>
-                  <a
-                    href="https://github.com/ThiagoPVLima"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      width="14"
-                      height="14"
-                    >
-                      <path
-                        d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
-                      />
-                    </svg>
-                    GitHub
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.behance.net/LimaThii"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      width="14"
-                      height="14"
-                    >
-                      <path
-                        d="M6.938 4.503c.702 0 1.34.06 1.92.188.577.13 1.07.33 1.485.61.41.28.733.65.96 1.12.225.47.34 1.05.34 1.73 0 .74-.17 1.36-.507 1.86-.338.5-.837.9-1.502 1.22.906.26 1.576.72 2.022 1.37.448.66.665 1.45.665 2.36 0 .75-.14 1.39-.42 1.93-.28.55-.67 1-1.16 1.35-.48.348-1.05.6-1.69.767-.63.168-1.3.254-2.006.254H0V4.51h6.938v-.007zM16.94 6.422h6.22v1.66h-6.22V6.42zm-3.685 9.22c.31.302.74.45 1.29.45.402 0 .75-.1 1.045-.3.295-.2.476-.4.54-.63h2.37c-.38 1.17-1.007 1.99-1.88 2.47-.87.472-1.93.712-3.18.712-.86 0-1.636-.133-2.328-.4-.69-.265-1.276-.645-1.752-1.14-.476-.5-.84-1.1-1.093-1.8-.25-.7-.377-1.47-.377-2.32 0-.817.13-1.575.394-2.27.263-.695.636-1.29 1.12-1.79.483-.5 1.064-.89 1.745-1.166.68-.278 1.43-.42 2.25-.42.924 0 1.73.177 2.42.532.69.354 1.258.833 1.7 1.44.44.604.757 1.3.948 2.09.192.78.255 1.61.19 2.48h-7.064c.04.635.258 1.11.57 1.41l-.01.01zm-5.68-8.19c-.338-.322-.824-.482-1.46-.482H4.96v3.56h1.245c.635 0 1.12-.175 1.46-.523.34-.35.51-.82.51-1.41 0-.63-.17-1.11-.51-1.43l.01.01zm.44 5.63c-.383-.368-.93-.552-1.646-.552H4.96v4.12h1.43c.71 0 1.27-.2 1.67-.593.4-.396.6-.94.6-1.63 0-.72-.19-1.25-.57-1.61l.01.067zm12.87-1.8c-.286-.304-.725-.456-1.32-.456-.384 0-.703.065-.958.195-.255.13-.46.294-.614.494-.155.2-.26.414-.32.64-.058.226-.094.44-.107.64h3.884c-.072-.63-.278-1.11-.565-1.41v-.103z"
-                      />
-                    </svg>
-                    Behance
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.linkedin.com/in/thiago-lima-312a0aaa/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      width="14"
-                      height="14"
-                    >
-                      <path
-                        d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
-                      />
-                    </svg>
-                    LinkedIn
-                  </a>
-                </li>
-              </ul>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fTitle">Título do jogo</label>
+                <input
+                  type="text"
+                  id="fTitle"
+                  placeholder="Ex: Super Mario World"
+                />
+              </div>
+              <div class="form-group">
+                <label for="fSlug">Slug (ID único)</label>
+                <input type="text" id="fSlug" placeholder="Ex: mario-world" />
+              </div>
+              <div class="form-group form-full">
+                <label for="fSummary">Resumo</label>
+                <input
+                  type="text"
+                  id="fSummary"
+                  placeholder="Uma frase sobre o jogo"
+                />
+              </div>
+              <div class="form-group">
+                <label for="fPlatforms">Plataformas</label>
+                <input
+                  type="text"
+                  id="fPlatforms"
+                  placeholder="PS2, PC, Switch"
+                />
+              </div>
+              <div class="form-group">
+                <label for="fScore">Nota (0–10)</label>
+                <input
+                  type="number"
+                  id="fScore"
+                  min="0"
+                  max="10"
+                  step="0.1"
+                  placeholder="8.5"
+                />
+              </div>
             </div>
 
-            <div class="footer__col">
-              <img
-                src="img/Cybis-Cafe-Logo.png"
-                alt="Logo do Cybis Café."
-                class="footer__logo"
-              />
-            </div>
-          </nav>
-        </div>
+            <div class="form-row">
+              <div class="upload-group">
+                <span class="upload-label">Banner</span>
+                <div class="upload-area" id="bannerUploadArea">
+                  <input type="file" id="fBannerFile" accept="image/*" />
+                  <img class="upload-preview" id="bannerPreview" alt="" />
+                  <div class="upload-text">
+                    <div class="upload-filename" id="bannerUploadLabel">
+                      📁 Clique para selecionar
+                    </div>
+                    <div class="upload-hint">JPG, PNG, WebP</div>
+                  </div>
+                </div>
+                <span class="upload-status" id="bannerStatus"></span>
+                <input type="hidden" id="fBanner" />
+              </div>
 
-        <div class="footer__bottom">
-          <p class="footer__credits">Criado por <strong>Thiago Lima</strong></p>
-          <p class="footer__copyright">
-            © 2024 Cybis Café · Rio de Janeiro · Todos os direitos reservados
-          </p>
-        </div>
+              <div class="upload-group">
+                <span class="upload-label">Capa do carrossel</span>
+                <div class="upload-area" id="coverUploadArea">
+                  <input type="file" id="fCoverFile" accept="image/*" />
+                  <img class="upload-preview" id="coverPreview" alt="" />
+                  <div class="upload-text">
+                    <div class="upload-filename" id="coverUploadLabel">
+                      📁 Clique para selecionar
+                    </div>
+                    <div class="upload-hint">JPG, PNG, WebP</div>
+                  </div>
+                </div>
+                <span class="upload-status" id="coverStatus"></span>
+                <input type="hidden" id="fCover" />
+              </div>
+            </div>
+
+            <div class="sec-divider">
+              <div class="sec-divider-line"></div>
+              <span style="font-size: 14px; opacity: 0.5">🍪</span>
+              <span class="sec-divider-label">Conteúdo da review</span>
+              <span style="font-size: 14px; opacity: 0.5">🍪</span>
+              <div class="sec-divider-line"></div>
+            </div>
+
+            <div class="add-section-buttons">
+              <button class="btn-pill btn-add-text" id="addText">
+                + Parágrafo
+              </button>
+              <button class="btn-pill btn-add-quote" id="addQuote">
+                + Citação
+              </button>
+              <button class="btn-pill btn-add-image" id="addImage">
+                + Imagem
+              </button>
+              <button class="btn-pill btn-add-video" id="addVideo">
+                ▶ YouTube
+              </button>
+            </div>
+
+            <div class="sections-wrapper" id="sectionsWrapper"></div>
+
+            <div id="saveMsg" style="display: none; margin-bottom: 1rem"></div>
+
+            <div class="save-bar">
+              <button
+                class="btn btn-primary"
+                id="saveReviewBtn"
+                style="width: auto; padding: 0.65rem 1.75rem"
+              >
+                ☕ Salvar
+              </button>
+            </div>
+          </div>
+        </main>
       </div>
-    </footer>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.6.0/dist/glide.min.js"></script>
-    <script type="module" src="js/index.js"></script>
+    <script type="module">
+      import { createClient } from '@supabase/supabase-js'
+
+      const SB_URL = 'https://thapqeodawxffacnljij.supabase.co'
+      const SB_KEY = 'sb_publishable_TZQOtUq1RwjDGBpWDb92UA_KZwAOHUS'
+      const sb = createClient(SB_URL, SB_KEY)
+      const $ = id => document.getElementById(id)
+
+      let reviewId = null
+      let sections = []
+
+      // ── Auth ──────────────────────────────────────────────────────────────────
+      $('loginBtn').addEventListener('click', async () => {
+        const { data, error } = await sb.auth.signInWithPassword({
+          email: $('loginEmail').value.trim(),
+          password: $('loginPassword').value,
+        })
+        if (error) return showLoginMsg(error.message)
+        mountAdmin(data.user)
+      })
+
+      $('logoutBtn').addEventListener('click', async () => {
+        await sb.auth.signOut()
+        location.reload()
+      })
+      ;(async () => {
+        const {
+          data: { session },
+        } = await sb.auth.getSession()
+        if (session) mountAdmin(session.user)
+      })()
+
+      function mountAdmin(user) {
+        $('loginScreen').style.display = 'none'
+        $('adminScreen').style.display = 'flex'
+        $('userEmail').textContent = user.email
+        loadReviews()
+      }
+
+      // ── Reviews list ──────────────────────────────────────────────────────────
+      async function loadReviews() {
+        const { data, error } = await sb
+          .from('reviews')
+          .select('id, title, slug, cover_url')
+          .order('created_at', { ascending: false })
+
+        const list = $('reviewList')
+        if (error) {
+          list.innerHTML = `<p class="loading">Erro: ${error.message}</p>`
+          return
+        }
+
+        $('reviewCount').textContent = data.length
+
+        if (!data.length) {
+          list.innerHTML = '<p class="loading">Nenhuma review ainda 🍪</p>'
+          return
+        }
+
+        list.innerHTML = data
+          .map(
+            r => `
+          <div class="review-item" data-id="${r.id}">
+            <img src="${r.cover_url || 'img/cookie.png'}"
+                 alt="${r.title}"
+                 onerror="this.src='img/cookie.png'" />
+            <div class="review-item-info">
+              <p class="review-item-title">${r.title}</p>
+              <p class="review-item-slug">${r.slug}</p>
+            </div>
+          </div>
+        `,
+          )
+          .join('')
+
+        list
+          .querySelectorAll('.review-item')
+          .forEach(el =>
+            el.addEventListener('click', () => openReview(el.dataset.id)),
+          )
+      }
+
+      // ── Open / new ────────────────────────────────────────────────────────────
+      async function openReview(id) {
+        reviewId = id
+        document
+          .querySelectorAll('.review-item')
+          .forEach(el => el.classList.toggle('active', el.dataset.id === id))
+
+        const { data, error } = await sb
+          .from('reviews')
+          .select('*')
+          .eq('id', id)
+          .single()
+        if (error) return alert(error.message)
+
+        $('fTitle').value = data.title ?? ''
+        $('fSlug').value = data.slug ?? ''
+        $('fSummary').value = data.summary ?? ''
+        $('fPlatforms').value = data.platforms ?? ''
+        $('fScore').value = data.score ?? ''
+        $('fBanner').value = data.banner_url ?? ''
+        $('fCover').value = data.cover_url ?? ''
+
+        setThumb(
+          'bannerPreview',
+          'bannerUploadLabel',
+          data.banner_url,
+          'bannerStatus',
+        )
+        setThumb(
+          'coverPreview',
+          'coverUploadLabel',
+          data.cover_url,
+          'coverStatus',
+        )
+
+        sections = Array.isArray(data.sections) ? data.sections : []
+        renderSections()
+        showEditor(data.title, true)
+      }
+
+      $('newReviewBtn').addEventListener('click', () => {
+        reviewId = null
+        sections = []
+        ;[
+          'fTitle',
+          'fSlug',
+          'fSummary',
+          'fPlatforms',
+          'fScore',
+          'fBanner',
+          'fCover',
+        ].forEach(id => ($(id).value = ''))
+        resetThumb('bannerPreview', 'bannerUploadLabel', 'bannerStatus')
+        resetThumb('coverPreview', 'coverUploadLabel', 'coverStatus')
+        renderSections()
+        showEditor('Nova review', false)
+        document
+          .querySelectorAll('.review-item')
+          .forEach(el => el.classList.remove('active'))
+      })
+
+      function showEditor(title, showDelete) {
+        $('editorTitle').textContent = title
+        $('editorContent').style.display = 'block'
+        $('editorPlaceholder').style.display = 'none'
+        $('deleteReviewBtn').style.display = showDelete ? 'inline-flex' : 'none'
+      }
+
+      // ── Save / delete ─────────────────────────────────────────────────────────
+      $('saveReviewBtn').addEventListener('click', async () => {
+        const payload = {
+          title: $('fTitle').value.trim(),
+          slug: $('fSlug').value.trim(),
+          summary: $('fSummary').value.trim(),
+          banner_url: $('fBanner').value.trim(),
+          cover_url: $('fCover').value.trim(),
+          platforms: $('fPlatforms').value.trim(),
+          score: parseFloat($('fScore').value) || null,
+          sections,
+        }
+
+        if (!payload.title || !payload.slug)
+          return showMsg('saveMsg', 'Título e slug são obrigatórios.', false)
+
+        let error
+        if (reviewId) {
+          ;({ error } = await sb
+            .from('reviews')
+            .update(payload)
+            .eq('id', reviewId))
+        } else {
+          const { data, error: e } = await sb
+            .from('reviews')
+            .insert(payload)
+            .select()
+            .single()
+          error = e
+          if (data) reviewId = data.id
+        }
+
+        if (error) return showMsg('saveMsg', error.message, false)
+        showMsg('saveMsg', 'Salvo! ☕', true)
+        loadReviews()
+      })
+
+      $('deleteReviewBtn').addEventListener('click', async () => {
+        if (!confirm('Excluir esta review?')) return
+        const { error } = await sb.from('reviews').delete().eq('id', reviewId)
+        if (error) return alert(error.message)
+        reviewId = null
+        $('editorContent').style.display = 'none'
+        $('editorPlaceholder').style.display = 'flex'
+        loadReviews()
+      })
+
+      // ── Upload ────────────────────────────────────────────────────────────────
+      function setupUpload(
+        zoneId,
+        inputId,
+        previewId,
+        labelId,
+        statusId,
+        hiddenId,
+      ) {
+        const zone = $(zoneId)
+        const input = $(inputId)
+        zone.addEventListener('click', () => input.click())
+        input.addEventListener('change', async () => {
+          const file = input.files[0]
+          if (!file) return
+          $(labelId).textContent = file.name
+          $(statusId).textContent = 'Enviando...'
+          const path = `${Date.now()}-${Math.random()
+            .toString(36)
+            .slice(2)}.${file.name.split('.').pop()}`
+          const { error } = await sb.storage.from('reviews').upload(path, file)
+          if (error) {
+            $(statusId).textContent = `Erro: ${error.message}`
+            return
+          }
+          const {
+            data: { publicUrl },
+          } = sb.storage.from('reviews').getPublicUrl(path)
+          $(hiddenId).value = publicUrl
+          $(previewId).src = publicUrl
+          $(previewId).style.display = 'block'
+          $(statusId).textContent = '✅ Enviado'
+        })
+      }
+
+      setupUpload(
+        'bannerUploadArea',
+        'fBannerFile',
+        'bannerPreview',
+        'bannerUploadLabel',
+        'bannerStatus',
+        'fBanner',
+      )
+      setupUpload(
+        'coverUploadArea',
+        'fCoverFile',
+        'coverPreview',
+        'coverUploadLabel',
+        'coverStatus',
+        'fCover',
+      )
+
+      function setThumb(previewId, labelId, url, statusId) {
+        if (!url) return
+        $(previewId).src = url
+        $(previewId).style.display = 'block'
+        $(labelId).textContent = 'Imagem atual ↑'
+        $(statusId).textContent = ''
+      }
+
+      function resetThumb(previewId, labelId, statusId) {
+        $(previewId).src = ''
+        $(previewId).style.display = 'none'
+        $(labelId).textContent = '📁 Clique para selecionar'
+        $(statusId).textContent = ''
+      }
+
+      // ── Sections ──────────────────────────────────────────────────────────────
+      const TYPES = {
+        paragraph: {
+          label: 'Parágrafo',
+          mod: 'para',
+          placeholder: 'Escreva aqui o parágrafo...',
+        },
+        quote: {
+          label: 'Citação',
+          mod: 'quote',
+          placeholder: '"Uma frase marcante..."',
+        },
+        image: { label: 'Imagem', mod: 'image', placeholder: null },
+        video: { label: 'YouTube', mod: 'video', placeholder: null },
+      }
+
+      function renderSections() {
+        const wrapper = $('sectionsWrapper')
+        wrapper.innerHTML = ''
+
+        if (!sections.length) {
+          wrapper.innerHTML = `
+            <div style="border:2px dashed hsl(38 25% 18%);border-radius:8px;padding:2rem;text-align:center;color:hsl(38 15% 35%);font-size:0.82rem;">
+              Nenhum bloco ainda — use os botões acima para adicionar conteúdo
+            </div>`
+          return
+        }
+
+        sections.forEach((sec, i) => {
+          const cfg = TYPES[sec.type] ?? TYPES.paragraph
+          const last = sections.length - 1
+          const div = document.createElement('div')
+          div.className = 'sec-block'
+
+          div.innerHTML = `
+            <div class="sec-block__bar">
+              <span class="sec-block__type sec-block__type--${cfg.mod}">${
+                cfg.label
+              }</span>
+              <div class="sec-block__actions">
+                <button class="sec-block__btn" data-move="${i}:-1" title="Subir" ${
+                  i === 0 ? 'disabled' : ''
+                }>
+                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M2 8l4-4 4 4"/></svg>
+                </button>
+                <button class="sec-block__btn" data-move="${i}:1" title="Descer" ${
+                  i === last ? 'disabled' : ''
+                }>
+                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M2 4l4 4 4-4"/></svg>
+                </button>
+                <button class="sec-block__btn sec-block__btn--del" data-remove="${i}" title="Remover">
+                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M2 2l8 8M10 2l-8 8"/></svg>
+                </button>
+              </div>
+            </div>
+            ${secBody(sec, i)}
+          `
+          wrapper.appendChild(div)
+        })
+
+        // move
+        wrapper.querySelectorAll('[data-move]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const [i, dir] = btn.dataset.move.split(':').map(Number)
+            const j = i + dir
+            if (j >= 0 && j < sections.length) {
+              ;[sections[i], sections[j]] = [sections[j], sections[i]]
+              renderSections()
+            }
+          })
+        })
+
+        // remove
+        wrapper.querySelectorAll('[data-remove]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            if (!confirm('Remover este bloco?')) return
+            sections.splice(Number(btn.dataset.remove), 1)
+            renderSections()
+          })
+        })
+
+        // text auto-resize
+        wrapper.querySelectorAll('[data-sec-text]').forEach(ta => {
+          requestAnimationFrame(() => {
+            ta.style.height = 'auto'
+            ta.style.height = (ta.scrollHeight || 100) + 'px'
+          })
+          ta.addEventListener('input', () => {
+            sections[Number(ta.dataset.secText)].text = ta.value
+            ta.style.height = 'auto'
+            ta.style.height = ta.scrollHeight + 'px'
+          })
+        })
+
+        // drag & drop
+        initDrag(wrapper)
+
+        // video url — re-render on blur (não a cada tecla)
+        wrapper.querySelectorAll('[data-sec-url]').forEach(inp => {
+          inp.addEventListener('blur', () => {
+            const idx = Number(inp.dataset.secUrl)
+            if (sections[idx].url !== inp.value) {
+              sections[idx].url = inp.value
+              renderSections()
+            }
+          })
+        })
+
+        // image upload
+        sections.forEach((sec, i) => {
+          if (sec.type !== 'image') return
+          const input = document.getElementById(`secImg${i}`)
+          if (!input) return
+          input.addEventListener('change', async () => {
+            const file = input.files[0]
+            if (!file) return
+            const statusEl = document.getElementById(`secImgStatus${i}`)
+            if (statusEl) statusEl.textContent = 'Enviando...'
+            const path = `sections/${Date.now()}-${Math.random()
+              .toString(36)
+              .slice(2)}.${file.name.split('.').pop()}`
+            const { error } = await sb.storage
+              .from('reviews')
+              .upload(path, file)
+            if (error) {
+              if (statusEl) statusEl.textContent = `Erro: ${error.message}`
+              return
+            }
+            const {
+              data: { publicUrl },
+            } = sb.storage.from('reviews').getPublicUrl(path)
+            sections[i].url = publicUrl
+            renderSections()
+          })
+        })
+      }
+
+      function secBody(sec, i) {
+        switch (sec.type) {
+          case 'image': {
+            const hasImg = !!sec.url
+            return `
+              <input type="file" id="secImg${i}" accept="image/*" style="display:none" />
+              ${
+                hasImg
+                  ? `
+                <img src="${sec.url}" class="sec-block__img-wide" alt=""
+                     onclick="document.getElementById('secImg${i}').click()"
+                     style="cursor:pointer" title="Clique para trocar a imagem" />
+                <div class="sec-block__img-area sec-block__img-area--loaded"
+                     onclick="document.getElementById('secImg${i}').click()">
+                  <img src="${sec.url}" class="sec-block__img-preview" alt="" />
+                  <div class="sec-block__img-meta">
+                    <span class="sec-block__img-name" id="secImgStatus${i}">✅ Imagem carregada</span>
+                    <span class="sec-block__img-hint">Clique para trocar</span>
+                  </div>
+                </div>`
+                  : `
+                <div class="sec-block__img-area"
+                     onclick="document.getElementById('secImg${i}').click()">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="opacity:.35">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+                    <path d="M21 15l-5-5L5 21"/>
+                  </svg>
+                  <span class="sec-block__img-placeholder" id="secImgStatus${i}">
+                    Clique para selecionar uma imagem
+                  </span>
+                  <span style="font-size:0.7rem;color:hsl(38 15% 32%)">JPG, PNG, WebP</span>
+                </div>`
+              }
+            `
+          }
+
+          case 'video': {
+            const vidId = sec.url ? ytId(sec.url) : ''
+            const thumbUrl = vidId
+              ? `https://img.youtube.com/vi/${vidId}/mqdefault.jpg`
+              : ''
+            return `
+              <div class="sec-block__video-area">
+                <div class="sec-block__video-input">
+                  <svg class="sec-block__video-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.54 3.5 12 3.5 12 3.5s-7.54 0-9.38.55A3.02 3.02 0 0 0 .5 6.19C0 8.04 0 12 0 12s0 3.96.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.84.55 9.38.55 9.38.55s7.54 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14C24 15.96 24 12 24 12s0-3.96-.5-5.81zM9.75 15.5v-7l6.25 3.5-6.25 3.5z"/>
+                  </svg>
+                  <input type="url"
+                         placeholder="Cole o link do YouTube..."
+                         value="${sec.url ?? ''}"
+                         data-sec-url="${i}" />
+                </div>
+                ${
+                  thumbUrl
+                    ? `
+                  <a class="sec-block__video-preview" href="${sec.url}" target="_blank" rel="noopener">
+                    <img class="sec-block__video-thumb" src="${thumbUrl}" alt="" />
+                    <div class="sec-block__video-info">
+                      <span class="sec-block__video-title">Abrir no YouTube ↗</span>
+                      <span class="sec-block__video-sub">▶ youtube.com</span>
+                    </div>
+                  </a>`
+                    : `
+                  <div class="sec-block__video-empty">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+                    Cole um link do YouTube acima para ver o preview
+                  </div>`
+                }
+              </div>`
+          }
+
+          default:
+            return `<textarea class="sec-block__textarea" data-sec-text="${i}"
+              placeholder="${TYPES[sec.type]?.placeholder ?? ''}"
+            >${sec.text ?? ''}</textarea>`
+        }
+      }
+
+      // ── YouTube helpers ───────────────────────────────────────────────────────
+      function ytId(url) {
+        try {
+          const u = new URL(url)
+          return (
+            u.searchParams.get('v') ??
+            (u.hostname === 'youtu.be' ? u.pathname.slice(1) : null) ??
+            u.pathname.split('/').pop()
+          )
+        } catch {
+          return ''
+        }
+      }
+
+      function ytEmbed(url) {
+        const id = ytId(url)
+        return id ? `https://www.youtube.com/embed/${id}` : ''
+      }
+
+      // ── Drag & drop ───────────────────────────────────────────────────────────
+      function initDrag(wrapper) {
+        let dragIdx = null
+
+        wrapper.querySelectorAll('.sec-block').forEach((block, i) => {
+          block.setAttribute('draggable', 'true')
+
+          block.addEventListener('dragstart', e => {
+            dragIdx = i
+            block.classList.add('dragging')
+            e.dataTransfer.effectAllowed = 'move'
+          })
+
+          block.addEventListener('dragend', () => {
+            block.classList.remove('dragging')
+            wrapper
+              .querySelectorAll('.sec-block')
+              .forEach(b => b.classList.remove('drag-over'))
+          })
+
+          block.addEventListener('dragover', e => {
+            e.preventDefault()
+            e.dataTransfer.dropEffect = 'move'
+            wrapper
+              .querySelectorAll('.sec-block')
+              .forEach(b => b.classList.remove('drag-over'))
+            if (i !== dragIdx) block.classList.add('drag-over')
+          })
+
+          block.addEventListener('drop', e => {
+            e.preventDefault()
+            block.classList.remove('drag-over')
+            if (dragIdx === null || dragIdx === i) return
+            const moved = sections.splice(dragIdx, 1)[0]
+            sections.splice(i, 0, moved)
+            dragIdx = null
+            renderSections()
+          })
+        })
+      }
+
+      // ── Add section buttons ───────────────────────────────────────────────────
+      const addMap = {
+        addText: { type: 'paragraph', text: '' },
+        addQuote: { type: 'quote', text: '' },
+        addImage: { type: 'image', url: '' },
+        addVideo: { type: 'video', url: '' },
+      }
+
+      Object.entries(addMap).forEach(([btnId, tpl]) => {
+        $(btnId).addEventListener('click', () => {
+          sections.push({ ...tpl })
+          renderSections()
+          $('sectionsWrapper').lastElementChild?.scrollIntoView({
+            behavior: 'smooth',
+          })
+        })
+      })
+
+      // ── Helpers ───────────────────────────────────────────────────────────────
+      function showLoginMsg(msg) {
+        const el = $('loginMsg')
+        el.className = 'error'
+        el.textContent = msg
+      }
+
+      function showMsg(id, msg, ok, persist = false) {
+        const el = $(id)
+        el.className = ok ? 'success-msg' : 'error-msg'
+        el.textContent = msg
+        el.style.display = 'block'
+        if (!persist)
+          setTimeout(() => {
+            el.style.display = 'none'
+          }, 3000)
+      }
+    </script>
   </body>
 </html>
