@@ -100,3 +100,28 @@
     }
   }
 }
+
+/* ========================= */
+/* 🔥 AJUSTES MOBILE */
+/* ========================= */
+
+@media screen and (max-width: 600px) {
+  /* Mostrar ~2 cards + "peek" */
+  .glide__track {
+    overflow: visible;
+  }
+
+  .glide__slide {
+    width: 75% !important;
+  }
+
+  /* Cards um pouco menores */
+  .glide__slide img {
+    aspect-ratio: 3 / 3.5;
+  }
+
+  /* Esconder setas */
+  .glide__arrows {
+    display: none;
+  }
+}
