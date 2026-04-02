@@ -1,81 +1,144 @@
 import { createClient } from '@supabase/supabase-js'
 
-import atelierImg from '../img/atelier-iris-3.png'
-import bullyImg from '../img/Bully_cover.png'
-import crashImg from '../img/crash-bandicoot.png'
-import dkImg from '../img/donkey-kong-country.png'
-import falloutImg from '../img/fallout-3.png'
-import gtaImg from '../img/Grand_Theft_Auto_San_Andreas_capa.png'
-import marioImg from '../img/mario-world.png'
-import runeImg from '../img/rune-factory-special.png'
-
-// Fallback local caso o Supabase não tenha a imagem
-const LOCAL_COVERS = {
-  'atelier-iris-3': atelierImg,
-  'bully': bullyImg,
-  'crash-bandicoot': crashImg,
-  'donkey-kong-country': dkImg,
-  'fallout-3': falloutImg,
-  'gta-san-andreas': gtaImg,
-  'mario-world': marioImg,
-  'rune-factory': runeImg,
-}
-
-document.documentElement.classList.add('js-ready')
-
 const SB_URL = 'https://thapqeodawxffacnljij.supabase.co'
 const SB_KEY = 'sb_publishable_TZQOtUq1RwjDGBpWDb92UA_KZwAOHUS'
+const sb = createClient(SB_URL, SB_KEY)
 
-const params = new URLSearchParams(window.location.search)
-const gameKey = params.get('game')
+// =============================================================================
+// PAGE TRANSITION
+// =============================================================================
+document.addEventListener('DOMContentLoaded', () => {
+  document.body.classList.add('page-entering')
+})
 
-async function fetchReview(slug) {
-  if (!SB_URL || !SB_KEY) return null
-  const supabase = createClient(SB_URL, SB_KEY)
-  const { data, error } = await supabase
-    .from('reviews')
-    .select('*')
-    .eq('slug', slug)
-    .single()
-  if (error) return null
-  return data
+document.querySelectorAll('a[href]').forEach(link => {
+  const href = link.getAttribute('href')
+  if (
+    !href ||
+    href.startsWith('#') ||
+    href.startsWith('http') ||
+    href.startsWith('mailto') ||
+    link.target === '_blank'
+  )
+    return
+  link.addEventListener('click', e => {
+    e.preventDefault()
+    document.body.classList.add('page-leaving')
+    setTimeout(() => {
+      window.location.href = href
+    }, 300)
+  })
+})
+
+// =============================================================================
+// HELPERS
+// =============================================================================
+function getParam(name) {
+  return new URLSearchParams(window.location.search).get(name)
 }
 
-function ytEmbed(url) {
-  try {
-    const u = new URL(url)
-    const id =
-      u.searchParams.get('v') ??
-      (u.hostname === 'youtu.be' ? u.pathname.slice(1) : null) ??
-      u.pathname.split('/').pop()
-    return `https://www.youtube.com/embed/${id}`
-  } catch {
-    return ''
-  }
+function buildStars(score) {
+  const val = parseFloat(score)
+  if (isNaN(val)) return ''
+  const lit = Math.round(Math.min(10, Math.max(0, val)))
+  const dark = 10 - lit
+  return '★'.repeat(lit) + '☆'.repeat(dark)
 }
 
-function renderReview(review) {
-  if (!review) {
-    document.querySelector('.review-page__content').innerHTML =
-      '<p class="review-page__not-found">Review não encontrado.</p>'
+function renderSections(sections) {
+  if (!Array.isArray(sections) || !sections.length) return ''
+
+  return sections
+    .map((s, i) => {
+      switch (s.type) {
+        case 'paragraph':
+          return `<p class="review-page__paragraph" data-reveal>${
+            s.text || ''
+          }</p>`
+
+        case 'quote':
+          return `<blockquote class="review-page__quote" data-reveal="scale">${
+            s.text || ''
+          }</blockquote>`
+
+        case 'image':
+          return s.url
+            ? `<figure class="review-page__figure" data-reveal><img class="review-page__image" src="${s.url}" alt="" loading="lazy" /></figure>`
+            : ''
+
+        case 'video': {
+          if (!s.url) return ''
+          const ytMatch = s.url.match(
+            /(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]+)/,
+          )
+          if (ytMatch) {
+            return `
+            <div class="review-page__video" data-reveal>
+              <iframe
+                src="https://www.youtube.com/embed/${ytMatch[1]}"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+                title="Vídeo"
+              ></iframe>
+            </div>`
+          }
+          return `<div class="review-page__video" data-reveal><video controls src="${s.url}"></video></div>`
+        }
+
+        default:
+          return ''
+      }
+    })
+    .join('\n')
+}
+
+// =============================================================================
+// MAIN
+// =============================================================================
+async function loadReview() {
+  const id = getParam('id')
+  if (!id) {
+    showError('Nenhuma review especificada.')
     return
   }
 
-  document.title = `${review.title} — Cybis Café`
+  const { data: review, error } = await sb
+    .from('reviews')
+    .select(
+      'id, title, slug, summary, platforms, score, banner_url, cover_url, category, sections',
+    )
+    .eq('id', id)
+    .single()
+
+  if (error || !review) {
+    showError('Review não encontrada.')
+    return
+  }
 
   // Banner
-  const bannerImg = document.querySelector('.review-page__banner img')
-  bannerImg.src = review.banner_url || LOCAL_COVERS[gameKey] || ''
-  bannerImg.alt = review.title
+  const bannerImg = document.getElementById('review-banner-img')
+  if (bannerImg) {
+    if (review.banner_url) {
+      bannerImg.src = review.banner_url
+      bannerImg.alt = review.title || ''
+    } else {
+      bannerImg.style.display = 'none'
+    }
+  }
 
-  // Header
-  document.querySelector('.review-page__title').textContent = review.title
-  document.querySelector('.review-page__summary').textContent =
-    review.summary || ''
+  // Título
+  const titleEl = document.querySelector('.review-page__title')
+  if (titleEl) titleEl.textContent = review.title || ''
 
-  // Plataformas e nota
-  const header = document.querySelector('.review-page__header')
-  if (review.platforms || review.score != null) {
+  // Summary — só o texto, sem misturar meta
+  const summaryEl = document.querySelector('.review-page__summary')
+  if (summaryEl) summaryEl.textContent = review.summary || ''
+
+  // Meta — plataformas e nota em div separada
+  const headerEl = document.querySelector('.review-page__header')
+  if (headerEl && (review.platforms || review.score != null)) {
     const meta = document.createElement('div')
     meta.className = 'review-page__meta'
     meta.innerHTML = `
@@ -86,59 +149,21 @@ function renderReview(review) {
       }
       ${
         review.score != null
-          ? `<span class="review-page__score">⭐ ${review.score}/10</span>`
+          ? `<span class="review-page__score">⭐ ${parseFloat(
+              review.score,
+            ).toFixed(1)}/10</span>`
           : ''
       }
     `
-    header.appendChild(meta)
+    headerEl.appendChild(meta)
   }
 
-  // Body
-  const body = document.querySelector('.review-page__body')
-  body.innerHTML = ''
+  // Corpo
+  const bodyEl = document.querySelector('.review-page__body')
+  if (bodyEl) bodyEl.innerHTML = renderSections(review.sections)
 
-  const sections = Array.isArray(review.sections) ? review.sections : []
-
-  sections.forEach((block, i) => {
-    if (block.type === 'paragraph') {
-      const p = document.createElement('p')
-      p.className = 'review-page__paragraph'
-      p.setAttribute('data-reveal', i % 3 === 0 ? '' : `delay-${i % 3}`)
-      p.textContent = block.text
-      body.appendChild(p)
-    } else if (block.type === 'quote') {
-      const bq = document.createElement('blockquote')
-      bq.className = 'review-page__quote'
-      bq.setAttribute('data-reveal', 'scale')
-      bq.textContent = block.text
-      body.appendChild(bq)
-    } else if (block.type === 'image') {
-      if (!block.url) return
-      const figure = document.createElement('figure')
-      figure.className = 'review-page__figure'
-      figure.setAttribute('data-reveal', '')
-      const img = document.createElement('img')
-      img.src = block.url
-      img.alt = ''
-      img.className = 'review-page__image'
-      img.loading = 'lazy'
-      figure.appendChild(img)
-      body.appendChild(figure)
-    } else if (block.type === 'video') {
-      if (!block.url) return
-      const wrap = document.createElement('div')
-      wrap.className = 'review-page__video'
-      wrap.setAttribute('data-reveal', '')
-      wrap.innerHTML = `
-        <iframe
-          src="${ytEmbed(block.url)}"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>`
-      body.appendChild(wrap)
-    }
-  })
+  // Tab title
+  if (review.title) document.title = `${review.title} — Cybis Café`
 
   // Scroll reveal
   const observer = new IntersectionObserver(
@@ -155,14 +180,10 @@ function renderReview(review) {
   document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el))
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
-  document.body.classList.add('page-entering')
+function showError(msg) {
+  const bodyEl = document.querySelector('.review-page__body')
+  if (bodyEl)
+    bodyEl.innerHTML = `<p class="review-page__error">${msg} <a href="index.html#reviews">← Voltar</a></p>`
+}
 
-  if (!gameKey) {
-    renderReview(null)
-    return
-  }
-
-  const review = await fetchReview(gameKey)
-  renderReview(review)
-})
+loadReview()
