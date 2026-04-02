@@ -32,7 +32,7 @@ document.querySelectorAll('a[href]').forEach(link => {
 })
 
 // =============================================================================
-// HERO CUP — som do miado
+// HERO CUP
 // =============================================================================
 const heroCup = document.getElementById('hero_cup')
 const miau1 = document.getElementById('miau1')
@@ -53,7 +53,7 @@ if (heroCup) {
 }
 
 // =============================================================================
-// CLIENTES — cards clicáveis com áudio
+// CLIENTES
 // =============================================================================
 document.querySelectorAll('.card__image--clickable').forEach((img, idx) => {
   const audio = document.getElementById(`audio${idx + 1}`)
@@ -87,7 +87,7 @@ document
   .forEach(el => revealObserver.observe(el))
 
 // =============================================================================
-// REVIEWS — dois carrosséis via Supabase
+// REVIEWS
 // =============================================================================
 async function loadReviewCarousels() {
   const { data: reviews, error } = await sb
@@ -143,7 +143,6 @@ function buildCarousel({
     return
   }
 
-  // Usa cover_url para o carrossel; cai no banner_url se não tiver
   slidesList.innerHTML = items
     .map(
       (r, i) => `
@@ -179,8 +178,9 @@ function buildCarousel({
     gap: 16,
     breakpoints: {
       1200: { perView: 3 },
-      768: { perView: 2 },
-      480: { perView: 1 },
+      768: { perView: 2.2 },
+      600: { perView: 2.2 },
+      480: { perView: 1.2 },
     },
   }).mount()
 
