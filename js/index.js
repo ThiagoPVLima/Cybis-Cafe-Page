@@ -177,11 +177,12 @@ function buildCarousel({
     focusAt: 'center',
     gap: 16,
     breakpoints: {
-      1200: { perView: 3 },
-      768: { perView: 2.2 },
-      600: { perView: 2.2 },
-      480: { perView: 1.2 },
-    },
+  1200: { perView: 3 },
+  768: { perView: 2.2 },
+  600: { perView: 2.5 },
+  480: { perView: 2.2 },
+  360: { perView: 2 },
+}
   }).mount()
 
   slidesList.querySelectorAll('img[data-review-id]').forEach(img => {
