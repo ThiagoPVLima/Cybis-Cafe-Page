@@ -24,7 +24,7 @@
 
 .glide__slide {
   img {
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 2 / 3; /*
     border-radius: var(--radius-medium);
     cursor: pointer;
     display: block;
@@ -101,11 +101,10 @@
   }
 }
 
-
 @media screen and (max-width: 600px) {
 
   .glide__slide img {
-    aspect-ratio: 3 / 3.5;
+    aspect-ratio: 2 / 3;
   }
 
   .glide__arrows {
